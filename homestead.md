@@ -1,34 +1,34 @@
 # Laravel Homestead
 
-- [Introduction](#introduction)
-- [Installation & Setup](#installation-and-setup)
-    - [First Steps](#first-steps)
-    - [Configuring Homestead](#configuring-homestead)
-    - [Launching The Vagrant Box](#launching-the-vagrant-box)
-    - [Per Project Installation](#per-project-installation)
-    - [Installing MariaDB](#installing-mariadb)
-- [Daily Usage](#daily-usage)
-    - [Accessing Homestead Globally](#accessing-homestead-globally)
-    - [Connecting Via SSH](#connecting-via-ssh)
-    - [Connecting To Databases](#connecting-to-databases)
-    - [Adding Additional Sites](#adding-additional-sites)
-    - [Configuring Cron Schedules](#configuring-cron-schedules)
-    - [Ports](#ports)
-- [Network Interfaces](#network-interfaces)
+- [前言](#introduction)
+- [安装 & 设置](#installation-and-setup)
+    - [第一步](#first-steps)
+    - [配置 Homestead](#configuring-homestead)
+    - [启动 Vagrant Box](#launching-the-vagrant-box)
+    - [项目隔离安装方式](#per-project-installation)
+    - [安装 MariaDB](#installing-mariadb)
+- [常见用法](#daily-usage)
+    - [全局访问 homestead](#accessing-homestead-globally)
+    - [通过 ssh 连接](#connecting-via-ssh)
+    - [连接到数据库](#connecting-to-databases)
+    - [添加额外的网站](#adding-additional-sites)
+    - [配置 cron 日程](#configuring-cron-schedules)
+    - [端口](#ports)
+- [网络接口](#network-interfaces)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Laravel strives to make the entire PHP development experience delightful, including your local development environment. [Vagrant](http://vagrantup.com) provides a simple, elegant way to manage and provision Virtual Machines.
+Laravel 致力于让 PHP 的开发过程变得更加轻松愉快，这其中也包含你的本地开发环境。[Vagrant](http://vagrantup.com)提供了一个简单、优雅的方式来管理和配置虚拟机。
 
-Laravel Homestead is an official, pre-packaged Vagrant box that provides you a wonderful development environment without requiring you to install PHP, HHVM, a web server, and any other server software on your local machine. No more worrying about messing up your operating system! Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes!
+Laravel Homestead 是一个官方预封装的 Vagrant box，提供给你一个完美的开发环境，你无需在本机电脑上安装 PHP、HHVM、Web 服务器或其它服务器软件。并且不用再担心系统被搞乱！Vagrant box 为你搞定一切。如果有什么地方出错了，你也可以在几分钟内快速的销毁并重建虚拟机！
 
-Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web server, PHP 7.0, MySQL, Postgres, Redis, Memcached, Node, and all of the other goodies you need to develop amazing Laravel applications.
+Homestead 可以在 Windows、Mac 或 Linux 系统上面运行，里面包含了 Nginx Web 服务器、PHP 7.0、MySQL、Postgres、Redis、Memcached、Node，以及所有你在使用 Laravel 开发时所需要用到的各种软件。
 
-> **Note:** If you are using Windows, you may need to enable hardware virtualization (VT-x). It can usually be enabled via your BIOS. If you are using Hyper-V on a UEFI system you may additionally need to disable Hyper-V in order to access VT-x.
+**注意：** 如果你是 Windows 用户，你可能需要启用硬件虚拟化（VT-x）。这通常需要通过 BIOS 来启用它。如果你在一个 UEFI 系统上使用 Hyper-V，你可能需要为了访问 VT-x 来禁用 Hyper-V。
 
 <a name="included-software"></a>
-### Included Software
+### 引入的软件
 
 - Ubuntu 16.04
 - Git
@@ -46,103 +46,103 @@ Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web 
 - Beanstalkd
 
 <a name="installation-and-setup"></a>
-## Installation & Setup
+## 安装 & 设置
 
 <a name="first-steps"></a>
-### First Steps
+### 第一步
 
-Before launching your Homestead environment, you must install [VirtualBox 5.x](https://www.virtualbox.org/wiki/Downloads) or [VMWare](http://www.vmware.com) as well as [Vagrant](http://www.vagrantup.com/downloads.html). All of these software packages provide easy-to-use visual installers for all popular operating systems.
+在你启动你的 Homestead 环境之前，你必须安装 [VirtualBox 5.x](https://www.virtualbox.org/wiki/Downloads) 或者 [VMWare](http://www.vmware.com)，以及 [Vagrant](http://www.vagrantup.com/downloads.html)。所有这些软件在主流操作系统中都提供有简单易用的安装包。
 
-To use the VMware provider, you will need to purchase both VMware Fusion / Workstation and the [VMware Vagrant plug-in](http://www.vagrantup.com/vmware). Though it is not free, VMware can provide faster shared folder performance out of the box.
+如果使用 VMware provider，你需要同时购买 VMware Fusion / Workstation 以及 [VMware Vagrant plug-in](http://www.vagrantup.com/vmware) 的软件授权。尽管它不是免费的，但是 VMware 可以在共享文件夹上提供更快的性能。
 
-#### Installing The Homestead Vagrant Box
+#### 安装 Homestead Vagrant Box
 
-Once VirtualBox / VMware and Vagrant have been installed, you should add the `laravel/homestead` box to your Vagrant installation using the following command in your terminal. It will take a few minutes to download the box, depending on your Internet connection speed:
+当 VirtuanlBox / VMware 和 Vagrant 安装完毕之后，你可以使用终端执行下面的命令来添加 `laravel/homestead` box 到你的 Vagrant 中。这会花费一些时间来下载这个 box，具体的下载时长依据你的网络环境：
 
     vagrant box add laravel/homestead
 
-If this command fails, make sure your Vagrant installation is up to date.
+如果这个命令失败了，请确保你的 Vagrant 已经是最新的了。
 
-#### Installing Homestead
+#### 安装 Homestead
 
-You may install Homestead by simply cloning the repository. Consider cloning the repository into a `Homestead` folder within your "home" directory, as the Homestead box will serve as the host to all of your Laravel projects:
+你可以通过简单的克隆代码仓库来安装 Homestead。建议将代码仓库克隆至 "home" 目录中的 `Homestead` 文件夹，如此一来 Homestead box 就能将主机服务提供给你所有的 Laravel 项目：
 
     cd ~
 
     git clone https://github.com/laravel/homestead.git Homestead
 
-Once you have cloned the Homestead repository, run the `bash init.sh` command from the Homestead directory to create the `Homestead.yaml` configuration file. The `Homestead.yaml` file will be placed in the `~/.homestead` hidden directory:
+一旦你克隆完 Homestead 的代码仓库，即可在 Homestead 目录中运行 `bash init.sh` 命令来创建 `Homestead.yaml` 配置文件。Homestead.yaml 文件将会被放置在你的 `~/.homestead` 目录中：
 
     bash init.sh
 
 <a name="configuring-homestead"></a>
-### Configuring Homestead
+### 配置 Homestead
 
-#### Setting Your Provider
+#### 设置你的提供者
 
-The `provider` key in your `~/.homestead/Homestead.yaml` file indicates which Vagrant provider should be used: `virtualbox`, `vmware_fusion`, or `vmware_workstation`. You may set this to the provider you prefer:
+`~/.homestead/Homestead.yaml` 文件中的 `provider` 键表明哪种 Vagrant 提供者将被使用：`virtualbox`，`vmware_fusion`，或者 `vmware_workstation`。你可以依据自己的喜好来进行设置：
 
     provider: virtualbox
 
-#### Configuring Shared Folders
+#### 配置共享目录
 
-The `folders` property of the `Homestead.yaml` file lists all of the folders you wish to share with your Homestead environment. As files within these folders are changed, they will be kept in sync between your local machine and the Homestead environment. You may configure as many shared folders as necessary:
+你可以在 `Homestead.yaml` 文件中 `folders` 属性里列出所有你希望共享到你的 Homestead 环境中的文件夹。当这些文件夹中的文件改变时，它们将会在你的本地机器和 Homestead 环境中保持同步。你可以在需要时在这里设置多个共享文件夹:
 
     folders:
         - map: ~/Code
           to: /home/vagrant/Code
 
-To enable [NFS](http://docs.vagrantup.com/v2/synced-folders/nfs.html), just add a simple flag to your synced folder configuration:
+如果需要开启 [NFS](http://docs.vagrantup.com/v2/synced-folders/nfs.html), 那么你需要在同步的文件夹中设置如下配置：
 
     folders:
         - map: ~/Code
           to: /home/vagrant/Code
           type: "nfs"
 
-#### Configuring Nginx Sites
+#### 配置 Nginx 站点
 
-Not familiar with Nginx? No problem. The `sites` property allows you to easily map a "domain" to a folder on your Homestead environment. A sample site configuration is included in the `Homestead.yaml` file. Again, you may add as many sites to your Homestead environment as necessary. Homestead can serve as a convenient, virtualized environment for every Laravel project you are working on:
+对 Nginx 不熟悉？没关系。`site` 属性允许你轻松的在你的 Homestead 环境中映射 "域名" 和文件夹。在 `Homestead.yaml` 文件中已经包含了一个简单的站点配置。这次，你可以按需的在你的 Homestead 环境中添加多个站点。Homestead 可以为你所有的正在进行中的项目提供便捷的虚拟化环境：
 
     sites:
         - map: homestead.app
           to: /home/vagrant/Code/Laravel/public
 
-You can make any Homestead site use [HHVM](http://hhvm.com) by setting the `hhvm` option to `true`:
+你可以通过设置 `hhvm` 选项为 `true` 让任意的 Homestead 站点使用 [HHVM](http://hhvm.com):
 
     sites:
         - map: homestead.app
           to: /home/vagrant/Code/Laravel/public
           hhvm: true
 
-If you change the `sites` property after provisioning the Homestead box, you should re-run `vagrant reload --provision`  to update the Nginx configuration on the virtual machine.
+如果你在配置了 Homestead box 之后修改了 `sites` 属性，那么你需要重新运行 `vagrant reload --provision` 命令来更新虚拟机中的 Nginx 配置。
 
-#### The Hosts File
+#### Hosts 文件
 
-You must add the "domains" for your Nginx sites to the `hosts` file on your machine. The `hosts` file will redirect requests for your Homestead sites into your Homestead machine. On Mac and Linux, this file is located at `/etc/hosts`. On Windows, it is located at `C:\Windows\System32\drivers\etc\hosts`. The lines you add to this file will look like the following:
+你必须在你的机器里的 `hosts` 文件中添加 Nginx 站点所需要的 "域名"。`hosts` 文件将会重定向请求到你的 Homestead 虚拟机里的 Homestead 站点。在 Mac 和 Linux 系统中，这个文件被存放在 `/etc/hosts`。在 Windows 中，它被存放在 `C:\Windows\System32\drivers\etc\hosts`。你需要在该文件中添加像下面的一行：
 
     192.168.10.10  homestead.app
 
-Make sure the IP address listed is the one set in your `~/.homestead/Homestead.yaml` file. Once you have added the domain to your `hosts` file and launched the Vagrant box you will be able to access the site via your web browser:
+你需要确保 IP 地址和你的 `~/.homestead/Homestead.yaml` 文件中设置的一致。一旦你添加了域名到你的 `hosts` 文件并且启动完成 Vargrant box，你将可以通过你的浏览器访问该站点:
 
     http://homestead.app
 
 <a name="launching-the-vagrant-box"></a>
-### Launching The Vagrant Box
+### 启动 Vagrant Box
 
-Once you have edited the `Homestead.yaml` to your liking, run the `vagrant up` command from your Homestead directory. Vagrant will boot the virtual machine and automatically configure your shared folders and Nginx sites.
+一旦你按需的编辑完成 `Homestead.yaml`，你就可以从你的 Homestead 目录中运行 `vagrant up` 命令。Vagrant 将会启动你的虚拟机并且自动的分配共享目录和 Nginx 站点。
 
-To destroy the machine, you may use the `vagrant destroy --force` command.
+你可以通过使用 `vagrant destroy --force` 命令来销毁虚拟机。
 
 <a name="per-project-installation"></a>
-### Per Project Installation
+### 项目隔离的安装方式
 
-Instead of installing Homestead globally and sharing the same Homestead box across all of your projects, you may instead configure a Homestead instance for each project you manage. Installing Homestead per project may be beneficial if you wish to ship a `Vagrantfile` with your project, allowing others working on the project to simply `vagrant up`.
+除了将 Homestead 安装成全局环境，让所有的项目共用一个 Homestead box。你也可以每一个你所管理的项目进行独立的配置 Homestead。为每一个项目独立的配置 Homestead 你就可以将 `Vagrantfile` 关联到项目中，这有益于其他开发者直接使用 `vagrant up` 来进行工作。
 
-To install Homestead directly into your project, require it using Composer:
+你可以通过 Composer 直接将 Homestead 安装到项目中:
 
     composer require laravel/homestead --dev
 
-Once Homestead has been installed, use the `make` command to generate the `Vagrantfile` and `Homestead.yaml` file in your project root. The `make` command will automatically configure the `sites` and `folders` directives in the `Homestead.yaml` file.
+一旦 Homestead 安装完成，你就可以使用 `make` 命令来生成 `Vagrantfile` 和 `Homestead.yaml` 文件，它们会直接生成在项目的根目录中。`make` 命令会自动的配置 `Homestead.yaml` 文件中的 `sites` 和 `folders` 指令。
 
 Mac / Linux:
 
@@ -152,12 +152,12 @@ Windows:
 
 	vendor\\bin\\homestead make
 
-Next, run the `vagrant up` command in your terminal and access your project at `http://homestead.app` in your browser. Remember, you will still need to add an `/etc/hosts` file entry for `homestead.app` or the domain of your choice.
+接着，你就饿可以运行 `vagrant up` 命令来启动虚拟机，然后通过浏览器访问 `http://homestead.app` 站点了。记住，你还是需要在 `/etc/hosts` 文件中写入 `homestead.app` 的 ip 地址，或者你自由选择的域名。
 
 <a name="installing-mariadb"></a>
-### Installing MariaDB
+### 安装 MariaDB
 
-If you prefer to use MariaDB instead of MySQL, you may add the `mariadb` option to your `Homestead.yaml` file. This option will remove MySQL and install MariaDB. MariaDB serves as a drop-in replacement for MySQL so you should still use the `mysql` database driver in your application's database configuration:
+如果你喜欢使用 MariaDB 取代 MySQL，那么你可以在你的 `Homestead.yaml` 文件中添加 `mariadb` 选项。这个选项会删除 MySQL，并且安装 MariaDB。由于 MariaDB 是从 MySQL 中分离出来的，所以你仍可以在你的应用数据库配置中使用 `mysql` 数据库驱动：
 
     box: laravel/homestead
     ip: "192.168.20.20"
@@ -167,68 +167,68 @@ If you prefer to use MariaDB instead of MySQL, you may add the `mariadb` option 
     mariadb: true
 
 <a name="daily-usage"></a>
-## Daily Usage
+## 常用方法
 
 <a name="accessing-homestead-globally"></a>
-### Accessing Homestead Globally
+### 全局访问 Homestead
 
-Sometimes you may want to `vagrant up` your Homestead machine from anywhere on your filesystem. You can do this by adding a simple Bash function to your Bash profile. This function will allow you to run any Vagrant command from anywhere on your system and will automatically point that command to your Homestead installation:
+有时候你可能希望在你的文件系统中的任意位置都可以使用 `vagrant up` 来启动你的 Homestead。你可以通过在你的 Bash 文件中添加一个简单的 Bash 方法来做到。这个方法会允许你在系统的任意位置执行任意的 Vagrant 命令，并且它会自动的将命令输入到你的 Homestead 中：
 
     function homestead() {
         ( cd ~/Homestead && vagrant $* )
     }
 
-Make sure to tweak the `~/Homestead` path in the function to the location of your actual Homestead installation. Once the function is installed, you may run commands like `homestead up` or `homestead ssh` from anywhere on your system.
+你需要确保函数中的 `~/Homestead` 路径调整为你实际安装的 Homestead 路径一致。完成这个方法之后，你就可以在系统中的任意位置执行类似 `homestead up` 或者 `homestead ssh` 命令。
 
 <a name="connecting-via-ssh"></a>
-### Connecting Via SSH
+### 通过 SSH 连接
 
-You can SSH into your virtual machine by issuing the `vagrant ssh` terminal command from your Homestead directory.
+你可以在你的 Homestead 目录下使用终端命令 `vagrant ssh` 来连接到你的虚拟中。
 
-But, since you will probably need to SSH into your Homestead machine frequently, consider adding the "function" described above to your host machine to quickly SSH into the Homestead box.
+但是，你可能会经常需要使用 SSH 来连接你的 Homestead，你可以考虑添加类似上面描述的 "function" 来快速的 SSH 到你的 Homestead。
 
 <a name="connecting-to-databases"></a>
-### Connecting To Databases
+### 连接到数据库
 
-A `homestead` database is configured for both MySQL and Postgres out of the box. For even more convenience, Laravel's `.env` file configures the framework to use this database out of the box.
+在 `homestead` 中已经预装了 MySQL 和 Postgres 数据库。为了方便使用，Laravel 的 `.env` 文件中已经对这些数据库的配置提供了支持。
 
-To connect to your MySQL or Postgres database from your host machine via Navicat or Sequel Pro, you should connect to `127.0.0.1` and port `33060` (MySQL) or `54320` (Postgres). The username and password for both databases is `homestead` / `secret`.
+如果你想要在主机中使用 Navicat 或者 Sequel Pro 来访问虚拟机中的 MySQL 或者 Postgres 数据库，你应该连接到 `127.0.0.1` 的 `33060`（MySQL）端口或者 `54320`（Postgres）端口。它们的用户名和密码都是 `homestead` / `secret`。
 
-> **Note:** You should only use these non-standard ports when connecting to the databases from your host machine. You will use the default 3306 and 5432 ports in your Laravel database configuration file since Laravel is running _within_ the virtual machine.
+**注意:** 你应该在主机中使用这些非标准的端口来连接虚拟机中的数据库。这是由于，虚拟主机中的 Laravel 在运行时，依然使用的是配置文件中的 3306 和 5432 端口。
 
 <a name="adding-additional-sites"></a>
-### Adding Additional Sites
+### 添加额外的站点
 
-Once your Homestead environment is provisioned and running, you may want to add additional Nginx sites for your Laravel applications. You can run as many Laravel installations as you wish on a single Homestead environment. To add an additional site, simply add the site to your `~/.homestead/Homestead.yaml` file and then run the `vagrant provision` terminal command from your Homestead directory.
+当你的 Homestead 环境配置完毕且成功运行后，你可能希望为你的 Laravel 应用添加额外的 Nginx 站点。你可以在单个 Homestead 环境中运行多个 Laravel 安装程序。你可以在 `~/.homestead/Homestead.yaml` 文件中添加站点之后，直接的在你的 Homestead 目录中运行 `vagrant provision` 命令。
 
 <a name="configuring-cron-schedules"></a>
-### Configuring Cron Schedules
+### 配置 Cron 调度器
 
-Laravel provides a convenient way to [schedule Cron jobs](/docs/{{version}}/scheduling) by scheduling a single `schedule:run` Artisan command to be run every minute. The `schedule:run` command will examine the job scheduled defined in your `App\Console\Kernel` class to determine which jobs should be run.
+Laravel 提供了一种便利的方式来完成 [调度 Cron 任务](/docs/{{language}}/{{version}}/scheduling)。通过 `schedule:run` Artisan 命令，调度便会在每分钟被运行。`schedule:run` 命令会检查 `App\Console\Kernel` 类中所定义的调度任务，并判断哪个任务需要被运行。
 
-If you would like the `schedule:run` command to be run for a Homestead site, you may set the `schedule` option to `true` when defining the site:
+如果你希望在 Homestead 站点中执行 `schedule:run` 命令。你可以在站点配置选项中设置 `schedule` 选项为 `true`:
 
     sites:
         - map: homestead.app
           to: /home/vagrant/Code/Laravel/public
           schedule: true
 
-The Cron job for the site will be defined in the `/etc/cron.d` folder of the virtual machine.
+站点中的 Cron 任务会被定义在虚拟机的 `/etc/cron.d` 目录中。
 
 <a name="ports"></a>
-### Ports
+### 端口
 
-By default, the following ports are forwarded to your Homestead environment:
+默认的，下面的端口会被转发到你的 Homestead 环境中：
 
-- **SSH:** 2222 &rarr; Forwards To 22
-- **HTTP:** 8000 &rarr; Forwards To 80
-- **HTTPS:** 44300 &rarr; Forwards To 443
-- **MySQL:** 33060 &rarr; Forwards To 3306
-- **Postgres:** 54320 &rarr; Forwards To 5432
+- **SSH:** 2222 &rarr; 转发到 22
+- **HTTP:** 8000 &rarr; 转发到 80
+- **HTTPS:** 44300 &rarr; 转发到 443
+- **MySQL:** 33060 &rarr; 转发到 3306
+- **Postgres:** 54320 &rarr; 转发到 5432
 
-#### Forwarding Additional Ports
+#### 转发额外的端口
 
-If you wish, you may forward additional ports to the Vagrant box, as well as specify their protocol:
+如果你需要，你可以转发额外的端口到你的 Vagrant box 中，以及指定转发的协议：
 
     ports:
         - send: 93000
@@ -238,22 +238,21 @@ If you wish, you may forward additional ports to the Vagrant box, as well as spe
           protocol: udp
 
 <a name="network-interfaces"></a>
-## Network Interfaces
+## 网络接口
 
-The `networks` property of the `Homestead.yaml` configures network interfaces for your Homestead environment. You may configure as many interfaces as necessary:
+`Homestead.yaml` 配置文件中的 `networks` 属性用来配置你的 Homestead 环境中的网络接口。你可以按需的进行配置多个接口：
 
     networks:
         - type: "private_network"
           ip: "192.168.10.20"
 
-To enable a [bridged](https://www.vagrantup.com/docs/networking/public_network.html) interface, configure a `bridge` setting and change the network type to `public_network`:
+你可以通过设置配置中的 `bridge` 选项和修改网络类型为 `public_network` 来启用 [bridged](https://www.vagrantup.com/docs/networking/public_network.html):
 
     networks:
         - type: "public_network"
           ip: "192.168.10.20"
           bridge: "en1: Wi-Fi (AirPort)"
-
-To enable [DHCP](https://www.vagrantup.com/docs/networking/public_network.html), just remove the `ip` option from your configuration:
+如果需要开启 [DHCP](https://www.vagrantup.com/docs/networking/public_network.html)，你只需要从你的配置文件中删除 `ip` 选项即可：
 
     networks:
         - type: "public_network"
