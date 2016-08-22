@@ -1,19 +1,19 @@
-# Installation
+# 安装
 
-- [Installation](#installation)
-    - [Server Requirements](#server-requirements)
-    - [Installing Laravel](#installing-laravel)
-    - [Configuration](#configuration)
+- [安装](#installation)
+    - [服务端依赖](#server-requirements)
+    - [安装 Laravel](#installing-laravel)
+    - [配置](#configuration)
 
 <a name="installation"></a>
-## Installation
+## 安装
 
 <a name="server-requirements"></a>
-### Server Requirements
+### 服务端依赖
 
-The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/docs/{{version}}/homestead) virtual machine, so it's highly recommended that you use Homestead as your local Laravel development environment.
+Laravel 框架依赖于一些小型系统。当然，所有的这些需求依赖 [Laravel Homestead](/docs/{{language}}/{{version}}/homestead) 虚拟主机中都有提供，所以，我们非常推荐你使用 Homestead 来作为本地的 Laravel 开发环境。
 
-However, if you are not using Homestead, you will need to make sure your server meets the following requirements:
+不管怎么样，如果你不喜欢使用 Homestead，那么你需要确保你的服务端安装有以下依赖：
 
 <div class="content-list" markdown="1">
 - PHP >= 5.5.9
@@ -24,51 +24,51 @@ However, if you are not using Homestead, you will need to make sure your server 
 </div>
 
 <a name="installing-laravel"></a>
-### Installing Laravel
+### 安装 Laravel
 
-Laravel utilizes [Composer](http://getcomposer.org) to manage its dependencies. So, before using Laravel, make sure you have Composer installed on your machine.
+Laravel 利用 [Composer](http://getcomposer.org) 来管理它的依赖. 所以, 在你使用 Laravel 之前, 请确保你在你的机器中已经安装了 Composer.
 
-#### Via Laravel Installer
+#### 通过 Laravel 提供的安装程序
 
-First, download the Laravel installer using Composer:
+首先，你需要使用 Composer 来下载 Laravel 所提供的安装程序:
 
     composer global require "laravel/installer"
 
-Make sure to place the `~/.composer/vendor/bin` directory (or the equivalent directory for your OS) in your PATH so the `laravel` executable can be located by your system.
+请确保目录 `~/.composer/vendor/bin` (或者基于你系统当量的目录) 已被添加到 PATH 中，只有这样 `laravel` 命令才能被你的系统所定位。
 
-Once installed, the `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` will create a directory named `blog` containing a fresh Laravel installation with all of Laravel's dependencies already installed. This method of installation is much faster than installing via Composer:
+一旦你安装完成，你就可以使用 `laravel new` 命令来在你指定的目录中生成一个新的 Laravel 应用。比如，我们可以使用 `laravel new blog` 命令来创建被命名为 `blog` 的目录，该目录中被放置了一个新的 Laravel 应用，并且应用中所需依赖也全部安装完毕。这种安装方式会比通过 Composer 安装要快速的多：
 
     laravel new blog
 
-#### Via Composer Create-Project
+#### 通过 Composer Create-Project 命令
 
-Alternatively, you may also install Laravel by issuing the Composer `create-project` command in your terminal:
+另外，你可以在你的终端中使用 Composer 的 `create-project` 命令来安装 Laravel：
 
     composer create-project --prefer-dist laravel/laravel blog
 
 <a name="configuration"></a>
-### Configuration
+### 配置
 
-After installation, you should configure your application's document / web root to the `public` directory.
+在你安装完成之后，你应该设置你应用的 web 根目录为 `public` 目录。
 
-All of the configuration files for the Laravel framework are stored in the `config` directory. Each option is documented, so feel free to look through the files and get familiar with the options available to you.
+Laravel 框架中的所有配置文件都被存储在 `config` 目录中。所有的配置选项都被加以文档标注，所以你可以自由的浏览这些配置文件，利用这些标注来属性配置选项。
 
-#### Directory Permissions
+#### 目录权限
 
-After installing Laravel, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your web server or Laravel will not run. If you are using the [Homestead](/docs/{{version}}/homestead) virtual machine, these permissions should already be set.
+在你安装 Laravel 之后，你也需要配置一些权限问题。目录中的 `storage` 和 `bootstrap/cache` 应该对与你的 web 服务具有可写的权限，不然 Laravel 没法正常运行。如果你使用 [Homestead](/docs/{{language}}/{{version}}/homestead) 虚拟机，那么这些权限问题应该都已经被正确设置好了。
 
-#### Application Key
+#### 应用秘钥
 
-The next thing you should do after installing Laravel is set your application key to a random string. If you installed Laravel via Composer or the Laravel installer, this key has already been set for you by the `php artisan key:generate` command. Typically, this string should be 32 characters long. The key can be set in the `.env` environment file. If you have not renamed the `.env.example` file to `.env`, you should do that now. **If the application key is not set, your user sessions and other encrypted data will not be secure!**
+在安装之后的下一件事就应该是设置应用的密钥为一个随机的字符串。如果你是通过 Composer 或者 Laravel 提供的安装程序进行的安装，那么这个密钥应该已经通过 `php artisan key:generate` 命令正确设置好了。通常的，这个字符串应该是一个 32 个字符长度。这个密钥可以被设置在 `.env` 环境文件中。如果你还没有将 `.env.example` 文件重命名为 `.env`，那么你现在就应该做了。**如果你的应用密钥没有被设置，那么你的 session 和其他加密的数据都将不是安全的！**
 
-#### Additional Configuration
+#### 额外的配置
 
-Laravel needs almost no other configuration out of the box. You are free to get started developing! However, you may wish to review the `config/app.php` file and its documentation. It contains several options such as `timezone` and `locale` that you may wish to change according to your application.
+Laravel 附带的其他功能几乎不需要额外的配置了。你已经可以自用的进行开发了。但是无论如何，你不妨回顾一下 `config/app.php` 文件和它的文档。它包含了一些如 `timezone` 和 `locale` 这些你希望改变的应用选项。
 
-You may also want to configure a few additional components of Laravel, such as:
+你也可能希望配置一些额外的 Laravel 组件，比如：
 
-- [Cache](/docs/{{version}}/cache#configuration)
-- [Database](/docs/{{version}}/database#configuration)
-- [Session](/docs/{{version}}/session#configuration)
+- [Cache](/docs/{{language}}/{{version}}/cache#configuration)
+- [Database](/docs/{{language}}/{{version}}/database#configuration)
+- [Session](/docs/{{language}}/{{version}}/session#configuration)
 
-Once Laravel is installed, you should also [configure your local environment](/docs/{{version}}/configuration#environment-configuration).
+一旦 Laravel 安装完毕，你应该也 [配置你的本地开发环境](/docs/{{language}}/{{version}}/configuration#environment-configuration).
