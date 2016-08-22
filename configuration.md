@@ -1,53 +1,53 @@
-# Configuration
+# 配置
 
-- [Introduction](#introduction)
-- [Accessing Configuration Values](#accessing-configuration-values)
-- [Environment Configuration](#environment-configuration)
-    - [Determining The Current Environment](#determining-the-current-environment)
-- [Configuration Caching](#configuration-caching)
-- [Maintenance Mode](#maintenance-mode)
+- [前言](#introduction)
+- [访问配置中的值](#accessing-configuration-values)
+- [环境配置](#environment-configuration)
+    - [判断当前环境](#determining-the-current-environment)
+- [配置缓存](#configuration-caching)
+- [维护模式](#maintenance-mode)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-All of the configuration files for the Laravel framework are stored in the `config` directory. Each option is documented, so feel free to look through the files and get familiar with the options available to you.
+所有的 Laravel 框架的配置文件都被存贮在 `config` 目录中。所有的配置选项都被加以文档标注，所以你可以自由的浏览这些配置文件，利用这些标注来熟悉配置选项。
 
 <a name="accessing-configuration-values"></a>
-## Accessing Configuration Values
+## 访问配置中的值
 
-You may easily access your configuration values using the global `config` helper function from anywhere in your application. The configuration values may be accessed using "dot" syntax, which includes the name of the file and option you wish to access. A default value may also be specified and will be returned if the configuration option does not exist:
+你可以在应用中的任何位置使用 `config` 帮助方法来非常方便的访问配置中的值。这些配置值允许通过使用 "." 语法进行访问，它包含了你需要访问的配置文件的名称和你需要访问的配置选项。你也可以设置一个默认值以备在配置选项中不存在时返回：
 
     $value = config('app.timezone');
 
-To set configuration values at runtime, pass an array to the `config` helper:
+你可以通过向 `config` 帮助方法中传递一个数组的方式来在运行的过程中动态的设置配置值：
 
     config(['app.timezone' => 'America/Chicago']);
 
 <a name="environment-configuration"></a>
-## Environment Configuration
+## 环境配置
 
-It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver locally than you do on your production server. It's easy using environment based configuration.
+让运行基于环境的应用拥有不同的配置通常来说是非常用帮助的。比如，你可能会希望生产环境和你本地开发环境使用不同的缓存驱动。而使用基于环境的配置可以非常容易实现这种需求。
 
-To make this a cinch, Laravel utilizes the [DotEnv](https://github.com/vlucas/phpdotenv) PHP library by Vance Lucas. In a fresh Laravel installation, the root directory of your application will contain a `.env.example` file. If you install Laravel via Composer, this file will automatically be renamed to `.env`. Otherwise, you should rename the file manually.
+为了实现这个功能，Laravel 利用了 Vance Lucas 所开发的 [DotEnv](https::/github.com/vlucas/phpdotenv) PHP 类库。在一个新鲜的 Laravel 程序中，在你应用的根目录下应该包含一个 `.env.example` 文件。如果你通过 Composer 来安装 Laravel，那么这个文件应该会自动的被重命名为 `.env` 了。如果不是的话，那么你就需要手动的来做这件事了。
 
-All of the variables listed in this file will be loaded into the `$_ENV` PHP super-global when your application receives a request. However, you may use the `env` helper to retrieve values from these variables in your configuration files. In fact, if you review the Laravel configuration files, you will notice several of the options already using this helper:
+当你的应用接收到一个请求时，这个文件中所列出的所有变量都会被加载到 `$_ENV` PHP 全局变量中。不过，你可以使用 `env` 帮助方法来从这些配置文件中的变量中接收值。事实上，如果你浏览了 Laravel 的一些配置文件，你会注意到一些选项已经使用了这个帮助方法:
 
     'debug' => env('APP_DEBUG', false),
 
-The second value passed to the `env` function is the "default value". This value will be used if no environment variable exists for the given key.
+传递到 `env` 方法中的第二个值是一个 "默认值"。这个值会在环境变量中没有找到给定键时返回。
 
-Your `.env` file should not be committed to your application's source control, since each developer / server using your application could require a different environment configuration.
+你的 `.env` 文件不应该被提交到你的应用源码版本控制器中，这是因为每个开发或者服务在使用你的应用的同时可能需要引入不同的环境配置。
 
-If you are developing with a team, you may wish to continue including a `.env.example` file with your application. By putting place-holder values in the example configuration file, other developers on your team can clearly see which environment variables are needed to run your application.
+如果你是多人的团队开发，你不妨持续的引入 `.env.example` 文件在你的应用中。并且在示例配置中放置一些占位值，这样的话，团队中的其他开发者就可以非常清晰的了解哪些环境变量是的应用运行所必需的。
 
 <a name="determining-the-current-environment"></a>
-### Determining The Current Environment
+### 判断当前环境
 
-The current application environment is determined via the `APP_ENV` variable from your `.env` file. You may access this value via the `environment` method on the `App` [facade](/docs/{{version}}/facades):
+应用当前所处的环境是通过 `.env` 文件中的 `APP_ENV` 变量来进行判断的。你可以通过 `App` [facade](/docs{{language}}/{{version}}/facades) 的 `environment` 方法来访问这个值：
 
     $environment = App::environment();
 
-You may also pass arguments to the `environment` method to check if the environment matches a given value. If necessary, you may even pass multiple values to the `environment` method. If the environment matches any of the given values, the method will return `true`:
+你也可以传递一些参数到 `environment` 方法中来检查所处的环境与给定值是否匹配。如果确实需要，你也可以传递多个值到 `environment` 方法。如果当前环境匹配到任何给定的值，那么方法会返回 `true`:
 
     if (App::environment('local')) {
         // The environment is local
@@ -57,38 +57,38 @@ You may also pass arguments to the `environment` method to check if the environm
         // The environment is either local OR staging...
     }
 
-An application instance may also be accessed via the `app` helper method:
+应用实例也可以通过访问 `app` 帮助方法获得：
 
     $environment = app()->environment();
 
 <a name="configuration-caching"></a>
-## Configuration Caching
+## 配置缓存
 
-To give your application a speed boost, you should cache all of your configuration files into a single file using the `config:cache` Artisan command. This will combine all of the configuration options for your application into a single file which will be loaded quickly by the framework.
+你可以使用 `config:cache` Artisan 命令来将所有的配置文件缓存到一个单独的文件中，这样你的应用可以启动的更加迅速。这会合并应用中所有的配置选项到一个独立的文件中，所以这使得框架可以进行快速的加载。
 
-You should typically run the `php artisan config:cache` command as part of your production deployment routine. The command should not be run during local development as configuration options will frequently need to be changed during the course of your application's development.
+你应该经常的执行 `php artisan config:cache` 命令来作为你产品发布的一个环节。这个命令不应该在本地开发中运行，这是因为在本地开发时可能需要经常改变应用的配置信息，而你一旦忘记手动的更新配置缓存，那么将会得到意料之外的结果。
 
 <a name="maintenance-mode"></a>
-## Maintenance Mode
+## 维护模式
 
-When your application is in maintenance mode, a custom view will be displayed for all requests into your application. This makes it easy to "disable" your application while it is updating or when you are performing maintenance. A maintenance mode check is included in the default middleware stack for your application. If the application is in maintenance mode, an `HttpException` will be thrown with a status code of 503.
+当你的应用处于维护模式时，一个自定义的视图将会在任何请求到达时展示。这在进行维护和更新时可以非常轻松的禁止用户访问应用。在你的应用中的中间件栈中已经包含了一个维护模式检查。如果应用处于维护模式，那么一个 `HttpException` 异常将会被抛出，并且伴随一个 503 状态码。
 
-To enable maintenance mode, simply execute the `down` Artisan command:
+你可以简单的使用 Artisan 的 `down` 命令来启用维护模式：
 
     php artisan down
 
-To disable maintenance mode, use the `up` command:
+使用 `up` 命令来关闭维护模式：
 
     php artisan up
 
-#### Maintenance Mode Response Template
+#### 维护模式响应模板
 
-The default template for maintenance mode responses is located in `resources/views/errors/503.blade.php`. You are free to modify this view as needed for your application.
+默认的维护模式响应模板存放在 `resource/views/errors/503.blade.php`。你可以自由的按需修改这个视图文件。
 
-#### Maintenance Mode & Queues
+#### 维护模式 & 队列任务
 
-While your application is in maintenance mode, no [queued jobs](/docs/{{version}}/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
+在维护模式启用期间，[queued jobs](/docs/{{language}}/{{version}}/queues) 将暂停处理。这些任务会在应用退出维护模式时继续进行处理。
 
-#### Alternatives To Maintenance Mode
+#### 维护模式的可选方案
 
-Since maintenance mode requires your application to have several seconds of downtime, you may consider alternatives like [Envoyer](https://envoyer.io) to accomplish zero-downtime deployment with Laravel.
+由于维护模式需要你的应用关闭那么一段时间，你可以考虑一下像 [Envoyer](https://envoyer.io) 这种不需要关闭应用的持续集成服务。
