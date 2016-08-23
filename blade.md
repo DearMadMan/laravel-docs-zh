@@ -91,7 +91,7 @@ Now that we have defined a layout for our application, let's define a child page
 
     The current UNIX timestamp is {{ time() }}.
 
-> **注意** Blade `{{}}` 声明中的内容是自动通过 PHP 的 `htmlentities` 方法过滤的，用以避免 XSS 的攻击。
+> **注意** Blade `{{ }}` 声明中的内容是自动通过 PHP 的 `htmlentities` 方法过滤的，用以避免 XSS 的攻击。
 
 #### Blade & JavaScript 框架
 
@@ -121,7 +121,7 @@ Now that we have defined a layout for our application, let's define a child page
 
     Hello, {!! $name !!}.
 
-> **注意** 当你在应用中输出用户输入的数据时应该非常的谨慎，你应该总是使用 `{{}}` 语法来转义内容中的任何的 HTML 实体。
+> **注意** 当你在应用中输出用户输入的数据时应该非常的谨慎，你应该总是使用 `{{ }}` 语法来转义内容中的任何的 HTML 实体。
 
 <a name="control-structures"></a>
 ## 控制结构
