@@ -25,7 +25,7 @@ Laravel Homestead 是一个官方预封装的 Vagrant box，提供给你一个�
 
 Homestead 可以在 Windows、Mac 或 Linux 系统上面运行，里面包含了 Nginx Web 服务器、PHP 7.0、MySQL、Postgres、Redis、Memcached、Node，以及所有你在使用 Laravel 开发时所需要用到的各种软件。
 
-**注意：** 如果你是 Windows 用户，你可能需要启用硬件虚拟化（VT-x）。这通常需要通过 BIOS 来启用它。如果你在一个 UEFI 系统上使用 Hyper-V，你可能需要为了访问 VT-x 来禁用 Hyper-V。
+> **注意：** 如果你是 Windows 用户，你可能需要启用硬件虚拟化（VT-x）。这通常需要通过 BIOS 来启用它。如果你在一个 UEFI 系统上使用 Hyper-V，你可能需要为了访问 VT-x 来禁用 Hyper-V。
 
 <a name="included-software"></a>
 ### 引入的软件
