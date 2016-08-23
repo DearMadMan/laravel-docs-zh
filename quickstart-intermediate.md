@@ -37,7 +37,7 @@ To sample a basic selection of Laravel features, we will build a task list we ca
 
 #### Installing Laravel
 
-Of course, first you will need a fresh installation of the Laravel framework. You may use the [Homestead virtual machine](/docs/{{version}}/homestead) or the local PHP environment of your choice to run the framework. Once your local environment is ready, you may install the Laravel framework using Composer:
+Of course, first you will need a fresh installation of the Laravel framework. You may use the [Homestead virtual machine](/docs/{{language}}/{{version}}/homestead) or the local PHP environment of your choice to run the framework. Once your local environment is ready, you may install the Laravel framework using Composer:
 
     composer create-project laravel/laravel quickstart --prefer-dist
 
@@ -50,7 +50,7 @@ You're free to just read along for the remainder of this quickstart; however, if
     composer install
     php artisan migrate
 
-For more complete documentation on building a local Laravel development environment, check out the full [Homestead](/docs/{{version}}/homestead) and [installation](/docs/{{version}}/installation) documentation.
+For more complete documentation on building a local Laravel development environment, check out the full [Homestead](/docs/{{language}}/{{version}}/homestead) and [installation](/docs/{{language}}/{{version}}/installation) documentation.
 
 <a name="prepping-the-database"></a>
 ## Prepping The Database
@@ -66,7 +66,7 @@ Since we are going to allow users to create their accounts within the applicatio
 
 #### The `tasks` Table
 
-Next, let's build a database table that will hold all of our tasks. The [Artisan CLI](/docs/{{version}}/artisan) can be used to generate a variety of classes and will save you a lot of typing as you build your Laravel projects. In this case, let's use the `make:migration` command to generate a new database migration for our `tasks` table:
+Next, let's build a database table that will hold all of our tasks. The [Artisan CLI](/docs/{{language}}/{{version}}/artisan) can be used to generate a variety of classes and will save you a lot of typing as you build your Laravel projects. In this case, let's use the `make:migration` command to generate a new database migration for our `tasks` table:
 
     php artisan make:migration create_tasks_table --create=tasks
 
@@ -114,7 +114,7 @@ This command will create all of our database tables. If you inspect the database
 <a name="eloquent-models"></a>
 ### Eloquent Models
 
-[Eloquent](/docs/{{version}}/eloquent) is Laravel's default ORM (object-relational mapper). Eloquent makes it painless to retrieve and store data in your database using clearly defined "models". Usually, each Eloquent model corresponds directly with a single database table.
+[Eloquent](/docs/{{language}}/{{version}}/eloquent) is Laravel's default ORM (object-relational mapper). Eloquent makes it painless to retrieve and store data in your database using clearly defined "models". Usually, each Eloquent model corresponds directly with a single database table.
 
 #### The `User` Model
 
@@ -146,7 +146,7 @@ Let's add a few things to this model. First, we will state that the `name` attri
         protected $fillable = ['name'];
     }
 
-We'll learn more about how to use Eloquent models as we add routes to our application. Of course, feel free to consult the [complete Eloquent documentation](/docs/{{version}}/eloquent) for more information.
+We'll learn more about how to use Eloquent models as we add routes to our application. Of course, feel free to consult the [complete Eloquent documentation](/docs/{{language}}/{{version}}/eloquent) for more information.
 
 <a name="eloquent-relationships"></a>
 ### Eloquent Relationships
@@ -161,7 +161,7 @@ Now that our models are defined, we need to link them. For example, our `User` c
 
 #### The `tasks` Relationship
 
-First, let's define the `tasks` relationship on our `User` model. Eloquent relationships are defined as methods on models. Eloquent supports several different types of relationships, so be sure to consult the [full Eloquent documentation](/docs/{{version}}/eloquent-relationships) for more information. In this case, we will define a `tasks` function on the `User` model which calls the `hasMany` method provided by Eloquent:
+First, let's define the `tasks` relationship on our `User` model. Eloquent relationships are defined as methods on models. Eloquent supports several different types of relationships, so be sure to consult the [full Eloquent documentation](/docs/{{language}}/{{version}}/eloquent-relationships) for more information. In this case, we will define a `tasks` function on the `User` model which calls the `hasMany` method provided by Eloquent:
 
     <?php
 
@@ -216,7 +216,7 @@ Wonderful! Now that our relationships are defined, we can start building our con
 <a name="routing"></a>
 ## Routing
 
-In the [basic version](/docs/{{version}}/quickstart) of our task list application, we defined all of our logic using Closures within our `routes.php` file. For the majority of this application, we will use [controllers](/docs/{{version}}/controllers) to organize our routes. Controllers will allow us to break out HTTP request handling logic across multiple files for better organization.
+In the [basic version](/docs/{{language}}/{{version}}/quickstart) of our task list application, we defined all of our logic using Closures within our `routes.php` file. For the majority of this application, we will use [controllers](/docs/{{language}}/{{version}}/controllers) to organize our routes. Controllers will allow us to break out HTTP request handling logic across multiple files for better organization.
 
 <a name="displaying-a-view"></a>
 ### Displaying A View
@@ -274,7 +274,7 @@ Now that the controller has been generated, let's go ahead and stub out some rou
 
 #### Authenticating All Task Routes
 
-For this application, we want all of our task routes to require an authenticated user. In other words, the user must be "logged into" the application in order to create a task. So, we need to restrict access to our task routes to only authenticated users. Laravel makes this a cinch using [middleware](/docs/{{version}}/middleware).
+For this application, we want all of our task routes to require an authenticated user. In other words, the user must be "logged into" the application in order to create a task. So, we need to restrict access to our task routes to only authenticated users. Laravel makes this a cinch using [middleware](/docs/{{language}}/{{version}}/middleware).
 
 To require an authenticated users for all actions on the controller, we can add a call to the `middleware` method from the controller's constructor. All available route middleware are defined in the `app/Http/Kernel.php` file. In this case, we want to assign the `auth` middleware to all actions on the controller:
 
@@ -311,7 +311,7 @@ The primary part of this application only has a single view which contains a for
 
 Almost all web applications share the same layout across pages. For example, this application has a top navigation bar that would be typically present on every page (if we had more than one). Laravel makes it easy to share these common features across every page using Blade **layouts**.
 
-As we discussed earlier, all Laravel views are stored in `resources/views`. So, let's define a new layout view in `resources/views/layouts/app.blade.php`. The `.blade.php` extension instructs the framework to use the [Blade templating engine](/docs/{{version}}/blade) to render the view. Of course, you may use plain PHP templates with Laravel. However, Blade provides convenient short-cuts for writing cleaner, terse templates.
+As we discussed earlier, all Laravel views are stored in `resources/views`. So, let's define a new layout view in `resources/views/layouts/app.blade.php`. The `.blade.php` extension instructs the framework to use the [Blade templating engine](/docs/{{language}}/{{version}}/blade) to render the view. Of course, you may use plain PHP templates with Laravel. However, Blade provides convenient short-cuts for writing cleaner, terse templates.
 
 Our `app.blade.php` view should look like the following:
 
@@ -413,7 +413,7 @@ Next, we're ready to add code to our `POST /task` route's controller method to h
 
 Now that we have a form in our view, we need to add code to our `TaskController@store` method to validate the incoming form input and create a new task. First, let's validate the input.
 
-For this form, we will make the `name` field required and state that it must contain less than `255` characters. If the validation fails, we want to redirect the user back to the `/tasks` URL, as well as flash the old input and errors into the [session](/docs/{{version}}/session):
+For this form, we will make the `name` field required and state that it must contain less than `255` characters. If the validation fails, we want to redirect the user back to the `/tasks` URL, as well as flash the old input and errors into the [session](/docs/{{language}}/{{version}}/session):
 
     /**
      * Create a new task.
@@ -430,7 +430,7 @@ For this form, we will make the `name` field required and state that it must con
         // Create The Task...
     }
 
-If you followed along with the [basic quickstart](/docs/{{version}}/quickstart), you'll notice this validation code looks quite a bit different! Since we are in a controller, we can leverage the convenience of the `ValidatesRequests` trait that is included in the base Laravel controller. This trait exposes a simple `validate` method which accepts a request and an array of validation rules.
+If you followed along with the [basic quickstart](/docs/{{language}}/{{version}}/quickstart), you'll notice this validation code looks quite a bit different! Since we are in a controller, we can leverage the convenience of the `ValidatesRequests` trait that is included in the base Laravel controller. This trait exposes a simple `validate` method which accepts a request and an array of validation rules.
 
 We don't even have to manually determine if the validation failed or do manual redirection. If the validation fails for the given rules, the user will automatically be redirected back to where they came from and the errors will automatically be flashed to the session. Nice!
 
@@ -511,7 +511,7 @@ However, let's explore some of the dependency injection capabilities of Laravel 
 <a name="dependency-injection"></a>
 ### Dependency Injection
 
-Laravel's [service container](/docs/{{version}}/container) is one of the most powerful features of the entire framework. After reading this quickstart, be sure to read over all of the container's documentation.
+Laravel's [service container](/docs/{{language}}/{{version}}/container) is one of the most powerful features of the entire framework. After reading this quickstart, be sure to read over all of the container's documentation.
 
 #### Creating The Repository
 
@@ -695,7 +695,7 @@ Now, we're almost ready to define the `destroy` method on our `TaskController`. 
         //
     }
 
-Since the `{task}` variable in our route matches the `$task` variable defined in our controller method, Laravel's [implicit model binding](/docs/{{version}}/routing#route-model-binding) will automatically inject the corresponding Task model instance.
+Since the `{task}` variable in our route matches the `$task` variable defined in our controller method, Laravel's [implicit model binding](/docs/{{language}}/{{version}}/routing#route-model-binding) will automatically inject the corresponding Task model instance.
 
 <a name="authorization"></a>
 ### Authorization
@@ -769,7 +769,7 @@ Let's examine this method call for a moment. The first argument passed to the `a
 
 If the action is authorized, our code will continue executing normally. However, if the action is not authorized (meaning the policy's `destroy` method returned `false`), a 403 exception will be thrown and an error page will be displayed to the user.
 
-> **Note:** There are several other ways to interact with the authorization services Laravel provides. Be sure to browse the complete [authorization documentation](/docs/{{version}}/authorization).
+> **Note:** There are several other ways to interact with the authorization services Laravel provides. Be sure to browse the complete [authorization documentation](/docs/{{language}}/{{version}}/authorization).
 
 <a name="deleting-the-task"></a>
 ### Deleting The Task

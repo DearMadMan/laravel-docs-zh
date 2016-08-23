@@ -41,13 +41,13 @@ You may also configure a "fallback language", which will be used when the active
 
     'fallback_locale' => 'en',
 
-You may check if a given locale is currently being used by calling the `isLocale` method on the `App` [facade](/docs/{{version}}/facades):
+You may check if a given locale is currently being used by calling the `isLocale` method on the `App` [facade](/docs/{{language}}/{{version}}/facades):
 
     if (App::isLocale('en')) {
         //
     }
 
-To retrieve the current application locale, call the `getLocale` method on the `App` [facade](/docs/{{version}}/facades):
+To retrieve the current application locale, call the `getLocale` method on the `App` [facade](/docs/{{language}}/{{version}}/facades):
 
     return App::getLocale();
 
@@ -58,7 +58,7 @@ You may retrieve lines from language files using the `trans` helper function. Th
 
     echo trans('messages.welcome');
 
-Of course if you are using the [Blade templating engine](/docs/{{version}}/blade), you may use the `{{ }}` syntax to echo the language line or use the `@lang` directive:
+Of course if you are using the [Blade templating engine](/docs/{{language}}/{{version}}/blade), you may use the `{{ }}` syntax to echo the language line or use the `@lang` directive:
 
     {{ trans('messages.welcome') }}
 

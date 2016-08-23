@@ -16,12 +16,12 @@
 <a name="introduction"></a>
 ## Introduction
 
-In addition to providing [authentication](/docs/{{version}}/authentication) services out of the box, Laravel also provides a simple way to organize authorization logic and control access to resources. There are a variety of methods and helpers to assist you in organizing your authorization logic, and we'll cover each of them in this document.
+In addition to providing [authentication](/docs/{{language}}/{{version}}/authentication) services out of the box, Laravel also provides a simple way to organize authorization logic and control access to resources. There are a variety of methods and helpers to assist you in organizing your authorization logic, and we'll cover each of them in this document.
 
 <a name="defining-abilities"></a>
 ## Defining Abilities
 
-The simplest way to determine if a user may perform a given action is to define an "ability" using the `Illuminate\Auth\Access\Gate` class. The `AuthServiceProvider` which ships with Laravel serves as a convenient location to define all of the abilities for your application. For example, let's define an `update-post` ability which receives the current `User` and a `Post` [model](/docs/{{version}}/eloquent). Within our ability, we will determine if the user's `id` matches the post's `user_id`:
+The simplest way to determine if a user may perform a given action is to define an "ability" using the `Illuminate\Auth\Access\Gate` class. The `AuthServiceProvider` which ships with Laravel serves as a convenient location to define all of the abilities for your application. For example, let's define an `update-post` ability which receives the current `User` and a `Post` [model](/docs/{{language}}/{{version}}/eloquent). Within our ability, we will determine if the user's `id` matches the post's `user_id`:
 
 	<?php
 
@@ -52,7 +52,7 @@ Note that we did not check if the given `$user` is not `NULL`. The `Gate` will a
 
 #### Class Based Abilities
 
-In addition to registering `Closures` as authorization callbacks, you may register class methods by passing a string containing the class name and the method. When needed, the class will be resolved via the [service container](/docs/{{version}}/container):
+In addition to registering `Closures` as authorization callbacks, you may register class methods by passing a string containing the class name and the method. When needed, the class will be resolved via the [service container](/docs/{{language}}/{{version}}/container):
 
     $gate->define('update-post', 'Class@method');
 
@@ -82,7 +82,7 @@ You may use the `after` method to define a callback to be executed after every a
 <a name="via-the-gate-facade"></a>
 ### Via The Gate Facade
 
-Once an ability has been defined, we may "check" it in a variety of ways. First, we may use the `check`, `allows`, or `denies` methods on the `Gate` [facade](/docs/{{version}}/facades). All of these methods receive the name of the ability and the arguments that should be passed to the ability's callback. You do **not** need to pass the current user to these methods, since the `Gate` will automatically prepend the current user to the arguments passed to the callback. So, when checking the `update-post` ability we defined earlier, we only need to pass a `Post` instance to the `denies` method:
+Once an ability has been defined, we may "check" it in a variety of ways. First, we may use the `check`, `allows`, or `denies` methods on the `Gate` [facade](/docs/{{language}}/{{version}}/facades). All of these methods receive the name of the ability and the arguments that should be passed to the ability's callback. You do **not** need to pass the current user to these methods, since the `Gate` will automatically prepend the current user to the arguments passed to the callback. So, when checking the `update-post` ability we defined earlier, we only need to pass a `Post` instance to the `denies` method:
 
     <?php
 
@@ -199,7 +199,7 @@ You may also combine the `@can` directive with `@else` directive:
 <a name="within-form-requests"></a>
 ### Within Form Requests
 
-You may also choose to utilize your `Gate` defined abilities from a [form request's](/docs/{{version}}/validation#form-request-validation) `authorize` method. For example:
+You may also choose to utilize your `Gate` defined abilities from a [form request's](/docs/{{language}}/{{version}}/validation#form-request-validation) `authorize` method. For example:
 
     /**
      * Determine if the user is authorized to make this request.
@@ -221,7 +221,7 @@ You may also choose to utilize your `Gate` defined abilities from a [form reques
 
 Since defining all of your authorization logic in the `AuthServiceProvider` could become cumbersome in large applications, Laravel allows you to split your authorization logic into "Policy" classes. Policies are plain PHP classes that group authorization logic based on the resource they authorize.
 
-First, let's generate a policy to manage authorization for our `Post` model. You may generate a policy using the `make:policy` [artisan command](/docs/{{version}}/artisan). The generated policy will be placed in the `app/Policies` directory:
+First, let's generate a policy to manage authorization for our `Post` model. You may generate a policy using the `make:policy` [artisan command](/docs/{{language}}/{{version}}/artisan). The generated policy will be placed in the `app/Policies` directory:
 
 	php artisan make:policy PostPolicy
 
@@ -289,7 +289,7 @@ Once the policy has been generated and registered, we can add methods for each a
 
 You may continue to define additional methods on the policy as needed for the various abilities it authorizes. For example, you might define `show`, `destroy`, or `addComment` methods to authorize various `Post` actions.
 
-> **Note:** All policies are resolved via the Laravel [service container](/docs/{{version}}/container), meaning you may type-hint any needed dependencies in the policy's constructor and they will be automatically injected.
+> **Note:** All policies are resolved via the Laravel [service container](/docs/{{language}}/{{version}}/container), meaning you may type-hint any needed dependencies in the policy's constructor and they will be automatically injected.
 
 #### Intercepting All Checks
 

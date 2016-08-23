@@ -31,7 +31,7 @@ To sample a basic selection of Laravel features, we will build a simple task lis
 
 #### Installing Laravel
 
-Of course, first you will need a fresh installation of the Laravel framework. You may use the [Homestead virtual machine](/docs/{{version}}/homestead) or the local PHP environment of your choice to run the framework. Once your local environment is ready, you may install the Laravel framework using Composer:
+Of course, first you will need a fresh installation of the Laravel framework. You may use the [Homestead virtual machine](/docs/{{language}}/{{version}}/homestead) or the local PHP environment of your choice to run the framework. Once your local environment is ready, you may install the Laravel framework using Composer:
 
 	composer create-project laravel/laravel quickstart --prefer-dist
 
@@ -44,7 +44,7 @@ You're free to just read along for the remainder of this quickstart; however, if
 	composer install
 	php artisan migrate
 
-For more complete documentation on building a local Laravel development environment, check out the full [Homestead](/docs/{{version}}/homestead) and [installation](/docs/{{version}}/installation) documentation.
+For more complete documentation on building a local Laravel development environment, check out the full [Homestead](/docs/{{language}}/{{version}}/homestead) and [installation](/docs/{{language}}/{{version}}/installation) documentation.
 
 <a name="prepping-the-database"></a>
 ## Prepping The Database
@@ -54,7 +54,7 @@ For more complete documentation on building a local Laravel development environm
 
 First, let's use a migration to define a database table to hold all of our tasks. Laravel's database migrations provide an easy way to define your database table structure and modifications using fluent, expressive PHP code. Instead of telling your team members to manually add columns to their local copy of the database, your teammates can simply run the migrations you push into source control.
 
-So, let's build a database table that will hold all of our tasks. The [Artisan CLI](/docs/{{version}}/artisan) can be used to generate a variety of classes and will save you a lot of typing as you build your Laravel projects. In this case, let's use the `make:migration` command to generate a new database migration for our `tasks` table:
+So, let's build a database table that will hold all of our tasks. The [Artisan CLI](/docs/{{language}}/{{version}}/artisan) can be used to generate a variety of classes and will save you a lot of typing as you build your Laravel projects. In this case, let's use the `make:migration` command to generate a new database migration for our `tasks` table:
 
 	php artisan make:migration create_tasks_table --create=tasks
 
@@ -101,7 +101,7 @@ This command will create all of our database tables. If you inspect the database
 <a name="eloquent-models"></a>
 ### Eloquent Models
 
-[Eloquent](/docs/{{version}}/eloquent) is Laravel's default ORM (object-relational mapper). Eloquent makes it painless to retrieve and store data in your database using clearly defined "models". Usually, each Eloquent model corresponds directly with a single database table.
+[Eloquent](/docs/{{language}}/{{version}}/eloquent) is Laravel's default ORM (object-relational mapper). Eloquent makes it painless to retrieve and store data in your database using clearly defined "models". Usually, each Eloquent model corresponds directly with a single database table.
 
 So, let's define a `Task` model that corresponds to our `tasks` database table we just created. Again, we can use an Artisan command to generate this model. In this case, we'll use the `make:model` command:
 
@@ -120,7 +120,7 @@ The model will be placed in the `app` directory of your application. By default,
 		//
 	}
 
-We'll learn more about how to use Eloquent models as we add routes to our application. Of course, feel free to consult the [complete Eloquent documentation](/docs/{{version}}/eloquent) for more information.
+We'll learn more about how to use Eloquent models as we add routes to our application. Of course, feel free to consult the [complete Eloquent documentation](/docs/{{language}}/{{version}}/eloquent) for more information.
 
 <a name="routing"></a>
 ## Routing
@@ -185,7 +185,7 @@ This application only has a single view which contains a form for adding new tas
 
 Almost all web applications share the same layout across pages. For example, this application has a top navigation bar that would be typically present on every page (if we had more than one). Laravel makes it easy to share these common features across every page using Blade **layouts**.
 
-As we discussed earlier, all Laravel views are stored in `resources/views`. So, let's define a new layout view in `resources/views/layouts/app.blade.php`. The `.blade.php` extension instructs the framework to use the [Blade templating engine](/docs/{{version}}/blade) to render the view. Of course, you may use plain PHP templates with Laravel. However, Blade provides convenient short-cuts for writing clean, terse templates.
+As we discussed earlier, all Laravel views are stored in `resources/views`. So, let's define a new layout view in `resources/views/layouts/app.blade.php`. The `.blade.php` extension instructs the framework to use the [Blade templating engine](/docs/{{language}}/{{version}}/blade) to render the view. Of course, you may use plain PHP templates with Laravel. However, Blade provides convenient short-cuts for writing clean, terse templates.
 
 Our `app.blade.php` view should look like the following:
 
@@ -280,7 +280,7 @@ Next, we're ready to add code to our `POST /task` route to handle the incoming f
 
 Now that we have a form in our view, we need to add code to our `POST /task` route in `app/Http/routes.php` to validate the incoming form input and create a new task. First, let's validate the input.
 
-For this form, we will make the `name` field required and state that it must contain less than `255` characters. If the validation fails, we will redirect the user back to the `/` URL, as well as flash the old input and errors into the [session](/docs/{{version}}/session). Flashing the input into the session will allow us to maintain the user's input even when there are validation errors:
+For this form, we will make the `name` field required and state that it must contain less than `255` characters. If the validation fails, we will redirect the user back to the `/` URL, as well as flash the old input and errors into the [session](/docs/{{language}}/{{version}}/session). Flashing the input into the session will allow us to maintain the user's input even when there are validation errors:
 
 	Route::post('/task', function (Request $request) {
 		$validator = Validator::make($request->all(), [
@@ -445,7 +445,7 @@ We can spoof a `DELETE` request by outputting the results of the `method_field('
 <a name="deleting-the-task"></a>
 ### Deleting The Task
 
-Finally, let's add logic to our route to actually delete the given task. We can use [implicit model binding](/docs/{{version}}/routing#route-model-binding) to automatically retrieve the `Task` model that corresponds to the `{task}` route parameter.
+Finally, let's add logic to our route to actually delete the given task. We can use [implicit model binding](/docs/{{language}}/{{version}}/routing#route-model-binding) to automatically retrieve the `Task` model that corresponds to the `{task}` route parameter.
 
 In our route callback, we will use the `delete` method to delete the record. Once the record is deleted, we will redirect the user back to the `/` URL:
 
