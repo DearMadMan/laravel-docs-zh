@@ -240,7 +240,7 @@ Laravel 提供了一种便利的方式来完成 [调度 Cron 任务](/docs/{{lan
 <a name="network-interfaces"></a>
 ## 网络接口
 
-`Homestead.yaml` 配置文件中的 `networks` 属性用来配置你的 Homestead 环境中的网络接口。你可以按需的进行配置多个接口：
+`Homestead.yaml` 使用配置文件中的 `networks` 属性用来配置 Homestead 环境中的网络接口。你可以按需的进行配置多个接口：
 
     networks:
         - type: "private_network"
