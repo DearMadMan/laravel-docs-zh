@@ -19,7 +19,7 @@ Anytime you define a HTML form in your application, you should include a hidden 
         ...
     </form>
 
-The `VerifyCsrfToken` [middleware](/docs/{{version}}/middleware), which is included in the `web` middleware group, will automatically verify that the token in the request input matches the token stored in the session.
+The `VerifyCsrfToken` [middleware](docs/{{language}}/{{version}}/middleware), which is included in the `web` middleware group, will automatically verify that the token in the request input matches the token stored in the session.
 
 <a name="csrf-excluding-uris"></a>
 ## Excluding URIs From CSRF Protection

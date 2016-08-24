@@ -11,7 +11,7 @@
 <a name="server-requirements"></a>
 ### Server Requirements
 
-The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/docs/{{version}}/homestead) virtual machine, so it's highly recommended that you use Homestead as your local Laravel development environment.
+The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](docs/{{language}}/{{version}}/homestead) virtual machine, so it's highly recommended that you use Homestead as your local Laravel development environment.
 
 However, if you are not using Homestead, you will need to make sure your server meets the following requirements:
 
@@ -59,7 +59,7 @@ All of the configuration files for the Laravel framework are stored in the `conf
 
 #### Directory Permissions
 
-After installing Laravel, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your web server or Laravel will not run. If you are using the [Homestead](/docs/{{version}}/homestead) virtual machine, these permissions should already be set.
+After installing Laravel, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your web server or Laravel will not run. If you are using the [Homestead](docs/{{language}}/{{version}}/homestead) virtual machine, these permissions should already be set.
 
 #### Application Key
 
@@ -74,9 +74,9 @@ Laravel needs almost no other configuration out of the box. You are free to get 
 You may also want to configure a few additional components of Laravel, such as:
 
 <div class="content-list" markdown="1">
-- [Cache](/docs/{{version}}/cache#configuration)
-- [Database](/docs/{{version}}/database#configuration)
-- [Session](/docs/{{version}}/session#configuration)
+- [Cache](docs/{{language}}/{{version}}/cache#configuration)
+- [Database](docs/{{language}}/{{version}}/database#configuration)
+- [Session](docs/{{language}}/{{version}}/session#configuration)
 </div>
 
-Once Laravel is installed, you should also [configure your local environment](/docs/{{version}}/configuration#environment-configuration).
+Once Laravel is installed, you should also [configure your local environment](docs/{{language}}/{{version}}/configuration#environment-configuration).

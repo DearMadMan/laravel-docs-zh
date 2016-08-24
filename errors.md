@@ -149,7 +149,7 @@ Laravel makes it easy to display custom error pages for various HTTP status code
 <a name="logging"></a>
 ## Logging
 
-Laravel provides a simple abstraction layer on top of the powerful [Monolog](http://github.com/seldaek/monolog) library. By default, Laravel is configured to create a log file for your application in the `storage/logs` directory. You may write information to the logs using the `Log` [facade](/docs/{{version}}/facades):
+Laravel provides a simple abstraction layer on top of the powerful [Monolog](http://github.com/seldaek/monolog) library. By default, Laravel is configured to create a log file for your application in the `storage/logs` directory. You may write information to the logs using the `Log` [facade](docs/{{language}}/{{version}}/facades):
 
     <?php
 

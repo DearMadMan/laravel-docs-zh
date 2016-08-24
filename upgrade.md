@@ -121,7 +121,7 @@ In prior versions of Laravel, when registering custom Blade directives using the
 
 #### Service Provider
 
-Laravel 5.3 includes significant improvements to [event broadcasting](/docs/{{version}}/broadcasting). You should add the new `BroadcastServiceProvider` to your `app/Providers` directory by [grabbing a fresh copy of the source from GitHub](https://raw.githubusercontent.com/laravel/laravel/develop/app/Providers/BroadcastServiceProvider.php). Once you have defined the new service provider, you should add it to the `providers` array of your `config/app.php` configuration file.
+Laravel 5.3 includes significant improvements to [event broadcasting](docs/{{language}}/{{version}}/broadcasting). You should add the new `BroadcastServiceProvider` to your `app/Providers` directory by [grabbing a fresh copy of the source from GitHub](https://raw.githubusercontent.com/laravel/laravel/develop/app/Providers/BroadcastServiceProvider.php). Once you have defined the new service provider, you should add it to the `providers` array of your `config/app.php` configuration file.
 
 ### Cache
 
@@ -163,7 +163,7 @@ The `where` method also no longer accepts a third parameter to indicate "strictn
 
 #### Collections
 
-The [fluent query builder](/docs/{{version}}/queries) now returns `Illuminate\Support\Collection` instances instead of plain arrays. This brings consistency to the result types returned by the fluent query builder and Eloquent.
+The [fluent query builder](docs/{{language}}/{{version}}/queries) now returns `Illuminate\Support\Collection` instances instead of plain arrays. This brings consistency to the result types returned by the fluent query builder and Eloquent.
 
 If you do not want to migrate your query builder results to `Collection` instances, you may chain the `all` method onto your calls to the query builder's `get` method. This will return a plain PHP array of the results, allowing you to maintain backwards compatibility:
 
@@ -212,7 +212,7 @@ If your scopes begin with `where` constraints no action is required. Remember, y
 
 #### Join Clause
 
-The `JoinClause` class has been rewritten to unify its syntax with the query builder. The optional `$where` parameter of the `on` clause has been removed. To add a "where" conditions you should explicitly use one of the `where` methods offered by the [query builder](/docs/{{version}}/queries#where-clauses):
+The `JoinClause` class has been rewritten to unify its syntax with the query builder. The optional `$where` parameter of the `on` clause has been removed. To add a "where" conditions you should explicitly use one of the `where` methods offered by the [query builder](docs/{{language}}/{{version}}/queries#where-clauses):
 
     $query->join('table', function ($join) {
         $join->on('foo', 'bar')->where('bar', 'baz');
@@ -232,7 +232,7 @@ The Mcrypt encrypter was deprecated during the Laravel 5.1.0 release in June 201
 
 If you are still using an Mcrypt based `cipher` in your `config/app.php` configuration file, you should update the cipher to `AES-256-CBC` and set your key to a random 32 byte string which may be securely generated using `php artisan key:generate`.
 
-If you are storing encrypted data in your database using the Mcrypt encrypter, you may install the `laravel/legacy-encrypter` [package](https://github.com/laravel/legacy-encrypter) which includes the legacy Mcrypt encrypter implementation. You should use this package to decrypt your encrypted data and re-encrypt it using the new OpenSSL encrypter. For example, you may do something like the following in a [custom Artisan command](/docs/{{version}}/artisan):
+If you are storing encrypted data in your database using the Mcrypt encrypter, you may install the `laravel/legacy-encrypter` [package](https://github.com/laravel/legacy-encrypter) which includes the legacy Mcrypt encrypter implementation. You should use this package to decrypt your encrypted data and re-encrypt it using the new OpenSSL encrypter. For example, you may do something like the following in a [custom Artisan command](docs/{{language}}/{{version}}/artisan):
 
     $legacy = new McryptEncrypter($encryptionKey);
 
@@ -301,7 +301,7 @@ Customizing the paginator's generated HTML is much easier in Laravel 5.3 compare
 
 This command will place the views in the `resources/views/vendor/pagination` directory. The `default.blade.php` file within this directory corresponds to the default pagination view. Simply edit this file to modify the pagination HTML.
 
-Be sure to review the full [pagination documentation](/docs/{{version}}/pagination) for more information.
+Be sure to review the full [pagination documentation](docs/{{language}}/{{version}}/pagination) for more information.
 
 ### Queue
 
@@ -426,7 +426,7 @@ This is unlikely to affect your application unless you were manually implementin
 
 If you are using the `Auth::extend` method to define a custom method of retrieving users, you should now use `Auth::provider` to define your custom user provider. Once you have defined the custom provider, you may configure it in the `providers` array of your new `auth.php` configuration file.
 
-For more information on custom authentication providers, consult the [full authentication documentation](/docs/{{version}}/authentication).
+For more information on custom authentication providers, consult the [full authentication documentation](docs/{{language}}/{{version}}/authentication).
 
 #### Redirection
 
@@ -665,7 +665,7 @@ The following features are deprecated in 5.2 and will be removed in the 5.3 rele
 <a name="upgrade-5.1.11"></a>
 ## Upgrading To 5.1.11
 
-Laravel 5.1.11 includes support for [authorization](/docs/{{version}}/authorization) and [policies](/docs/{{version}}/authorization#policies). Incorporating these new features into your existing Laravel 5.1 applications is simple.
+Laravel 5.1.11 includes support for [authorization](docs/{{language}}/{{version}}/authorization) and [policies](docs/{{language}}/{{version}}/authorization#policies). Incorporating these new features into your existing Laravel 5.1 applications is simple.
 
 > {note} These upgrades are **optional**, and ignoring them will not affect your application.
 
@@ -845,7 +845,7 @@ By providing backwards compatibility for the Laravel 5.0 folder structure, you m
 
 ### Blade
 
-The `createMatcher`, `createOpenMatcher`, and `createPlainMatcher` methods have been removed from the Blade compiler. Use the new `directive` method to create custom directives for Blade in Laravel 5.1. Consult the [extending blade](/docs/{{version}}/blade#extending-blade) documentation for more information.
+The `createMatcher`, `createOpenMatcher`, and `createPlainMatcher` methods have been removed from the Blade compiler. Use the new `directive` method to create custom directives for Blade in Laravel 5.1. Consult the [extending blade](docs/{{language}}/{{version}}/blade#extending-blade) documentation for more information.
 
 ### Tests
 
@@ -870,10 +870,10 @@ If you are using the Amazon S3 filesystem driver, you will need to update the co
 The following Laravel features have been deprecated and will be removed entirely with the release of Laravel 5.2 in December 2015:
 
 <div class="content-list" markdown="1">
-- Route filters have been deprecated in preference of [middleware](/docs/{{version}}/middleware).
+- Route filters have been deprecated in preference of [middleware](docs/{{language}}/{{version}}/middleware).
 - The `Illuminate\Contracts\Routing\Middleware` contract has been deprecated. No contract is required on your middleware. In addition, the `TerminableMiddleware` contract has also been deprecated. Instead of implementing the interface, simply define a `terminate` method on your middleware.
 - The `Illuminate\Contracts\Queue\ShouldBeQueued` contract has been deprecated in favor of `Illuminate\Contracts\Queue\ShouldQueue`.
-- Iron.io "push queues" have been deprecated in favor of typical Iron.io queues and [queue listeners](/docs/{{version}}/queues#running-the-queue-listener).
+- Iron.io "push queues" have been deprecated in favor of typical Iron.io queues and [queue listeners](docs/{{language}}/{{version}}/queues#running-the-queue-listener).
 - The `Illuminate\Foundation\Bus\DispatchesCommands` trait has been deprecated and renamed to `Illuminate\Foundation\Bus\DispatchesJobs`.
 - `Illuminate\Container\BindingResolutionException` has been moved to `Illuminate\Contracts\Container\BindingResolutionException`.
 - The service container's `bindShared` method has been deprecated in favor of the `singleton` method.
@@ -924,7 +924,7 @@ Copy the new `.env.example` file to `.env`, which is the `5.0` equivalent of the
 
 Additionally, copy any custom values you had in your old `.env.php` file and place them in both `.env` (the real value for your local environment) and `.env.example` (a sample instructional value for other team members).
 
-For more information on environment configuration, view the [full documentation](/docs/{{version}}/installation#environment-configuration).
+For more information on environment configuration, view the [full documentation](docs/{{language}}/{{version}}/installation#environment-configuration).
 
 > {note} You will need to place the appropriate `.env` file and values on your production server before deploying your Laravel 5 application.
 
@@ -956,7 +956,7 @@ Filters are not removed in Laravel 5. You can still bind and use your own custom
 
 ### Global CSRF
 
-By default, [CSRF protection](/docs/{{version}}/routing#csrf-protection) is enabled on all routes. If you'd like to disable this, or only manually enable it on certain routes, remove this line from `App\Http\Kernel`'s `middleware` array:
+By default, [CSRF protection](docs/{{language}}/{{version}}/routing#csrf-protection) is enabled on all routes. If you'd like to disable this, or only manually enable it on certain routes, remove this line from `App\Http\Kernel`'s `middleware` array:
 
     'App\Http\Middleware\VerifyCsrfToken',
 
@@ -964,7 +964,7 @@ If you want to use it elsewhere, add this line to `$routeMiddleware`:
 
     'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
 
-Now you can add the middleware to individual routes / controllers using `['middleware' => 'csrf']` on the route. For more information on middleware, consult the [full documentation](/docs/{{version}}/middleware).
+Now you can add the middleware to individual routes / controllers using `['middleware' => 'csrf']` on the route. For more information on middleware, consult the [full documentation](docs/{{language}}/{{version}}/middleware).
 
 ### Eloquent Models
 
@@ -974,7 +974,7 @@ Update any models using `SoftDeletingTrait` to use `Illuminate\Database\Eloquent
 
 #### Eloquent Caching
 
-Eloquent no longer provides the `remember` method for caching queries. You now are responsible for caching your queries manually using the `Cache::remember` function. For more information on caching, consult the [full documentation](/docs/{{version}}/cache).
+Eloquent no longer provides the `remember` method for caching queries. You now are responsible for caching your queries manually using the `Cache::remember` function. For more information on caching, consult the [full documentation](docs/{{language}}/{{version}}/cache).
 
 ### User Authentication Model
 
@@ -1014,7 +1014,7 @@ use Authenticatable, CanResetPassword;
 
 ### Cashier User Changes
 
-The name of the trait and interface used by [Laravel Cashier](/docs/{{version}}/billing) has changed. Instead of using `BillableTrait`, use the `Laravel\Cashier\Billable` trait. And, instead of `Laravel\Cashier\BillableInterface` implement the `Laravel\Cashier\Contracts\Billable` interface instead. No other method changes are required.
+The name of the trait and interface used by [Laravel Cashier](docs/{{language}}/{{version}}/billing) has changed. Instead of using `BillableTrait`, use the `Laravel\Cashier\Billable` trait. And, instead of `Laravel\Cashier\BillableInterface` implement the `Laravel\Cashier\Contracts\Billable` interface instead. No other method changes are required.
 
 ### Artisan Commands
 
@@ -1030,7 +1030,7 @@ Move all of your migration classes from the old `app/database/migrations` direct
 
 ### Global IoC Bindings
 
-If you have any [service container](/docs/{{version}}/container) bindings in `start/global.php`, move them all to the `register` method of the `app/Providers/AppServiceProvider.php` file. You may need to import the `App` facade.
+If you have any [service container](docs/{{language}}/{{version}}/container) bindings in `start/global.php`, move them all to the `register` method of the `app/Providers/AppServiceProvider.php` file. You may need to import the `App` facade.
 
 Optionally, you may break these bindings up into separate service providers by category.
 
@@ -1072,7 +1072,7 @@ You may move your Sass, Less, or CoffeeScript to any location you wish. The `res
 
 ### Form & HTML Helpers
 
-If you're using Form or HTML helpers, you will see an error stating `class 'Form' not found` or `class 'Html' not found`. The Form and HTML helpers have been deprecated in Laravel 5.0; however, there are community-driven replacements such as those maintained by the [Laravel Collective](http://laravelcollective.com/docs/{{version}}/html).
+If you're using Form or HTML helpers, you will see an error stating `class 'Form' not found` or `class 'Html' not found`. The Form and HTML helpers have been deprecated in Laravel 5.0; however, there are community-driven replacements such as those maintained by the [Laravel Collective](http://laravelcollective.comdocs/{{language}}/{{version}}/html).
 
 For example, you may add `"laravelcollective/html": "~5.0"` to your `composer.json` file's `require` section.
 

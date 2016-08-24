@@ -45,7 +45,7 @@ If you are developing with a team, you may wish to continue including a `.env.ex
 <a name="determining-the-current-environment"></a>
 ### Determining The Current Environment
 
-The current application environment is determined via the `APP_ENV` variable from your `.env` file. You may access this value via the `environment` method on the `App` [facade](/docs/{{version}}/facades):
+The current application environment is determined via the `APP_ENV` variable from your `.env` file. You may access this value via the `environment` method on the `App` [facade](docs/{{language}}/{{version}}/facades):
 
     $environment = App::environment();
 
@@ -89,7 +89,7 @@ The default template for maintenance mode responses is located in `resources/vie
 
 #### Maintenance Mode & Queues
 
-While your application is in maintenance mode, no [queued jobs](/docs/{{version}}/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
+While your application is in maintenance mode, no [queued jobs](docs/{{language}}/{{version}}/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
 
 #### Alternatives To Maintenance Mode
 
