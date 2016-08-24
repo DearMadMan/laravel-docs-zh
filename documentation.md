@@ -1,8 +1,8 @@
 - 前言
     - [发行说明](docs/{{language}}/{{version}}/releases)
     - [升级指南](docs/{{language}}/{{version}}/upgrade)
-    - [Contribution Guide](docs/{{language}}/{{version}}/contributions)
-    - [API Documentation](/api/{{version}})
+    - [贡献指南](docs/{{language}}/{{version}}/contributions)
+    - [API 文档](/api/{{version}})
 - 起步
     - [安装](docs/{{language}}/{{version}}/installation)
     - [配置](docs/{{language}}/{{version}}/configuration)
