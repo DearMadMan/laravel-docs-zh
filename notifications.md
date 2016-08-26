@@ -36,8 +36,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-In addition to support for [sending email](/docs/{{language}}/{{version}}
--/mail), Laravel provides support for sending notifications across a variety of delivery channels, including mail, SMS (via [Nexmo](https://www.nexmo.com/)), and [Slack](https://slack.com). Notifications may also be stored in a database so they may be displayed in your web interface.
+In addition to support for [sending email](/docs/{{language}}/{{version}}/mail), Laravel provides support for sending notifications across a variety of delivery channels, including mail, SMS (via [Nexmo](https://www.nexmo.com/)), and [Slack](https://slack.com). Notifications may also be stored in a database so they may be displayed in your web interface.
 
 Typically, notifications should be short, informational messages that notify users of something that occurred in your application. For example, if you are writing a billing application, you might send an "Invoice Paid" notification to your users via the email and SMS channels.
 
@@ -56,8 +55,7 @@ This command will place a fresh notification class in your `app/Notifications` d
 <a name="using-the-notifiable-trait"></a>
 ### Using The Notifiable Trait
 
-Notifications may be sent in two ways: using the `notify` method of the `Notifiable` trait or using the `Notification` [facade](/docs/{{language}}/{{version}}
--/facades). First, let's examine the `Notifiable` trait. This trait is used by the default `App\User` model and contains one method that may be used to send notifications: `notify`. The `notify` method expects to receive a notification instance:
+Notifications may be sent in two ways: using the `notify` method of the `Notifiable` trait or using the `Notification` [facade](/docs/{{language}}/{{version}}/facades). First, let's examine the `Notifiable` trait. This trait is used by the default `App\User` model and contains one method that may be used to send notifications: `notify`. The `notify` method expects to receive a notification instance:
 
     use App\Notifications\InvoicePaid;
 
@@ -68,8 +66,7 @@ Notifications may be sent in two ways: using the `notify` method of the `Notifia
 <a name="using-the-notification-facade"></a>
 ### Using The Notification Facade
 
-Alternatively, you may send notifications via the `Notification` [facade](/docs/{{language}}/{{version}}
--facades). This is useful primarily when you need to send a notification to multiple notifiable entities such as a collection of users. To send notifications using the facade, pass all of the notifiable entities and the notification instance to the `send` method:
+Alternatively, you may send notifications via the `Notification` [facade](/docs/{{language}}/{{version}}facades). This is useful primarily when you need to send a notification to multiple notifiable entities such as a collection of users. To send notifications using the facade, pass all of the notifiable entities and the notification instance to the `send` method:
 
     Notification::send($users, new InvoicePaid($invoice));
 
@@ -96,8 +93,7 @@ The `via` method receives a `$notifiable` instance, which will be an instance of
 <a name="queueing-notifications"></a>
 ### Queueing Notifications
 
-> {note} Before queueing notifications you should configure your queue and [start a worker](/docs/{{language}}/{{version}}
--/queues).
+> {note} Before queueing notifications you should configure your queue and [start a worker](/docs/{{language}}/{{version}}/queues).
 
 Sending notifications can take time, especially if the channel needs an external API call to deliver the notification. To speed up your application's response time, let your notification be queued by adding the `ShouldQueue` interface and `Queueable` trait to your class. The interface and trait are already imported for all notifications generated using `make:notification`, so you may immediately add them to your notification class:
 
@@ -309,14 +305,12 @@ Of course, you may `delete` the notifications to remove them from the table enti
 <a name="broadcast-prerequisites"></a>
 ### Prerequisites
 
-Before broadcasting notifications, you should configure and be familiar with Laravel's [event broadcasting](/docs/{{language}}/{{version}}
--/broadcasting) services. Event broadcasting provides a way to react to server-side fired Laravel events from your JavaScript client.
+Before broadcasting notifications, you should configure and be familiar with Laravel's [event broadcasting](/docs/{{language}}/{{version}}/broadcasting) services. Event broadcasting provides a way to react to server-side fired Laravel events from your JavaScript client.
 
 <a name="formatting-broadcast-notifications"></a>
 ### Formatting Broadcast Notifications
 
-The `broadcast` channel broadcasts notifications using Laravel's [event broadcasting](/docs/{{language}}/{{version}}
--/broadcasting) services, allowing your JavaScript client to catch notifications in realtime. If a notification supports broadcasting, you should define a `toBroadcast` or `toArray` method on the notification class. This method will receive a `$notifiable` entity and should return a plain PHP array. The returned array will be encoded as JSON and broadcast to your JavaScript client. Let's take a look at an example `toArray` method:
+The `broadcast` channel broadcasts notifications using Laravel's [event broadcasting](/docs/{{language}}/{{version}}/broadcasting) services, allowing your JavaScript client to catch notifications in realtime. If a notification supports broadcasting, you should define a `toBroadcast` or `toArray` method on the notification class. This method will receive a `$notifiable` entity and should return a plain PHP array. The returned array will be encoded as JSON and broadcast to your JavaScript client. Let's take a look at an example `toArray` method:
 
     /**
      * Get the array representation of the notification.
@@ -341,8 +335,7 @@ The `toArray` method is also used by the `database` channel to determine which d
 <a name="listening-for-notifications"></a>
 ### Listening For Notifications
 
-Notifications will broadcast on a private channel formatted using a `{notifiable}.{id}` convention. So, if you are sending a notification to a `App\User` instance with an ID of `1`, the notification will be broadcast on the `App.User.1` private channel. When using [Laravel Echo](/docs/{{language}}/{{version}}
--/broadcasting), you may easily listen for notifications on a channel using the `notification` helper method:
+Notifications will broadcast on a private channel formatted using a `{notifiable}.{id}` convention. So, if you are sending a notification to a `App\User` instance with an ID of `1`, the notification will be broadcast on the `App.User.1` private channel. When using [Laravel Echo](/docs/{{language}}/{{version}}/broadcasting), you may easily listen for notifications on a channel using the `notification` helper method:
 
     Echo.private('App.User.' + userId)
         .notification((notification) => {

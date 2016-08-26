@@ -12,11 +12,9 @@ While Laravel does not dictate which JavaScript or CSS pre-processors you use, i
 
 #### CSS
 
-[Laravel Elixir](/docs/{{language}}/{{version}}
--/elixir) provides a clean, expressive API over compiling SASS or Less, which are extensions of plain CSS that add variables, mixins, and other powerful features that make working with CSS much more enjoyable.
+[Laravel Elixir](/docs/{{language}}/{{version}}/elixir) provides a clean, expressive API over compiling SASS or Less, which are extensions of plain CSS that add variables, mixins, and other powerful features that make working with CSS much more enjoyable.
 
-In this document, we will briefly discuss CSS compilation in general; however, you should consult the full [Laravel Elixir documentation](/docs/{{language}}/{{version}}
--/elixir) for more information on compiling SASS or Less.
+In this document, we will briefly discuss CSS compilation in general; however, you should consult the full [Laravel Elixir documentation](/docs/{{language}}/{{version}}/elixir) for more information on compiling SASS or Less.
 
 #### JavaScript
 
@@ -35,8 +33,7 @@ Once the dependencies have been installed using `npm install`, you can compile y
 
     gulp
 
-The default `gulpfile.js` included with Laravel will compile the `resources/assets/sass/app.scss` SASS file. This `app.scss` file imports a file of SASS variables and loads Bootstrap, which provides a good starting point for most applications. Feel free to customize the `app.scss` file however you wish or even use an entirely different pre-processor by [configuring Laravel Elixir](/docs/{{language}}/{{version}}
--/elixir).
+The default `gulpfile.js` included with Laravel will compile the `resources/assets/sass/app.scss` SASS file. This `app.scss` file imports a file of SASS variables and loads Bootstrap, which provides a good starting point for most applications. Feel free to customize the `app.scss` file however you wish or even use an entirely different pre-processor by [configuring Laravel Elixir](/docs/{{language}}/{{version}}/elixir).
 
 <a name="writing-javascript"></a>
 ## Writing JavaScript
@@ -47,8 +44,7 @@ All of the JavaScript dependencies required by your application can be found in 
 
 By default, the Laravel `package.json` file includes a few packages such as `vue` and `vue-resource` to help you get started building your JavaScript application. Feel free to add or remove from the `package.json` file as needed for your own application.
 
-Once the packages are installed, you can use the `gulp` command to [compile your assets](/docs/{{language}}/{{version}}
--/elixir). Gulp is a command-line build system for JavaScript. When you run the `gulp` command, Gulp will execute the instructions in your `gulpfile.js` file:
+Once the packages are installed, you can use the `gulp` command to [compile your assets](/docs/{{language}}/{{version}}/elixir). Gulp is a command-line build system for JavaScript. When you run the `gulp` command, Gulp will execute the instructions in your `gulpfile.js` file:
 
     gulp
 

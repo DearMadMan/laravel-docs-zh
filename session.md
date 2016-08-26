@@ -33,8 +33,7 @@ The session `driver` configuration option defines where session data will be sto
 - `array` - sessions are stored in a PHP array and will not be persisted.
 </div>
 
-> {tip} The array driver is used during [testing](/docs/{{language}}/{{version}}
--/testing) and prevents the data stored in the session from being persisted.
+> {tip} The array driver is used during [testing](/docs/{{language}}/{{version}}/testing) and prevents the data stored in the session from being persisted.
 
 <a name="driver-prerequisites"></a>
 ### Driver Prerequisites
@@ -68,8 +67,7 @@ Before using Redis sessions with Laravel, you will need to install the `predis/p
 <a name="retrieving-data"></a>
 ### Retrieving Data
 
-There are two primary ways of working with session data in Laravel: the global `session` helper and via a `Request` instance. First, let's look at accessing the session via a `Request` instance, which can be type-hinted on a controller method. Remember, controller method dependencies are automatically injected via the Laravel [service container](/docs/{{language}}/{{version}}
--/container):
+There are two primary ways of working with session data in Laravel: the global `session` helper and via a `Request` instance. First, let's look at accessing the session via a `Request` instance, which can be type-hinted on a controller method. Remember, controller method dependencies are automatically injected via the Laravel [service container](/docs/{{language}}/{{version}}/container):
 
     <?php
 
@@ -118,8 +116,7 @@ You may also use the global `session` PHP function to retrieve and store data in
         session(['key' => 'value']);
     });
 
-> {tip} There is little practical difference between using the session via an HTTP request instance versus using the global `session` helper. Both methods are [testable](/docs/{{language}}/{{version}}
--/testing) via the `assertSessionHas` method which is available in all of your test cases.
+> {tip} There is little practical difference between using the session via an HTTP request instance versus using the global `session` helper. Both methods are [testable](/docs/{{language}}/{{version}}/testing) via the `assertSessionHas` method which is available in all of your test cases.
 
 #### Retrieving All Session Data
 
@@ -233,9 +230,7 @@ Since the purpose of these methods is not readily understandable, let's quickly 
 <a name="registering-the-driver"></a>
 #### Registering The Driver
 
-Once your driver has been implemented, you are ready to register it with the framework. To add additional drivers to Laravel's session backend, you may use the `extend` method on the `Session` [facade](/docs/{{language}}/{{version}}
--/facades). You should call the `extend` method from the `boot` method of a [service provider](/docs/{{language}}/{{version}}
--/providers). You may do this from the existing `AppServiceProvider` or create an entirely new provider:
+Once your driver has been implemented, you are ready to register it with the framework. To add additional drivers to Laravel's session backend, you may use the `extend` method on the `Session` [facade](/docs/{{language}}/{{version}}/facades). You should call the `extend` method from the `boot` method of a [service provider](/docs/{{language}}/{{version}}/providers). You may do this from the existing `AppServiceProvider` or create an entirely new provider:
 
     <?php
 

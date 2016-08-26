@@ -24,8 +24,7 @@ Since this view is stored at `resources/views/greeting.php`, we may return it us
         return view('greeting', ['name' => 'James']);
     });
 
-As you can see, the first argument passed to the `view` helper corresponds to the name of the view file in the `resources/views` directory. The second argument is an array of data that should be made available to the view. In this case, we are passing the `name` variable, which is displayed in the view using [Blade syntax](/docs/{{language}}/{{version}}
--/blade).
+As you can see, the first argument passed to the `view` helper corresponds to the name of the view file in the `resources/views` directory. The second argument is an array of data that should be made available to the view. In this case, we are passing the `name` variable, which is displayed in the view using [Blade syntax](/docs/{{language}}/{{version}}/blade).
 
 Of course, views may also be nested within sub-directories of the `resources/views` directory. "Dot" notation may be used to reference nested views. For example, if your view is stored at `resources/views/admin/profile.php`, you may reference it like so:
 
@@ -91,8 +90,7 @@ Occasionally, you may need to share a piece of data with all views that are rend
 
 View composers are callbacks or class methods that are called when a view is rendered. If you have data that you want to be bound to a view each time that view is rendered, a view composer can help you organize that logic into a single location.
 
-For this example, let's register the view composers within a [service provider](/docs/{{language}}/{{version}}
--/providers). We'll use the `View` facade to access the underlying `Illuminate\Contracts\View\Factory` contract implementation. Remember, Laravel does not include a default directory for view composers. You are free to organize them however you wish. For example, you could create an `App\Http\ViewComposers` directory:
+For this example, let's register the view composers within a [service provider](/docs/{{language}}/{{version}}/providers). We'll use the `View` facade to access the underlying `Illuminate\Contracts\View\Factory` contract implementation. Remember, Laravel does not include a default directory for view composers. You are free to organize them however you wish. For example, you could create an `App\Http\ViewComposers` directory:
 
     <?php
 
@@ -178,8 +176,7 @@ Now that we have registered the composer, the `ProfileComposer@compose` method w
 
 Just before the view is rendered, the composer's `compose` method is called with the `Illuminate\View\View` instance. You may use the `with` method to bind data to the view.
 
-> {tip} All view composers are resolved via the [service container](/docs/{{language}}/{{version}}
--/container), so you may type-hint any dependencies you need within a composer's constructor.
+> {tip} All view composers are resolved via the [service container](/docs/{{language}}/{{version}}/container), so you may type-hint any dependencies you need within a composer's constructor.
 
 #### Attaching A Composer To Multiple Views
 

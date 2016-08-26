@@ -23,14 +23,12 @@
 
 Migrations are like version control for your database, allowing your team to easily modify and share the application's database schema. Migrations are typically paired with Laravel's schema builder to easily build your application's database schema. If you have ever had to tell a teammate to manually add a column to their local database schema, you've faced the problem that database migrations solve.
 
-The Laravel `Schema` [facade](/docs/{{language}}/{{version}}
--/facades) provides database agnostic support for creating and manipulating tables across all of Laravel's supported database systems.
+The Laravel `Schema` [facade](/docs/{{language}}/{{version}}/facades) provides database agnostic support for creating and manipulating tables across all of Laravel's supported database systems.
 
 <a name="generating-migrations"></a>
 ## Generating Migrations
 
-To create a migration, use the `make:migration` [Artisan command](/docs/{{language}}/{{version}}
--/artisan):
+To create a migration, use the `make:migration` [Artisan command](/docs/{{language}}/{{version}}/artisan):
 
     php artisan make:migration create_users_table
 
@@ -92,8 +90,7 @@ To run all of your outstanding migrations, execute the `migrate` Artisan command
 
     php artisan migrate
 
-> {note} If you are using the [Homestead virtual machine](/docs/{{language}}/{{version}}
--/homestead), you should run this command from within your virtual machine.
+> {note} If you are using the [Homestead virtual machine](/docs/{{language}}/{{version}}/homestead), you should run this command from within your virtual machine.
 
 #### Forcing Migrations To Run In Production
 

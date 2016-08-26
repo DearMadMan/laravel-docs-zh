@@ -91,8 +91,7 @@ Another approach to resetting the database state is to wrap each test case in a 
 <a name="model-factories"></a>
 ## Writing Factories
 
-When testing, it is common to need to insert a few records into your database before executing your test. Instead of manually specifying the value of each column when you create this test data, Laravel allows you to define a default set of attributes for each of your [Eloquent models](/docs/{{language}}/{{version}}
--/eloquent) using model factories. To get started, take a look at the `database/factories/ModelFactory.php` file in your application. Out of the box, this file contains one factory definition:
+When testing, it is common to need to insert a few records into your database before executing your test. Instead of manually specifying the value of each column when you create this test data, Laravel allows you to define a default set of attributes for each of your [Eloquent models](/docs/{{language}}/{{version}}/eloquent) using model factories. To get started, take a look at the `database/factories/ModelFactory.php` file in your application. Out of the box, this file contains one factory definition:
 
     $factory->define(App\User::class, function (Faker\Generator $faker) {
         return [
@@ -189,8 +188,7 @@ You may override attributes on the model by passing an array to the `create` met
 <a name="relationships"></a>
 ### Relationships
 
-In this example, we'll attach a relation to some created models. When using the `create` method to create multiple models, an Eloquent [collection instance](/docs/{{language}}/{{version}}
--/eloquent-collections) is returned, allowing you to use any of the convenient functions provided by the collection, such as `each`:
+In this example, we'll attach a relation to some created models. When using the `create` method to create multiple models, an Eloquent [collection instance](/docs/{{language}}/{{version}}/eloquent-collections) is returned, allowing you to use any of the convenient functions provided by the collection, such as `each`:
 
     $users = factory(App\User::class, 3)
                ->create()

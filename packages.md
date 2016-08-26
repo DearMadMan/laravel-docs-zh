@@ -24,25 +24,19 @@ On the other hand, other packages are specifically intended for use with Laravel
 <a name="a-note-on-facades"></a>
 ### A Note On Facades
 
-When writing a Laravel application, it generally does not matter if you use contracts or facades since both provide essentially equal levels of testability. However, when writing packages, it is best to use [contracts](/docs/{{language}}/{{version}}
--/contracts) instead of [facades](/docs/{{language}}/{{version}}
--/facades). Since your package will not have access to all of Laravel's testing helpers, it will be easier to mock or stub a contract than to mock a facade.
+When writing a Laravel application, it generally does not matter if you use contracts or facades since both provide essentially equal levels of testability. However, when writing packages, it is best to use [contracts](/docs/{{language}}/{{version}}/contracts) instead of [facades](/docs/{{language}}/{{version}}/facades). Since your package will not have access to all of Laravel's testing helpers, it will be easier to mock or stub a contract than to mock a facade.
 
 <a name="service-providers"></a>
 ## Service Providers
 
-[Service providers](/docs/{{language}}/{{version}}
--/providers) are the connection points between your package and Laravel. A service provider is responsible for binding things into Laravel's [service container](/docs/{{language}}/{{version}}
--/container) and informing Laravel where to load package resources such as views, configuration, and localization files.
+[Service providers](/docs/{{language}}/{{version}}/providers) are the connection points between your package and Laravel. A service provider is responsible for binding things into Laravel's [service container](/docs/{{language}}/{{version}}/container) and informing Laravel where to load package resources such as views, configuration, and localization files.
 
-A service provider extends the `Illuminate\Support\ServiceProvider` class and contains two methods: `register` and `boot`. The base `ServiceProvider` class is located in the `illuminate/support` Composer package, which you should add to your own package's dependencies. To learn more about the structure and purpose of service providers, check out [their documentation](/docs/{{language}}/{{version}}
--/providers).
+A service provider extends the `Illuminate\Support\ServiceProvider` class and contains two methods: `register` and `boot`. The base `ServiceProvider` class is located in the `illuminate/support` Composer package, which you should add to your own package's dependencies. To learn more about the structure and purpose of service providers, check out [their documentation](/docs/{{language}}/{{version}}/providers).
 
 <a name="routing"></a>
 ## Routing
 
-To define routes for your package, simply `require` the routes file from within your package service provider's `boot` method. From within your routes file, you may use the `Illuminate\Support\Facades\Route` facade to [register routes](/docs/{{language}}/{{version}}
--/routing) just as you would within a typical Laravel application:
+To define routes for your package, simply `require` the routes file from within your package service provider's `boot` method. From within your routes file, you may use the `Illuminate\Support\Facades\Route` facade to [register routes](/docs/{{language}}/{{version}}/routing) just as you would within a typical Laravel application:
 
     /**
      * Perform post-registration booting of services.
@@ -99,8 +93,7 @@ You may also merge your own package configuration file with the application's pu
 <a name="migrations"></a>
 ### Migrations
 
-If your package contains [database migrations](/docs/{{language}}/{{version}}
--/migrations), you may use the `loadMigrationsFrom` method to inform Laravel how to load them. The `loadMigrationsFrom` method accepts the path to your package's migrations as its only argument:
+If your package contains [database migrations](/docs/{{language}}/{{version}}/migrations), you may use the `loadMigrationsFrom` method to inform Laravel how to load them. The `loadMigrationsFrom` method accepts the path to your package's migrations as its only argument:
 
     /**
      * Perform post-registration booting of services.
@@ -117,8 +110,7 @@ Once your package's migrations have been registered, they will automatically be 
 <a name="translations"></a>
 ### Translations
 
-If your package contains [translation files](/docs/{{language}}/{{version}}
--/localization), you may use the `loadTranslationsFrom` method to inform Laravel how to load them. For example, if your package is named `courier`, you should add the following to your service provider's `boot` method:
+If your package contains [translation files](/docs/{{language}}/{{version}}/localization), you may use the `loadTranslationsFrom` method to inform Laravel how to load them. For example, if your package is named `courier`, you should add the following to your service provider's `boot` method:
 
     /**
      * Perform post-registration booting of services.
@@ -157,8 +149,7 @@ Now, when users of your package execute Laravel's `vendor:publish` Artisan comma
 <a name="views"></a>
 ### Views
 
-To register your package's [views](/docs/{{language}}/{{version}}
--/views) with Laravel, you need to tell Laravel where the views are located. You may do this using the service provider's `loadViewsFrom` method. The `loadViewsFrom` method accepts two arguments: the path to your view templates and your package's name. For example, if your package's name is `courier`, you would add the following to your service provider's `boot` method:
+To register your package's [views](/docs/{{language}}/{{version}}/views) with Laravel, you need to tell Laravel where the views are located. You may do this using the service provider's `loadViewsFrom` method. The `loadViewsFrom` method accepts two arguments: the path to your view templates and your package's name. For example, if your package's name is `courier`, you would add the following to your service provider's `boot` method:
 
     /**
      * Perform post-registration booting of services.

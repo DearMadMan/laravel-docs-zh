@@ -14,8 +14,7 @@ Redirect responses are instances of the `Illuminate\Http\RedirectResponse` class
         return redirect('home/dashboard');
     });
 
-Sometimes you may wish to redirect the user to their previous location, such as when a submitted form is invalid. You may do so by using the global `back` helper function. Since this feature utilizes the [session](/docs/{{language}}/{{version}}
--/session), make sure the route calling the `back` function is using the `web` middleware group or has all of the session middleware applied:
+Sometimes you may wish to redirect the user to their previous location, such as when a submitted form is invalid. You may do so by using the global `back` helper function. Since this feature utilizes the [session](/docs/{{language}}/{{version}}/session), make sure the route calling the `back` function is using the `web` middleware group or has all of the session middleware applied:
 
     Route::post('user/profile', function () {
         // Validate the request...
@@ -59,8 +58,7 @@ If you would like to customize the value that is placed in the route parameter, 
 <a name="redirecting-controller-actions"></a>
 ## Redirecting To Controller Actions
 
-You may also generate redirects to [controller actions](/docs/{{language}}/{{version}}
--/controllers). To do so, pass the controller and action name to the `action` method. Remember, you do not need to specify the full namespace to the controller since Laravel's `RouteServiceProvider` will automatically set the base controller namespace:
+You may also generate redirects to [controller actions](/docs/{{language}}/{{version}}/controllers). To do so, pass the controller and action name to the `action` method. Remember, you do not need to specify the full namespace to the controller since Laravel's `RouteServiceProvider` will automatically set the base controller namespace:
 
     return redirect()->action('HomeController@index');
 
@@ -73,8 +71,7 @@ If your controller route requires parameters, you may pass them as the second ar
 <a name="redirecting-with-flashed-session-data"></a>
 ## Redirecting With Flashed Session Data
 
-Redirecting to a new URL and [flashing data to the session](/docs/{{language}}/{{version}}
--/session#flash-data) are usually done at the same time. Typically, this is done after successfully performing an action when you flash a success message to the session. For convenience, you may create a `RedirectResponse` instance and flash data to the session in a single, fluent method chain:
+Redirecting to a new URL and [flashing data to the session](/docs/{{language}}/{{version}}/session#flash-data) are usually done at the same time. Typically, this is done after successfully performing an action when you flash a success message to the session. For convenience, you may create a `RedirectResponse` instance and flash data to the session in a single, fluent method chain:
 
     Route::post('user/profile', function () {
         // Update the user's profile...
@@ -82,9 +79,7 @@ Redirecting to a new URL and [flashing data to the session](/docs/{{language}}/{
         return redirect('dashboard')->with('status', 'Profile updated!');
     });
 
-After the user is redirected, you may display the flashed message from the [session](/docs/{{language}}/{{version}}
--/session). For example, using [Blade syntax](/docs/{{language}}/{{version}}
--/blade):
+After the user is redirected, you may display the flashed message from the [session](/docs/{{language}}/{{version}}/session). For example, using [Blade syntax](/docs/{{language}}/{{version}}/blade):
 
     @if (session('status'))
         <div class="alert alert-success">

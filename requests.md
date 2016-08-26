@@ -13,8 +13,7 @@
 <a name="accessing-the-request"></a>
 ## Accessing The Request
 
-To obtain an instance of the current HTTP request via dependency injection, you should type-hint the `Illuminate\Http\Request` class on your controller method. The incoming request instance will automatically be injected by the [service container](/docs/{{language}}/{{version}}
--/container):
+To obtain an instance of the current HTTP request via dependency injection, you should type-hint the `Illuminate\Http\Request` class on your controller method. The incoming request instance will automatically be injected by the [service container](/docs/{{language}}/{{version}}/container):
 
     <?php
 
@@ -194,13 +193,11 @@ You should use the `has` method to determine if a value is present on the reques
 <a name="old-input"></a>
 ### Old Input
 
-Laravel allows you to keep input from one request during the next request. This feature is particularly useful for re-populating forms after detecting validation errors. However, if you are using Laravel's included [validation features](/docs/{{language}}/{{version}}
--/validation), it is unlikely you will need to manually use these methods, as some of Laravel's built-in validation facilities will call them automatically.
+Laravel allows you to keep input from one request during the next request. This feature is particularly useful for re-populating forms after detecting validation errors. However, if you are using Laravel's included [validation features](/docs/{{language}}/{{version}}/validation), it is unlikely you will need to manually use these methods, as some of Laravel's built-in validation facilities will call them automatically.
 
 #### Flashing Input To The Session
 
-The `flash` method on the `Illuminate\Http\Request` class will flash the current input to the [session](/docs/{{language}}/{{version}}
--/session) so that it is available during the user's next request to the application:
+The `flash` method on the `Illuminate\Http\Request` class will flash the current input to the [session](/docs/{{language}}/{{version}}/session) so that it is available during the user's next request to the application:
 
     $request->flash();
 
@@ -222,13 +219,11 @@ Since you often will want to flash input to the session and then redirect to the
 
 #### Retrieving Old Input
 
-To retrieve flashed input from the previous request, use the `old` method on the `Request` instance. The `old` method will pull the previously flashed input data from the [session](/docs/{{language}}/{{version}}
--/session):
+To retrieve flashed input from the previous request, use the `old` method on the `Request` instance. The `old` method will pull the previously flashed input data from the [session](/docs/{{language}}/{{version}}/session):
 
     $username = $request->old('username');
 
-Laravel also provides a global `old` helper. If you are displaying old input within a [Blade template](/docs/{{language}}/{{version}}
--/blade), it is more convenient to use the `old` helper. If no old input exists for the given field, `null` will be returned:
+Laravel also provides a global `old` helper. If you are displaying old input within a [Blade template](/docs/{{language}}/{{version}}/blade), it is more convenient to use the `old` helper. If no old input exists for the given field, `null` will be returned:
 
     <input type="text" name="username" value="{{ old('username') }}">
 
@@ -304,8 +299,7 @@ There are a variety of other methods available on `UploadedFile` instances. Chec
 <a name="storing-uploaded-files"></a>
 ### Storing Uploaded Files
 
-To store an uploaded file, you will typically use one of your configured [filesystems](/docs/{{language}}/{{version}}
--/filesystem). The `UploadedFile` class has a `store` method which will move an uploaded file to one of your disks, which may be a location on your local filesystem or even a cloud storage location like Amazon S3.
+To store an uploaded file, you will typically use one of your configured [filesystems](/docs/{{language}}/{{version}}/filesystem). The `UploadedFile` class has a `store` method which will move an uploaded file to one of your disks, which may be a location on your local filesystem or even a cloud storage location like Amazon S3.
 
 The `store` method accepts the path where the file should be stored relative to the filesystem's configured root directory. This path should not contain a file name, since the name will automatically be generated using the MD5 hash of the file's contents.
 

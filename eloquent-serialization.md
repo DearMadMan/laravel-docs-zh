@@ -18,15 +18,13 @@ When building JSON APIs, you will often need to convert your models and relation
 <a name="serializing-to-arrays"></a>
 ### Serializing To Arrays
 
-To convert a model and its loaded [relationships](/docs/{{language}}/{{version}}
--/eloquent-relationships) to an array, you should use the `toArray` method. This method is recursive, so all attributes and all relations (including the relations of relations) will be converted to arrays:
+To convert a model and its loaded [relationships](/docs/{{language}}/{{version}}/eloquent-relationships) to an array, you should use the `toArray` method. This method is recursive, so all attributes and all relations (including the relations of relations) will be converted to arrays:
 
     $user = App\User::with('roles')->first();
 
     return $user->toArray();
 
-You may also convert entire [collections](/docs/{{language}}/{{version}}
--/eloquent-collections) of models to arrays:
+You may also convert entire [collections](/docs/{{language}}/{{version}}/eloquent-collections) of models to arrays:
 
     $users = App\User::all();
 
@@ -107,8 +105,7 @@ Likewise, if you would like to make some typically visible attributes hidden on 
 <a name="appending-values-to-json"></a>
 ## Appending Values To JSON
 
-Occasionally, when casting models to an array or JSON, you may wish to add attributes that do not have a corresponding column in your database. To do so, first define an [accessor](/docs/{{language}}/{{version}}
--/eloquent-mutators) for the value:
+Occasionally, when casting models to an array or JSON, you may wish to add attributes that do not have a corresponding column in your database. To do so, first define an [accessor](/docs/{{language}}/{{version}}/eloquent-mutators) for the value:
 
     <?php
 
