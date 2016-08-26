@@ -1,42 +1,44 @@
-# Contracts
+# 契约
 
-- [Introduction](#introduction)
-    - [Contracts Vs. Facades](#contracts-vs-facades)
-- [When To Use Contracts](#when-to-use-contracts)
-    - [Loose Coupling](#loose-coupling)
-    - [Simplicity](#simplicity)
-- [How To Use Contracts](#how-to-use-contracts)
-- [Contract Reference](#contract-reference)
+- [前言](#introduction)
+    - [契约 Vs. 假面](#contracts-vs-facades)
+- [何时使用](#when-to-use-contracts)
+    - [松耦合](#loose-coupling)
+    - [简洁性](#simplicity)
+- [如何使用](#how-to-use-contracts)
+- [契约参考](#contract-reference)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Laravel's Contracts are a set of interfaces that define the core services provided by the framework. For example, a `Illuminate\Contracts\Queue\Queue` contract defines the methods needed for queueing jobs, while the `Illuminate\Contracts\Mail\Mailer` contract defines the methods needed for sending e-mail.
+Laravel 的契约是对应用框架的核心服务所要求的一种强有力的约束。它本身定义一些接口，要求服务必须要遵守。比如，`Illuminate\Contracts\Queue\Queue` 契约定义了队列任务所必须的方法，而 `Illuminate\Contracts\Mail\Mailer` 契约定义了一些发送邮件所必须的方法。
 
-Each contract has a corresponding implementation provided by the framework. For example, Laravel provides a queue implementation with a variety of drivers, and a mailer implementation that is powered by [SwiftMailer](http://swiftmailer.org/).
+每种契约在框架中都有相应的提供者去进行实现。比如，Laravel 提供了多种驱动的队列任务的实现，还有其中一个的邮件服务的实现是由 [SwiftMailer](http://swiftmailer.org/) 集成的。
 
-All of the Laravel contracts live in [their own GitHub repository](https://github.com/illuminate/contracts). This provides a quick reference point for all available contracts, as well as a single, decoupled package that may be utilized by package developers.
+所有的 Laravel 契约你都可以在这里找到：[GitHub](https://github.com/illuminate/contracts)。这里提供了一个对 Laravel 契约参考的快速入口，你可以很好的对这些单一解耦的包进行独立实现的开发。
 
 <a name="contracts-vs-facades"></a>
-### Contracts Vs. Facades
+### 契约 Vs. 假面
 
-Laravel's [facades](docs/{{language}}/{{version}}/facades) and helper functions provide a simple way of utilizing Laravel's services without needing to type-hint and resolve contracts out of the service container. In most cases, each facade has an equivalent contract.
+Laravel 的 [假面](docs/{{language}}/{{version}}/facades) 和帮助方法提供了一种简单的方法去从服务容器中取出服务而不需要使用类型提示。在大多数情况下，每一个假面都有一个相应的契约。
 
-Unlike facades, which do not require you to require them in your class' constructor, contracts allow you to define explicit dependencies for your classes. Some developers prefer to explicitly define their dependencies in this way and therefore prefer to use contracts, while other developers enjoy the convenience of facades.
+使用契约可以使你明确的定义类间的依赖。而对于大多数应用来说，使用假面模式就可以了。但是，如果你想要松耦合易扩展的服务，那么契约可以实现。
 
-> {tip} Most applications will be fine regardless of whether you prefer facades or contracts. However, if you are building a package, you should strongly consider using contracts since they will be easier to test in a package context.
+不像假面那样，契约需要你为你的类显示的定义依赖关系。即，你需要强行在类的构造函数中引入它们。有些开发者喜欢这种显示的定义依赖，所以他们喜欢使用契约，而其他开发者比较喜欢方便的假面。
+
+> {tip} 大多数应用不管你是使用假面还是契约都可以很好的进行工作，但是如果你是构建扩展包的话，你应该使用契约，因为它们在扩展包的环境下更容易被测试。
 
 <a name="when-to-use-contracts"></a>
-## When To Use Contracts
+## 何时使用
 
-As discussed elsewhere, much of the decision to use contracts or facades will come down to personal taste and the tastes of your development team. Both contracts and facades can be used to create robust, well-tested Laravel applications. As long as you are keeping your class' responsibilities focused, you will notice very few practical differences between using contracts and facades.
+如前面我们所探讨的，是使用假面还是使用契约？这需要你或者团队的尝试来做出决定。契约和假面都可以构建出健壮和易测试的应用。如果你长期关注类的职责，你将会在实践中注意到使用契约和假面间区别。
 
-However, you may still have several questions regarding contracts. For example, why use interfaces at all? Isn't using interfaces more complicated? Let's distil the reasons for using interfaces to the following headings: loose coupling and simplicity.
+对于契约，你可能仍存在很多的疑问。为什么要总是使用接口？使用接口不是会变的更复杂吗？让我们来提炼一下使用接口的原因：松耦合和简洁性。
 
 <a name="loose-coupling"></a>
-### Loose Coupling
+### 松耦合
 
-First, let's review some code that is tightly coupled to a cache implementation. Consider the following:
+首先，让我们来看一下一个紧耦合的关于缓存的实现，请阅读下面的代码好好思考一下：
 
     <?php
 
@@ -74,11 +76,11 @@ First, let's review some code that is tightly coupled to a cache implementation.
         }
     }
 
-In this class, the code is tightly coupled to a given cache implementation. It is tightly coupled because we are depending on a concrete Cache class from a package vendor. If the API of that package changes our code must change as well.
+在上面的类中，代码给予了类一个紧耦合的缓存的实现。之所以说是紧耦合的，是因为它依赖于一个具体的实现类，也就是说它和这个包的供应商是紧密耦合的。如果我们需要换一个包的供应商，那么我们就要修改我们的代码。
 
-Likewise, if we want to replace our underlying cache technology (Memcached) with another technology (Redis), we again will have to modify our repository. Our repository should not have so much knowledge regarding who is providing them data or how they are providing it.
+同样的，如果我们想要切换我们的底层缓存驱动，从 memcached 切换到 redis，那么我们也必须要修改大量的业务代码。所以，鉴于此，我们的资料库不应该对所提供的依赖需要知道的太多，而仅仅需要知道他们提供了我们所需的就可以了（这和鸭子类型的故事有点相似）。
 
-**Instead of this approach, we can improve our code by depending on a simple, vendor agnostic interface:**
+**鉴于此，我们可以采取一种与上述相反的方法来进行解耦。我们提供一个无关具体实现的接口：**
 
     <?php
 
@@ -105,23 +107,23 @@ Likewise, if we want to replace our underlying cache technology (Memcached) with
         }
     }
 
-Now the code is not coupled to any specific vendor, or even Laravel. Since the contracts package contains no implementation and no dependencies, you may easily write an alternative implementation of any given contract, allowing you to replace your cache implementation without modifying any of your cache consuming code.
+现在上面的代码并没有连接到任何的具体实现库，甚至是 Laravel。因为契约只定义了接口，它并不包含任何的依赖和实现，所以你可以非常简单的去实现任何给定的契约，你只需要根据契约编写一个不同缓存的实现就可以进行轻松的替换。而并不用修改之前写过的代码。
 
 <a name="simplicity"></a>
-### Simplicity
+### 简洁性
 
-When all of Laravel's services are neatly defined within simple interfaces, it is very easy to determine the functionality offered by a given service. **The contracts serve as succinct documentation to the framework's features.**
+当所有的 Laravel 的服务都通过简单整洁的接口进行定义，那么它就可以被非常轻松的确定所给定服务具有哪些功能。**这样也可以说 Laravel 的契约服务其实是已经提供了简洁的功能文档了**。
 
-In addition, when you depend on simple interfaces, your code is easier to understand and maintain. Rather than tracking down which methods are available to you within a large, complicated class, you can refer to a simple, clean interface.
+除此之外，当你依赖于简单的接口时，你的代码可以非常的易于理解和维护。而不是追踪一个大型复杂的类中的方法，你可以直接参考于简单整洁的接口。
 
 <a name="how-to-use-contracts"></a>
-## How To Use Contracts
+## 如何使用
 
-So, how do you get an implementation of a contract? It's actually quite simple.
+那么，我们如何获取契约的一个实现呢？这真的非常的简单。
 
-Many types of classes in Laravel are resolved through the [service container](docs/{{language}}/{{version}}/container), including controllers, event listeners, middleware, queued jobs, and even route Closures. So, to get an implementation of a contract, you can just "type-hint" the interface in the constructor of the class being resolved.
+Laravel 多种类型的类都是通过 [服务容器](docs/{{language}}/{{version}}/container) 解析出来的，这包括控制器，事件监听器，中间件，队列任务，甚至是路由的闭包。所以，为了得到契约的一种实现，你直接在被解析的类文件的构造函数中添加契约的类型提示就可以了。
 
-For example, take a look at this event listener:
+比如，让我们看一下这个事件监听器：
 
     <?php
 
@@ -161,12 +163,12 @@ For example, take a look at this event listener:
         }
     }
 
-When the event listener is resolved, the service container will read the type-hints on the constructor of the class, and inject the appropriate value. To learn more about registering things in the service container, check out [its documentation](docs/{{language}}/{{version}}/container).
+当事件监听器被解析时，服务容器将会读取类的构造函数中的类型提示，并且会注入恰当的值。你可以查看 [服务容器](docs/{{language}}/{{version}}/container) 的文档来学习如何注册绑定到容器。
 
 <a name="contract-reference"></a>
-## Contract Reference
+## 契约参考
 
-This table provides a quick reference to all of the Laravel contracts and their equivalent facades:
+下面的表格提供了 Laravel 契约及其对应的假面的参考:
 
 Contract  |  References Facade
 ------------- | -------------
