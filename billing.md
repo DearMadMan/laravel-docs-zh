@@ -48,11 +48,13 @@ First, add the Cashier package for Stripe to your `composer.json` file and run t
 
 #### Service Provider
 
-Next, register the `Laravel\Cashier\CashierServiceProvider` [service provider](docs/{{language}}/{{version}}/providers) in your `config/app.php` configuration file.
+Next, register the `Laravel\Cashier\CashierServiceProvider` [service provider](/docs/{{language}}/{{version}}
+-/providers) in your `config/app.php` configuration file.
 
 #### Database Migrations
 
-Before using Cashier, we'll also need to [prepare the database](docs/{{language}}/{{version}}/migrations). We need to add several columns to your `users` table and create a new `subscriptions` table to hold all of our customer's subscriptions:
+Before using Cashier, we'll also need to [prepare the database](/docs/{{language}}/{{version}}
+-/migrations). We need to add several columns to your `users` table and create a new `subscriptions` table to hold all of our customer's subscriptions:
 
     Schema::table('users', function ($table) {
         $table->string('stripe_id')->nullable();
@@ -116,7 +118,8 @@ First, add the Cashier package for Braintree to your `composer.json` file and ru
 
 #### Service Provider
 
-Next, register the `Laravel\Cashier\CashierServiceProvider` [service provider](docs/{{language}}/{{version}}/providers) in your `config/app.php` configuration file.
+Next, register the `Laravel\Cashier\CashierServiceProvider` [service provider](/docs/{{language}}/{{version}}
+-/providers) in your `config/app.php` configuration file.
 
 #### Plan Credit Coupon
 
@@ -126,7 +129,8 @@ The discount amount configured in the Braintree control panel can be any value y
 
 #### Database Migrations
 
-Before using Cashier, we'll need to [prepare the database](docs/{{language}}/{{version}}/migrations). We need to add several columns to your `users` table and create a new `subscriptions` table to hold all of our customer's subscriptions:
+Before using Cashier, we'll need to [prepare the database](/docs/{{language}}/{{version}}
+-/migrations). We need to add several columns to your `users` table and create a new `subscriptions` table to hold all of our customer's subscriptions:
 
     Schema::table('users', function ($table) {
         $table->string('braintree_id')->nullable();
@@ -232,7 +236,8 @@ Once a user is subscribed to your application, you may easily check their subscr
         //
     }
 
-The `subscribed` method also makes a great candidate for a [route middleware](docs/{{language}}/{{version}}/middleware), allowing you to filter access to routes and controllers based on the user's subscription status:
+The `subscribed` method also makes a great candidate for a [route middleware](/docs/{{language}}/{{version}}
+-/middleware), allowing you to filter access to routes and controllers based on the user's subscription status:
 
     public function handle($request, Closure $next)
     {
@@ -432,7 +437,8 @@ By default, this controller will automatically handle cancelling subscriptions t
 
 #### Webhooks & CSRF Protection
 
-Since Stripe webhooks need to bypass Laravel's [CSRF protection](docs/{{language}}/{{version}}/routing#csrf-protection), be sure to list the URI as an exception in your `VerifyCsrfToken` middleware or list the route outside of the `web` middleware group:
+Since Stripe webhooks need to bypass Laravel's [CSRF protection](/docs/{{language}}/{{version}}
+-/routing#csrf-protection), be sure to list the URI as an exception in your `VerifyCsrfToken` middleware or list the route outside of the `web` middleware group:
 
     protected $except = [
         'stripe/*',
@@ -491,7 +497,8 @@ By default, this controller will automatically handle cancelling subscriptions t
 
 #### Webhooks & CSRF Protection
 
-Since Braintree webhooks need to bypass Laravel's [CSRF protection](docs/{{language}}/{{version}}/routing#csrf-protection), be sure to list the URI as an exception in your `VerifyCsrfToken` middleware or list the route outside of the `web` middleware group:
+Since Braintree webhooks need to bypass Laravel's [CSRF protection](/docs/{{language}}/{{version}}
+-/routing#csrf-protection), be sure to list the URI as an exception in your `VerifyCsrfToken` middleware or list the route outside of the `web` middleware group:
 
     protected $except = [
         'stripe/*',

@@ -96,7 +96,8 @@ If you would like to retrieve an array containing the values of a single column,
 <a name="chunking-results"></a>
 ### Chunking Results
 
-If you need to work with thousands of database records, consider using the `chunk` method. This method retrieves a small chunk of the results at a time and feeds each chunk into a `Closure` for processing. This method is very useful for writing [Artisan commands](docs/{{language}}/{{version}}/artisan) that process thousands of records. For example, let's work with the entire `users` table in chunks of 100 records at a time:
+If you need to work with thousands of database records, consider using the `chunk` method. This method retrieves a small chunk of the results at a time and feeds each chunk into a `Closure` for processing. This method is very useful for writing [Artisan commands](/docs/{{language}}/{{version}}
+-/artisan) that process thousands of records. For example, let's work with the entire `users` table in chunks of 100 records at a time:
 
     DB::table('users')->orderBy('id')->chunk(100, function($users) {
         foreach ($users as $user) {

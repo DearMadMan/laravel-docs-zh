@@ -61,7 +61,8 @@ Laravel 提供了强大的服务容器工具来管理类之间的依赖关系并
             return view('user.profile', ['user' => $user]);
         }
     }
-在上面的例子中，`UserController` 需要从数据源中获取到用户的数据，所以我们将 `注入` 一个服务，这个服务可以检索出用户。在这种场景下，我们的 `UserRepository` 更像是使用 [Eloquent](docs/{{language}}/{{version}}/eloquent) 来从数据库中检索出用户信息。但是不管怎么样，由于存储库的被注入，我们可以非常轻松的换成其它的实现。我们也可以非常轻松的去模拟数据，或者是在进行测试时创建一个假的 `UserRepository` 来使用。
+在上面的例子中，`UserController` 需要从数据源中获取到用户的数据，所以我们将 `注入` 一个服务，这个服务可以检索出用户。在这种场景下，我们的 `UserRepository` 更像是使用 [Eloquent](/docs/{{language}}/{{version}}
+-/eloquent) 来从数据库中检索出用户信息。但是不管怎么样，由于存储库的被注入，我们可以非常轻松的换成其它的实现。我们也可以非常轻松的去模拟数据，或者是在进行测试时创建一个假的 `UserRepository` 来使用。
 
 
 能够更深层次的理解 laravel 的服务容器是非常必要的，它是能够构造强大的应用的关键，这对于贡献 Laravel 内核是非常有帮助的。
@@ -73,7 +74,8 @@ Laravel 提供了强大的服务容器工具来管理类之间的依赖关系并
 ### 绑定基础
 
 
-几乎所有的服务容器的绑定都是在 [服务提供者](docs/{{language}}/{{version}}/providers) 中被注册的，所有下面的例子都是在这个场景下进行演示的。
+几乎所有的服务容器的绑定都是在 [服务提供者](/docs/{{language}}/{{version}}
+-/providers) 中被注册的，所有下面的例子都是在这个场景下进行演示的。
 
 > {tip} 如果类并没有依赖什么接口，它是没有必要在容器中进行绑定的。容器并不需要有什么具体的指示去如何构造这些实例，因为他们会根据 PHP 的反射进行自动的实例化。
 
@@ -139,7 +141,8 @@ Laravel 提供了强大的服务容器工具来管理类之间的依赖关系并
 <a name="contextual-binding"></a>
 ### 上下文绑定
 
-有时候你可能会有实现了同一个接口的两个类，而且你想要在不同的场景下注入不同的实现，比如说，两个控制器可以各自依赖 `Illuminate\Contracts\Filesystem\Filesystem` [contract](docs/{{language}}/{{version}}/contracts) 的不同实现。Laravel 提供了一种简单流利的接口来定义这种行为：
+有时候你可能会有实现了同一个接口的两个类，而且你想要在不同的场景下注入不同的实现，比如说，两个控制器可以各自依赖 `Illuminate\Contracts\Filesystem\Filesystem` [contract](/docs/{{language}}/{{version}}
+-/contracts) 的不同实现。Laravel 提供了一种简单流利的接口来定义这种行为：
 
     use Illuminate\Support\Facades\Storage;
     use App\Http\Controllers\PhotoController;
@@ -196,7 +199,11 @@ Laravel 提供了强大的服务容器工具来管理类之间的依赖关系并
 <a name="automatic-injection"></a>
 #### 自动注入
 
-另外，也是最重要的，你也可以在类的构造函数中简单的使用‘类型提示’来从容器中解析依赖。[控制器](docs/{{language}}/{{version}}/controllers)，[事件监听器](docs/{{language}}/{{version}}/events)，[队列任务](docs/{{language}}/{{version}}/queues)，[中间件](docs/{{language}}/{{version}}/middleware)等都支持这种方式。在实践中，这是大部分对象从容器中解析的方式。
+另外，也是最重要的，你也可以在类的构造函数中简单的使用‘类型提示’来从容器中解析依赖。[控制器](/docs/{{language}}/{{version}}
+-/controllers)，[事件监听器](/docs/{{language}}/{{version}}
+-/events)，[队列任务](/docs/{{language}}/{{version}}
+-/queues)，[中间件](/docs/{{language}}/{{version}}
+-/middleware)等都支持这种方式。在实践中，这是大部分对象从容器中解析的方式。
 
 比如，你可以在控制器的构造函数中对应用中定义的存储库类进行类型提示。存储库实例会自动的从容器中进行解析并注入到控制器中:
 

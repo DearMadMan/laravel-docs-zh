@@ -130,7 +130,8 @@ If your HTTP request contains "nested" parameters, you may specify them in your 
 <a name="quick-displaying-the-validation-errors"></a>
 ### Displaying The Validation Errors
 
-So, what if the incoming request parameters do not pass the given validation rules? As mentioned previously, Laravel will automatically redirect the user back to their previous location. In addition, all of the validation errors will automatically be [flashed to the session](docs/{{language}}/{{version}}/session#flash-data).
+So, what if the incoming request parameters do not pass the given validation rules? As mentioned previously, Laravel will automatically redirect the user back to their previous location. In addition, all of the validation errors will automatically be [flashed to the session](/docs/{{language}}/{{version}}
+-/session#flash-data).
 
 Again, notice that we did not have to explicitly bind the error messages to the view in our `GET` route. This is because Laravel will check for errors in the session data, and automatically bind them to the view if they are available. The `$errors` variable will be an instance of `Illuminate\Support\MessageBag`. For more information on working with this object, [check out its documentation](#working-with-error-messages).
 
@@ -295,7 +296,8 @@ You may customize the error messages used by the form request by overriding the 
 <a name="manually-creating-validators"></a>
 ## Manually Creating Validators
 
-If you do not want to use the `ValidatesRequests` trait's `validate` method, you may create a validator instance manually using the `Validator` [facade](docs/{{language}}/{{version}}/facades). The `make` method on the facade generates a new validator instance:
+If you do not want to use the `ValidatesRequests` trait's `validate` method, you may create a validator instance manually using the `Validator` [facade](/docs/{{language}}/{{version}}
+-/facades). The `make` method on the facade generates a new validator instance:
 
     <?php
 
@@ -920,7 +922,9 @@ Likewise, you may use the `*` character when specifying your validation messages
 <a name="custom-validation-rules"></a>
 ## Custom Validation Rules
 
-Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `extend` method on the `Validator` [facade](docs/{{language}}/{{version}}/facades). Let's use this method within a [service provider](docs/{{language}}/{{version}}/providers) to register a custom validation rule:
+Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `extend` method on the `Validator` [facade](/docs/{{language}}/{{version}}
+-/facades). Let's use this method within a [service provider](/docs/{{language}}/{{version}}
+-/providers) to register a custom validation rule:
 
     <?php
 
@@ -970,7 +974,8 @@ You will also need to define an error message for your custom rule. You can do s
 
     // The rest of the validation error messages...
 
-When creating a custom validation rule, you may sometimes need to define custom place-holder replacements for error messages. You may do so by creating a custom Validator as described above then making a call to the `replacer` method on the `Validator` facade. You may do this within the `boot` method of a [service provider](docs/{{language}}/{{version}}/providers):
+When creating a custom validation rule, you may sometimes need to define custom place-holder replacements for error messages. You may do so by creating a custom Validator as described above then making a call to the `replacer` method on the `Validator` facade. You may do this within the `boot` method of a [service provider](/docs/{{language}}/{{version}}
+-/providers):
 
     /**
      * Bootstrap any application services.

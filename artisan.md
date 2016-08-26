@@ -48,7 +48,8 @@ After generating your command, you should fill in the `signature` and `descripti
 
 > {tip} For greater code reuse, it is good practice to keep your console commands light and let them defer to application services to accomplish their tasks. In the example below, note that we inject a service class to do the "heavy lifting" of sending the e-mails.
 
-Let's take a look at an example command. Note that we are able to inject any dependencies we need into the command's constructor. The Laravel [service container](docs/{{language}}/{{version}}/container) will automatically inject all dependencies type-hinted in the constructor:
+Let's take a look at an example command. Note that we are able to inject any dependencies we need into the command's constructor. The Laravel [service container](/docs/{{language}}/{{version}}
+-/container) will automatically inject all dependencies type-hinted in the constructor:
 
     <?php
 
@@ -130,7 +131,8 @@ The Closure is bound to the underlying command instance, so you have full access
 
 #### Type-Hinting Dependencies
 
-In addition to receiving your command's arguments and options, command Closures may also type-hint additional dependencies that you would like resolved out of the [service container](docs/{{language}}/{{version}}/container):
+In addition to receiving your command's arguments and options, command Closures may also type-hint additional dependencies that you would like resolved out of the [service container](/docs/{{language}}/{{version}}
+-/container):
 
     use App\User;
     use App\DripEmailer;
@@ -373,7 +375,8 @@ For more advanced options, check out the [Symfony Progress Bar component documen
 <a name="registering-commands"></a>
 ## Registering Commands
 
-Once your command is finished, you need to register it with Artisan. All commands are registered in the `app/Console/Kernel.php` file. Within this file, you will find a list of commands in the `commands` property. To register your command, simply add the command's class name to the list. When Artisan boots, all the commands listed in this property will be resolved by the [service container](docs/{{language}}/{{version}}/container) and registered with Artisan:
+Once your command is finished, you need to register it with Artisan. All commands are registered in the `app/Console/Kernel.php` file. Within this file, you will find a list of commands in the `commands` property. To register your command, simply add the command's class name to the list. When Artisan boots, all the commands listed in this property will be resolved by the [service container](/docs/{{language}}/{{version}}
+-/container) and registered with Artisan:
 
     protected $commands = [
         Commands\SendEmails::class
@@ -392,7 +395,8 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
         //
     });
 
-Using the `queue` method on the `Artisan` facade, you may even queue Artisan commands so they are processed in the background by your [queue workers](docs/{{language}}/{{version}}/queues). Before using this method, make sure you have configured your queue and are running a queue listener:
+Using the `queue` method on the `Artisan` facade, you may even queue Artisan commands so they are processed in the background by your [queue workers](/docs/{{language}}/{{version}}
+-/queues). Before using this method, make sure you have configured your queue and are running a queue listener:
 
     Route::get('/foo', function () {
         Artisan::queue('email:send', [

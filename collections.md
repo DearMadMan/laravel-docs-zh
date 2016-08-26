@@ -26,7 +26,8 @@ As mentioned above, the `collect` helper returns a new `Illuminate\Support\Colle
 
     $collection = collect([1, 2, 3]);
 
-> {tip} The results of [Eloquent](docs/{{language}}/{{version}}/eloquent) queries are always returned as `Collection` instances.
+> {tip} The results of [Eloquent](/docs/{{language}}/{{version}}
+-/eloquent) queries are always returned as `Collection` instances.
 
 <a name="available-methods"></a>
 ## Available Methods
@@ -168,7 +169,9 @@ The `chunk` method breaks the collection into multiple, smaller collections of a
 
     // [[1, 2, 3, 4], [5, 6, 7]]
 
-This method is especially useful in [views](docs/{{language}}/{{version}}/views) when working with a grid system such as [Bootstrap](http://getbootstrap.com/css/#grid). Imagine you have a collection of [Eloquent](docs/{{language}}/{{version}}/eloquent) models you want to display in a grid:
+This method is especially useful in [views](/docs/{{language}}/{{version}}
+-/views) when working with a grid system such as [Bootstrap](http://getbootstrap.com/css/#grid). Imagine you have a collection of [Eloquent](/docs/{{language}}/{{version}}
+-/eloquent) models you want to display in a grid:
 
     @foreach ($products->chunk(3) as $chunk)
         <div class="row">
@@ -1167,7 +1170,8 @@ You may also pass a negative integer to take the specified amount of items from 
 <a name="method-toarray"></a>
 #### `toArray()` {#collection-method}
 
-The `toArray` method converts the collection into a plain PHP `array`. If the collection's values are [Eloquent](docs/{{language}}/{{version}}/eloquent) models, the models will also be converted to arrays:
+The `toArray` method converts the collection into a plain PHP `array`. If the collection's values are [Eloquent](/docs/{{language}}/{{version}}
+-/eloquent) models, the models will also be converted to arrays:
 
     $collection = collect(['name' => 'Desk', 'price' => 200]);
 

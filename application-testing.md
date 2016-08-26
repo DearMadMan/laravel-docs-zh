@@ -278,7 +278,8 @@ You may also specify which guard should be used to authenticate the given user b
 <a name="disabling-middleware"></a>
 ### Disabling Middleware
 
-When testing your application, you may find it convenient to disable [middleware](docs/{{language}}/{{version}}/middleware) for some of your tests. This will allow you to test your routes and controller in isolation from any middleware concerns. Laravel includes a simple `WithoutMiddleware` trait that you can use to automatically disable all middleware for the test class:
+When testing your application, you may find it convenient to disable [middleware](/docs/{{language}}/{{version}}
+-/middleware) for some of your tests. This will allow you to test your routes and controller in isolation from any middleware concerns. Laravel includes a simple `WithoutMiddleware` trait that you can use to automatically disable all middleware for the test class:
 
     <?php
 
@@ -325,7 +326,8 @@ If you would like to make a custom HTTP request into your application and get th
         $this->assertEquals(200, $response->status());
     }
 
-If you are making `POST`, `PUT`, or `PATCH` requests you may pass an array of input data with the request. Of course, this data will be available in your routes and controller via the [Request instance](docs/{{language}}/{{version}}/requests):
+If you are making `POST`, `PUT`, or `PATCH` requests you may pass an array of input data with the request. Of course, this data will be available in your routes and controller via the [Request instance](/docs/{{language}}/{{version}}
+-/requests):
 
        $response = $this->call('POST', '/user', ['name' => 'Taylor']);
 

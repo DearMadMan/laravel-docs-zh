@@ -28,14 +28,17 @@
 
 In many modern web applications, WebSockets are used to implement realtime, live-updating user interfaces. When some data is updated on the server, a message is typically sent over a WebSocket connection to be handled by the client. This provides a more robust, efficient alternative to continually polling your application for changes.
 
-To assist you in building these types of applications, Laravel makes it easy to "broadcast" your [events](docs/{{language}}/{{version}}/events) over a WebSocket connection. Broadcasting your Laravel events allows you to share the same event names between your server-side code and your client-side JavaScript application.
+To assist you in building these types of applications, Laravel makes it easy to "broadcast" your [events](/docs/{{language}}/{{version}}
+-/events) over a WebSocket connection. Broadcasting your Laravel events allows you to share the same event names between your server-side code and your client-side JavaScript application.
 
-> {tip} Before diving into event broadcasting, make sure you have read all of the documentation regarding Laravel [events and listeners](docs/{{language}}/{{version}}/events).
+> {tip} Before diving into event broadcasting, make sure you have read all of the documentation regarding Laravel [events and listeners](/docs/{{language}}/{{version}}
+-/events).
 
 <a name="configuration"></a>
 ### Configuration
 
-All of your application's event broadcasting configuration is stored in the `config/broadcasting.php` configuration file. Laravel supports several broadcast drivers out of the box: [Pusher](https://pusher.com), [Redis](docs/{{language}}/{{version}}/redis), and a `log` driver for local development and debugging. Additionally, a `null` driver is included which allows you to totally disable broadcasting. A configuration example is included for each of these drivers in the `config/broadcasting.php` configuration file.
+All of your application's event broadcasting configuration is stored in the `config/broadcasting.php` configuration file. Laravel supports several broadcast drivers out of the box: [Pusher](https://pusher.com), [Redis](/docs/{{language}}/{{version}}
+-/redis), and a `log` driver for local development and debugging. Additionally, a `null` driver is included which allows you to totally disable broadcasting. A configuration example is included for each of these drivers in the `config/broadcasting.php` configuration file.
 
 #### Broadcast Service Provider
 
@@ -96,7 +99,8 @@ Finally, you will need to run a compatible Socket.IO server. Laravel does not in
 
 #### Queue Prerequisites
 
-Before broadcasting events, you will also need to configure and run a [queue listener](docs/{{language}}/{{version}}/queues). All event broadcasting is done via queued jobs so that the response time of your application is not seriously affected.
+Before broadcasting events, you will also need to configure and run a [queue listener](/docs/{{language}}/{{version}}
+-/queues). All event broadcasting is done via queued jobs so that the response time of your application is not seriously affected.
 
 <a name="concept-overview"></a>
 ## Concept Overview
@@ -212,7 +216,9 @@ The `ShouldBroadcast` interface requires you to implement a single method: `broa
         }
     }
 
-Then, you only need to [fire the event](docs/{{language}}/{{version}}/events) as you normally would. Once the event has been fired, a [queued job](docs/{{language}}/{{version}}/queues) will automatically broadcast the event over your specified broadcast driver.
+Then, you only need to [fire the event](/docs/{{language}}/{{version}}
+-/events) as you normally would. Once the event has been fired, a [queued job](/docs/{{language}}/{{version}}
+-/queues) will automatically broadcast the event over your specified broadcast driver.
 
 <a name="broadcast-data"></a>
 ### Broadcast Data
@@ -441,7 +447,9 @@ You may listen for the join event via Echo's `listen` method:
 <a name="notifications"></a>
 ## Notifications
 
-By pairing event broadcasting with [notifications](docs/{{language}}/{{version}}/notifications), your JavaScript application may receive new notifications as they occur without needing to refresh the page. First, be sure to read over the documentation on using [the broadcast notification channel](docs/{{language}}/{{version}}/notifications#broadcast-notifications).
+By pairing event broadcasting with [notifications](/docs/{{language}}/{{version}}
+-/notifications), your JavaScript application may receive new notifications as they occur without needing to refresh the page. First, be sure to read over the documentation on using [the broadcast notification channel](/docs/{{language}}/{{version}}
+-/notifications#broadcast-notifications).
 
 Once you have configured a notification to use the broadcast channel, you may listen for the broadcast events using Echo's `notification` method. Remember, the channel name should match the class name of the entity receiving the notifications:
 

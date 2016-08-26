@@ -10,7 +10,8 @@
 <a name="introduction"></a>
 ## 前言
 
-假面提供了一种类似‘静态’接口的方式来从 [服务容器](docs/{{language}}/{{version}}/container) 中提取可用类的方法。Laravel 自身附带了许多的假面，你可能在还不知道它的时候就已经使用过它了。Laravel 的假面服务就好像是一个从服务容器中取出底层类的代理（你带上我的面具，你就可以使用我的方法了），它提供了一种简洁语法的同时保持了比传统静态方法更高的可测试性和灵活性。
+假面提供了一种类似‘静态’接口的方式来从 [服务容器](/docs/{{language}}/{{version}}
+-/container) 中提取可用类的方法。Laravel 自身附带了许多的假面，你可能在还不知道它的时候就已经使用过它了。Laravel 的假面服务就好像是一个从服务容器中取出底层类的代理（你带上我的面具，你就可以使用我的方法了），它提供了一种简洁语法的同时保持了比传统静态方法更高的可测试性和灵活性。
 
 Laravel 中所有的假面都被定义在 `Illuminate\Support\Facades` 命名空间下，所以，我们可以像这样来访问假面：
 
@@ -29,7 +30,8 @@ Laravel 中所有的假面都被定义在 `Illuminate\Support\Facades` 命名空
 
 但是不管怎么样，你在使用假面时必须要注意一些事情。其最大的危害就是假面类的滥用。由于假面使用起来非常简单，它并不需要注入依赖，所以它可能会使你不知不觉中在一个类文件中包含了大量的假面。而使用依赖注入，这种潜在的危害会在你的构造函数变的庞大时就有非常显著的视觉反馈。所以，当使用假面时，你应该保持注意类的大小，你应该限制类的职责在一个狭窄的范围呢。
 
-> {tip} 当构建第三方扩展包与 Laravel 进行交互时，最好是注入 [Laravel 契约](docs/{{language}}/{{version}}/contracts) 的方式来取代使用假面。这是由于扩展包是在 Laravel 之外进行构建的，你并不能在测试时得到 Laravel 对于假面测试的帮助。
+> {tip} 当构建第三方扩展包与 Laravel 进行交互时，最好是注入 [Laravel 契约](/docs/{{language}}/{{version}}
+-/contracts) 的方式来取代使用假面。这是由于扩展包是在 Laravel 之外进行构建的，你并不能在测试时得到 Laravel 对于假面测试的帮助。
 
 <a name="facades-vs-dependency-injection"></a>
 ### 假面 Vs. 依赖注入
@@ -141,12 +143,14 @@ Laravel 中所有的假面都被定义在 `Illuminate\Support\Facades` 命名空
         protected static function getFacadeAccessor() { return 'cache'; }
     }
 
-事实上，`Cache` 假面继承自基类 `Facade` 并且定义了 `getFacadeAccessor()` 方法。这个方法的主要任务就是从服务容器中返回服务的绑定名称。当用户调用任何 `Cache` 假面的静态方法时，Laravel 从 [服务容器](docs/{{language}}/{{version}}/container) 中返回绑定了 `cache` 为名称的对象，并且使用这个对象调用所请求的方法。
+事实上，`Cache` 假面继承自基类 `Facade` 并且定义了 `getFacadeAccessor()` 方法。这个方法的主要任务就是从服务容器中返回服务的绑定名称。当用户调用任何 `Cache` 假面的静态方法时，Laravel 从 [服务容器](/docs/{{language}}/{{version}}
+-/container) 中返回绑定了 `cache` 为名称的对象，并且使用这个对象调用所请求的方法。
 
 <a name="facade-class-reference"></a>
 ## 假面类参考
 
-在下面的表格中你会找到所有的假面及其所对应的底层实现类。这是一个可以迅速挖掘给定假面 API 的有用的工具。在 [服务容器](docs/{{language}}/{{version}}/container) 中所给的绑定键也包括在其中。
+在下面的表格中你会找到所有的假面及其所对应的底层实现类。这是一个可以迅速挖掘给定假面 API 的有用的工具。在 [服务容器](/docs/{{language}}/{{version}}
+-/container) 中所给的绑定键也包括在其中。
 
 Facade  |  Class  |  Service Container Binding
 ------------- | ------------- | -------------
