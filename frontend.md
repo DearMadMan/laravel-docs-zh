@@ -12,7 +12,7 @@
 
 #### CSS
 
-[Laravel Elixir](/docs/{{language}}/{{version}}/elixir) 提供了一种简介丰富的 API 来指导 SASS 或者 Less 的编译，SASS 或者 Less 是原生 CSS 的扩展，它们为 CSS 添加了变量，混合和其它的一些强大的特性，这使你能够更轻松愉悦的编写和管理你的 CSS。
+[Laravel Elixir](/docs/{{language}}/{{version}}/elixir) 提供了一种简洁丰富的 API 来指导 SASS 或者 Less 的编译，SASS 或者 Less 是原生 CSS 的扩展，它们为 CSS 添加了变量，混合和其它的一些强大的特性，这使你能够更轻松愉悦的编写和管理你的 CSS。
 
 在这个文档中，我们将会短暂的来探讨一下大体的 CSS 编译过程。事实上，你应该查阅完整的 [Laravel Elixir 文档](/docs/{{language}}/{{version}}/elixir) 来了解更多的 SASS 或 Less 编译相关的信息。
 
