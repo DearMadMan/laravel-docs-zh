@@ -83,7 +83,7 @@ Blade 视图也可以通过在路由中使用全局帮助函数 `view` 方法来
 <a name="displaying-data"></a>
 ## 展示数据
 
-你可以使用双花括号 `{{}}` 来在视图中展示传递到视图中的变量，例如，你定义了下面的路由：
+你可以使用双花括号 `{{ }}` 来在视图中展示传递到视图中的变量，例如，你定义了下面的路由：
 
     Route::get('greeting', function () {
         return view('welcome', ['name' => 'Samantha']);
