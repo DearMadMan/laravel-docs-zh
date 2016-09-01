@@ -1,37 +1,37 @@
-# Authorization
+# 授权
 
-- [Introduction](#introduction)
+- [前言](#introduction)
 - [Gates](#gates)
-    - [Writing Gates](#writing-gates)
-    - [Authorizing Actions](#authorizing-actions-via-gates)
-- [Creating Policies](#creating-policies)
-    - [Generating Policies](#generating-policies)
-    - [Registering Policies](#registering-policies)
-- [Writing Policies](#writing-policies)
-    - [Policy Methods](#policy-methods)
-    - [Methods Without Models](#methods-without-models)
-    - [Policy Filters](#policy-filters)
-- [Authorizing Actions Using Policies](#authorizing-actions-using-policies)
-    - [Via The User Model](#via-the-user-model)
-    - [Via Middleware](#via-middleware)
-    - [Via Controller Helpers](#via-controller-helpers)
-    - [Via Blade Templates](#via-blade-templates)
+    - [编写 Gates](#writing-gates)
+    - [授权动作](#authorizing-actions-via-gates)
+- [创建策略](#creating-policies)
+    - [生成策略](#generating-policies)
+    - [注册策略](#registering-policies)
+- [编写策略](#writing-policies)
+    - [策略方法](#policy-methods)
+    - [模型之外](#methods-without-models)
+    - [策略过滤](#policy-filters)
+- [使用策略进行授权](#authorizing-actions-using-policies)
+    - [通过用户模型](#via-the-user-model)
+    - [通过中间件](#via-middleware)
+    - [通过控制器辅助函数](#via-controller-helpers)
+    - [通过 Blade 模板](#via-blade-templates)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-In addition to providing [authentication](/docs/{{language}}/{{version}}/authentication) services out of the box, Laravel also provides a simple way to authorize user actions against a given resource. Like authentication, Laravel's approach to authorization is simple, and there are two primary ways of authorizing actions: gates and policies.
+Laravel 除了提供开箱即用的 [认证服务](/docs/{{language}}/{{version}}/authentication)，还提供了许多简单的方式来管理授权逻辑和资源的访问控制。就像认证一样，Laravel 的授权方法非常简单，它主要通过两种形式作出授权动作：gates 和 策略
 
-Think of gates and policies like routes and controllers. Gates provide a simple, Closure based approach to authorization while policies, like controllers, group their logic around a particular model or resource. We'll explore gates first and then examine policies.
+你可以将 gates 和 策略想象为路由和控制器。Gates 提供了基于闭包的方法来进行授权操作，而策略就像控制器一样，将特定的模型或资源组织在一起。我们接下来将会先剖析 gates，然后再来探讨一下策略。
 
-It is important to not view gates and policies as mutually exclusive for your application. Most applications will most likely contain a mixture of gates and policies, and that is perfectly fine! Gates are most applicable to actions which are not related to any model or resource, such as viewing an administrator dashboard. In contrast, policies should be used when you wish to authorize an action for a particular model or resource.
+需要特别指出的是在应用中，gates 和策略并不是互相排斥的。在大多数应用中都有可能会混合的使用 gates 和策略，没关系，这都可以很好的协作。Gates 多适用于与模型或资源无关的授权动作，比如浏览管理员控制面板，而策略常用于为特定的模型或者资源进行授权动作。
 
 <a name="gates"></a>
-## Gates
+## Gates（能力）
 
-### Writing Gates
+### 编写 Gates
 
-Gates are Closures that determine if a user is authorized to perform a given action and are typically defined in the `App\Providers\AuthServiceProvider` class using the `Gate` facade. Gates always receive a user instance as their first argument, and may optionally receive additional arguments such as a relevant Eloquent model:
+Gates 是一些闭包函数，它们用于判断用户对指定的动作是否有执行的权利，通常它们应该是使用 `Gate` 假面被定义在 `App\Providers\AuthServiceProvider` 类中。Gates 总是接收用户实例作为第一个参数，你也可以传递一些额外可选的参数，比如相关的 Eloquent 模型：
 
     /**
      * Register any authentication / authorization services.
@@ -48,42 +48,42 @@ Gates are Closures that determine if a user is authorized to perform a given act
     }
 
 <a name="authorizing-actions-via-gates"></a>
-### Authorizing Actions
+### 授权动作
 
-To authorize an action using gates, you should use the `allows` method. Note that you are not required to pass the currently authenticated user to the `allows` method. Laravel will automatically take care of passing the user into the gate Closure:
+如果要使用 gates 对一个动作进行授权，那么你应该使用 `allows` 方法。你需要注意的是，你并不需要传递当前已经被认证的用户到 `allows` 方法中，Laravel 会自动的将其传递到 gate 的闭包中:
 
     if (Gate::allows('update-post', $post)) {
         // The current user can update the post...
     });
 
-If you would like to determine if a particular user is authorized to perform an action, you may use the `forUser` method on the `Gate` facade:
+如果你想要判断特定的用户是否有执行某个动作的权限，那么你可以使用 `Gate` 假面的 `forUser` 方法:
 
     if (Gate::forUser($user)->allows('update-post', $post)) {
         // The user can update the post...
     }
 
 <a name="creating-policies"></a>
-## Creating Policies
+## 创建策略
 
 <a name="generating-policies"></a>
-### Generating Policies
+### 生成策略
 
-Policies are classes that organize authorization logic around a particular model or resource. For example, if your application is a blog, you may have a `Post` model and a corresponding `PostPolicy` to authorize user actions such as creating or updating posts.
+策略就是一些类文件，它们用来管理围绕特定模型或资源的授权逻辑。比如，如果你的应用是一个博客，那么你可以拥有一个 `Post` 模型和相应的 `PostPolicy` 来对如创建或者更新 post 的用户动作进行授权。
 
-You may generate a policy using the `make:policy` [artisan command](/docs/{{language}}/{{version}}/artisan). The generated policy will be placed in the `app/Policies` directory. If this directory does not exist in your application, Laravel will create it for you:
+你可以通过 `make:policy` [artisan command](/docs/{{language}}/{{version}}/artisan) 命令来生成一个策略。所生成的策略会存放在 `app/Policies` 目录，如果该目录不存在，那么 Laravel 将会自动的为你创建：
 
     php artisan make:policy PostPolicy
 
-The `make:policy` command will generate an empty policy class. If you would like to generate a class with the basic "CRUD" policy methods already included in the class, you may specify a `--model` when executing the command:
+`make:policy` 命令将会生成一个空的策略类。如果你希望直接生成的类文件中已经包含了基础的 CRUD 策略方法，那么你可以在执行该命令时指定 `--model` 选项:
 
     php artisan make:policy PostPolicy --model=Post
 
-> {tip} All policies are resolved via the Laravel [service container](/docs/{{language}}/{{version}}/container), allowing you to type-hint any needed dependencies in the policy's constructor to have them automatically injected.
+> {tip} 所有的策略类都是通过 [服务容器](/docs/{{language}}/{{version}}/container) 解析而来。这意味着你可以使用类型提示来在策略类的构造函数中进行依赖注入所需要的依赖。
 
 <a name="registering-policies"></a>
-### Registering Policies
+### 注册策略
 
-Once the policy exists, it needs to be registered. The `AuthServiceProvider` included with fresh Laravel applications contains a `policies` property which maps your Eloquent models to their corresponding policies. Registering a policy will instruct Laravel which policy to utilize when authorizing actions against a given model:
+一旦策略存在，我们还需要在对其进行注册。在 `AuthServiceProvider` 中包含了一个 `policies` 属性，该属性存放所有实体与策略间的映射。注册这些策略可以指导 Laravel 对给定模型的授权动作使用相应的策略: 
 
     <?php
 
@@ -119,14 +119,14 @@ Once the policy exists, it needs to be registered. The `AuthServiceProvider` inc
     }
 
 <a name="writing-policies"></a>
-## Writing Policies
+## 编写策略
 
 <a name="policy-methods"></a>
-### Policy Methods
+### 策略方法
 
-Once the policy has been registered, you may add methods for each action it authorizes. For example, let's define an `update` method on our `PostPolicy` which determines if a given `User` can update a given `Post` instance.
+一旦策略被生成和注册后，我们就可以为所有动作的授权添加验证方法。例如，让我们在 `PostPolicy` 类中定义一个 `update` 方法，用来验证所给定的用户是否具有 `update` 给定 `Post` 实例的能力：
 
-The `update` method will receive a `User` and a `Post` instance as its arguments, and should return `true` or `false` indicating whether the user is authorized to update the given `Post`. So, for this example, let's verify that the user's `id` matches the `user_id` on the post:
+`update` 方法会接收一个 `User` 和一个 `Post` 实例作为它的参数，它应该明确的返回 `true` 或者 `false` 来决定用户是否有更新给定 `Post` 的权利。那么，作为这个示例，让我们来验证一下用户的 `id` 是否与 post 的 `user_id` 相匹配:
 
     <?php
 
@@ -150,16 +150,16 @@ The `update` method will receive a `User` and a `Post` instance as its arguments
         }
     }
 
-You may continue to define additional methods on the policy as needed for the various actions it authorizes. For example, you might define `view` or `delete` methods to authorize various `Post` actions, but remember you are free to give your policy methods any name you like.
+你可以继续在策略中添加用于验证其它动作是否授权的方法。比如，你可以定义一个 `view` 或者 `delete` 方法去对 `Post` 的各种动作进行授权，但是你应该记住，你可以自由的定义这些策略方法的名称。
 
-> {tip} If you used the `--model` option when generating your policy via the Artisan console, it will already contain methods for the `view`, `create`, `update`, and `delete` actions.
+> {tip} 如果你在执行 Artisan 命令时使用了 `--model` 选项来生成策略，那么它已经为 `view`，`create`，`update`，和 `delete` 动作生成了相应的方法。
 
 <a name="methods-without-models"></a>
-### Methods Without Models
+### 模型之外
 
-Some policy methods only receive the currently authenticated user and not an instance of the model they authorize. This situation is most common when authorizing `create` actions. For example, if you are creating a blog, you may wish to check if a user is authorized to create any posts at all.
+一些策略仅仅接收已经被认证的用户作为参数，而且并不包含当前所授权模型的实例。这种场景多用于对 `create` 动作进行授权，比如，如果你在创建一个博客，你可能会检查用户是否已经被授权可以创建任意的 posts。
 
-When defining policy methods that will not receive a model instance, such as a `create` method, it will not receive a model instance. Instead, you should define the method as only expecting the authenticated user:
+当定义策略方法而不接收模型的实例时，就像 `create` 方法那样，它不会接收模型的实例作为参数，那么你所定义的方法应该仅接收一个已被认证的用户作为参数:
 
     /**
      * Determine if the given user can create posts.
@@ -172,12 +172,12 @@ When defining policy methods that will not receive a model instance, such as a `
         //
     }
 
-> {tip} If you used the `--model` option when generating your policy, all of the relevant "CRUD" policy methods will already be defined on the generated policy.
+> {tip} 如果你在执行 Artisan 命令时使用了 `--model` 选项来生成策略，那么在所生成的策略类中已经包含了所有关联 CRUD 的策略方法。
 
 <a name="policy-filters"></a>
-### Policy Filters
+### 策略过滤
 
-For certain users, you may wish to authorize all actions within a given policy. To accomplish this, define a `before` method on the policy. The `before` method will be executed before any other methods on the policy, giving you an opportunity to authorize the action before the intended policy method is actually called. This feature is most commonly used for authorizing application administrators to perform any action:
+对于一些用户，你可能希望在给定的策略中赋予它们所有动作的授权，那么你可以在策略中定义一个 `before` 方法，这给予你在给定的策略方法被执行之前为动作进行授权的机会。这个特性常用来为应用的管理者提供任意动作的执行权限：
 
     public function before($user, $ability)
     {
@@ -187,22 +187,24 @@ For certain users, you may wish to authorize all actions within a given policy. 
     }
 
 <a name="authorizing-actions-using-policies"></a>
-## Authorizing Actions Using Policies
+## 使用策略对动作进行授权
 
 <a name="via-the-user-model"></a>
-### Via The User Model
+### 通过用户模型
 
-The `User` model that is included with your Laravel application includes two helpful methods for authorizing actions: `can` and `cant`. The `can` method receives the action you wish to authorize and the relevant model. For example, let's determine if a user is authorized to update a given `Post` model:
+你可以通过 `User` 模型的实例来检查用户的能力。默认的 Laravel 的 `App\User` 模型使用了 `Authorizable` trait，这个性状包含两个方法：`can` 和 `cannot`。这两个方法和 `Gate` 假面的 `allows` 和 `denies` 方法的用法相同。我们还使用上面曾使用过的例子，修改成如下：
+
+Laravel 应用自带的 `User` 模型包含了两个有用的方法来对动作进行授权：`can` 和 `cant`。`can` 方法接收你希望授权的动作和所关联的模型。比如，让我们来判断用户是否具有对给定的 `Post` 模型的 'update' 动作的授权:
 
     if ($user->can('update', $post)) {
         //
     }
 
-If a [policy is registered](#registering-policies) for the given model, the `can` method will automatically call the appropriate policy and return the boolean result. If no policy is registered for the model, the `can` method will attempt to call the Closure based Gate matching the given action name.
+如果 [策略](#registering-policies) 是为给定的模型而注册的。那么 `can` 方法会自动的调用适当的策略，并且会返回布尔结果。如果没有为给定的模型注册相应的策略，那么 `can` 方法会尝试调用基于 Gate 所匹配的给定的动作名称中的闭包方法。
 
-#### Actions That Don't Require Models
+#### 不依赖于模型的动作
 
-Remember, some actions like `create` may not require a model instance. In these situations, you may pass a class name to the `can` method. The class name will be used to determine which policy to use when authorizing the action:
+还记得吗，一些像 `create` 的动作并不需要引入关联模型的实例。在这种场景下，你可以直接传递一个类的名称到 `can` 方法中。这个类名称会被用来判断在对动作进行授权时应使用哪种策略。
 
     use App\Post;
 
@@ -211,9 +213,9 @@ Remember, some actions like `create` may not require a model instance. In these 
     }
 
 <a name="via-middleware"></a>
-### Via Middleware
+### 通过中间件
 
-Laravel includes a middleware that can authorize actions before the incoming request even reaches your routes or controllers. By default, the `Illuminate\Auth\Middleware\Authorize` middleware is assigned the `can` key in your `App\Http\Kernel` class. Let's explore an example of using the `can` middleware to authorize that a user can update a blog post:
+Laravel 引入的中间可以在进入的请求到达路由或者控制器之前对动作进行授权。默认的 `Illuminate\Auth\Middleware\Authorize` 中间件在你的 `App\Http\Kernel` 类中被分配了 `can` 作为索引键。那么，让我们来看一下使用 `can` 中间件来对用户是否具有更新博客 post 的授权的示例吧:
 
     use App\Post;
 
@@ -221,20 +223,20 @@ Laravel includes a middleware that can authorize actions before the incoming req
         // The current user may update the post...
     })->middleware('can:update,post');
 
-In this example, we're passing the `can` middleware two arguments. The first is the name of the action we wish to authorize and the second is the route parameter we wish to pass to the policy method. In this case, since we are using [implicit model binding](/docs/{{language}}/{{version}}/routing#implicit-binding), a `Post` model will be passed to the policy method. If the user is not authorized to perform the given action, a HTTP response with a `403` status code will be generated by the middleware.
+在这个示例中，我们为 `can` 中间件传递了两个参数。第一个参数是我们想要进行授权验证的动作名称，第二个参数则是我们需要传递到策略方法中的路由参数名称。上述例子中，由于我们是使用的 [隐式模型绑定](/docs/{{language}}/{{version}}/routing#implicit-binding)，所以一个 `Post` 模型的实例将会传递到策略方法中。如果用户并没有被授权访问跟多的动作，那么中间件会自动的生成一个 `403` 状态码的 HTTP 响应。
 
-#### Actions That Don't Require Models
+#### 不依赖于模型的动作
 
-Again, some actions like `create` may not require a model instance. In these situations, you may pass a class name to the middleware. The class name will be used to determine which policy to use when authorizing the action:
+再一次，一些像 `create` 的动作并不需要引入关联模型的实例。在这种场景下，你可以直接传递一个类的名称到中间件中。这个类名称会被用来判断在对动作进行授权时应使用哪种策略。
 
     Route::post('/post', function () {
         // The current user may create posts...
     })->middleware('can:create,App\Post');
 
 <a name="via-controller-helpers"></a>
-### Via Controller Helpers
+### 通过控制器辅助方法
 
-In addition to helpful methods provided to the `User` model, Laravel provides a helpful `authorize` method to any of your controllers which extend the `App\Http\Controllers\Controller` base class. Like the `can` method, this method accepts the name of the action you wish to authorize and the relevant model. If the action is not authorized, the `authorize` method will throw an `Illuminate\Auth\Access\AuthorizationException`, which the default Laravel exception handler will convert to an HTTP response with a `403` status code:
+除了为 `User` 模型提供了一些有用的方法外，Laravel 也对于继承自 `App\Http\Controllers\Controller` 类的控制器提供了 `authorize` 方法。就像 `can` 方法一样，这个方法接收你所希望进行授权的动作的名称和所关联的模型。如果动作没有被授权，那么 `authorize` 方法将会抛出 `Illumiante\Auth\Access\AuthorizationException`，这在默认的 Laravel 异常处理器中会被转换为 `403` 状态码的 HTTP 响应：
 
     <?php
 
@@ -261,9 +263,9 @@ In addition to helpful methods provided to the `User` model, Laravel provides a 
         }
     }
 
-#### Actions That Don't Require Models
+#### 不依赖于模型的动作
 
-As previously discussed, some actions like `create` may not require a model instance. In these situations, you may pass a class name to the `authorize` method. The class name will be used to determine which policy to use when authorizing the action:
+就如我们上面所提到的，一些像 `create` 的动作并不需要引入关联模型的实例。在这种场景下，你可以直接传递一个类的名称到 `authorize` 方法中。这个类名称会被用来判断在对动作进行授权时应使用哪种策略。
 
     /**
      * Create a new blog post.
@@ -279,9 +281,9 @@ As previously discussed, some actions like `create` may not require a model inst
     }
 
 <a name="via-blade-templates"></a>
-### Via Blade Templates
+### 通过 Blade 模板
 
-When writing Blade templates, you may wish to display a portion of the page only if the user is authorized to perform a given action. For example, you may wish to show an update form for a blog post only if the user can actually update the post. In this situation, you may use the `@can` and `@cannot` directives.
+在编写 Blade 模板时，你或许希望只有在用户具有给定动作的授权时才显示页面中的一部分。比如，你或许希望只有在用户可以更新文章时，才展示更新相关的表单。在这种场景下，你可以使用 `@can` 和 `@cannot` 指令。
 
     @can('update', $post)
         <!-- The Current User Can Update The Post -->
@@ -291,7 +293,7 @@ When writing Blade templates, you may wish to display a portion of the page only
         <!-- The Current User Can't Update The Post -->
     @endcannot
 
-These directives are convenient short-cuts for writing `@if` and `@unless` statements. The `@can` and `@cannot` statements above respectively translate to the following statements:
+这些指令是专门为了方便简化这种场景下的 `@if` 和 `@unless` 声明而存在的。上面使用 `@can` 和 `@cannot` 指令所处理的逻辑也可以转换为下面的声明
 
     @if (Auth::user()->can('update', $post))
         <!-- The Current User Can Update The Post -->
@@ -301,9 +303,9 @@ These directives are convenient short-cuts for writing `@if` and `@unless` state
         <!-- The Current User Can't Update The Post -->
     @endunless
 
-#### Actions That Don't Require Models
+#### 不依赖于模型的动作
 
-Like most of the other authorization methods, you may pass a class name to the `@can` and `@cannot` directives if the action does not require a model instance:
+就像其它的授权方法那样，对于不依赖于模型的动作，你可以传递类的名称到 `@can` 和 `@cannot` 指令中：
 
     @can('create', Post::class)
         <!-- The Current User Can Create Posts -->
