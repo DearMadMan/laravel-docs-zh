@@ -1,61 +1,61 @@
-# Resetting Passwords
+# 密码重置
 
-- [Introduction](#introduction)
-- [Database Considerations](#resetting-database)
-- [Routing](#resetting-routing)
-- [Views](#resetting-views)
-- [After Resetting Passwords](#after-resetting-passwords)
-- [Customization](#password-customization)
+- [前言](#introduction)
+- [数据库考量](#resetting-database)
+- [路由](#resetting-routing)
+- [视图](#resetting-views)
+- [重置之后](#after-resetting-passwords)
+- [定制化](#password-customization)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-> {tip} **Want to get started fast?** Just run `php artisan make:auth` in a fresh Laravel application and navigate your browser to `http://your-app.dev/register` or any other URL that is assigned to your application. This single command will take care of scaffolding your entire authentication system, including resetting passwords!
+> {tip} **希望更快速的开始?** 你只需要在一个新的 Laravel 程序中执行 `php artisan make:auth` 命令然后在你的浏览器中访问 `http://your-app.dev/register` 或者其它你分配到应用中的 URL。这个单独的命令会自动的生成完整的认证系统脚手架，包括重置密码！
 
-Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
+大多数的 web 应用都提供了一种用户重置其忘记密码的方式。Laravel 提供了一种便利的方式来发送密码重置邮件和提供密码重置，这样你就不需要被迫在每个应用都实现一次这种机制。
 
-> {note} Before using the password reset features of Laravel, your user must use the `Illuminate\Notifications\Notifiable` trait.
+> {note} 在使用 Laravel 的密码重置特性之前，你的用户模型必须使用了 `Illuminate\Notifications\Notifiable` trait。
 
 <a name="resetting-database"></a>
-## Database Considerations
+## 数据库考量
 
-To get started, verify that your `App\User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `App\User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
+为了方便开始，请确定你的 `App\User` 模型实现了 `Illuminate\Contracts\Auth\CanResetPassword` 契约，当然，Laravel 自带的 `App\User` 模型中已经实现了这个接口，并且使用了 `Illuminate\Auth\Passwords\CanResetPassword` trait，这个性状提供了实现契约所需的方法。
 
-#### Generating The Reset Token Table Migration
+#### 生成重置 Token 表迁移
 
-Next, a table must be created to store the password reset tokens. The migration for this table is included with Laravel out of the box, and resides in the `database/migrations` directory. So, all you need to do is run your database migrations:
+接着，你必须要创建一个用来存储重置密码的 token 的表。Laravel 已经提供了这种表的迁移，并且存放在 `database/migrations` 目录下，所以，你只需要执行迁移命令：
 
     php artisan migrate
 
 <a name="resetting-routing"></a>
-## Routing
+## 路由
 
-Laravel includes `Auth\ForgotPasswordController` and `Auth\ResetPasswordController` classes that contains the logic necessary to e-mail password reset links and reset user passwords. All of the routes needed to perform password resets may be generated using the `make:auth` Artisan command:
+Laravel 自带的 `Auth\ForgotPasswordController` 和 `Auth\ResetPasswordController`  控制器包含了所有重置密码所需的逻辑。所有提供密码重置的路由都可以通过 `make:auth` Artisan 命令来生成:
 
     php artisan make:auth
 
 <a name="resetting-views"></a>
-## Views
+## 视图
 
-Again, Laravel will generate all of the necessary views for password reset when the `make:auth` command is executed. These views are placed in `resources/views/auth/passwords`. You are free to customize them as needed for your application.
+当 `make:auth` 命令被执行时，Laravel 会生成所有密码重置所需要的视图。这些视图将被存放在 `resources/views/auth/passwords` 目录中，你可以根据自己的需求去修改。
 
 <a name="after-resetting-passwords"></a>
-## After Resetting Passwords
+## 重置密码之后
 
-Once you have defined the routes and views to reset your user's passwords, you may simply access the route in your browser at `/password/reset`. The `ForgotPasswordController` included with the framework already includes the logic to send the password reset link e-mails, while the `ResetPasswordController` includes the logic to reset user passwords.
+一旦你生成了所有重置密码所需要的路由和视图之后，你就可以通过在浏览器访问 `/password/reset` 路由来进行密码重置。`ForgotPasswordController` 已经包含了发送重置密码的链接邮件的逻辑，而 `ResetPasswordController` 则包含了更新密码到数据库的功能。
 
-After a password is reset, the user will automatically be logged into the application and redirected to `/home`. You can customize the post password reset redirect location by defining a `redirectTo` property on the `ResetPasswordController`:
+当密码被重置之后，用户会自动登录并且被重定向到 `/home`。你可以在 `ResetPasswordController` 中定义 `redirectTo` 属性来定制化重定向地址:
 
     protected $redirectTo = '/dashboard';
 
-> {note} By default, password reset tokens expire after one hour. You may change this via the password reset `expire` option in your `config/auth.php` file.
+> {note} 默认的，密码重置的 token 有效期只有一个小时，你可以在 `config/auth.php` 配置文件中修改 `expire` 选项。
 
 <a name="password-customization"></a>
-## Customization
+## 定制化
 
-#### Authentication Guard Customization
+#### 定制化认证守卫
 
-In your `auth.php` configuration file, you may configure multiple "guards", which may be used to define authentication behavior for multiple user tables. You can customize the included `ResetPasswordController` to use the guard of your choice by overriding the `guard` method on the controller. This method should return a guard instance:
+在你的 `auth.php` 配置文件中，你可以配置多种 "guards"，用于对各种用户表执行认证动作。你可以在 `ResetPasswordController` 重写 `guard` 方法来选择守卫，这个方法应该返回一个守卫的实例：
 
     use Illuminate\Support\Facades\Auth;
 
@@ -64,9 +64,10 @@ In your `auth.php` configuration file, you may configure multiple "guards", whic
         return Auth::guard('guard-name');
     }
 
-#### Password Broker Customization
+#### 定制化密码经纪人
 
-In your `auth.php` configuration file, you may configure multiple password "brokers", which may be used to reset passwords on multiple user tables. You can customize the included `ForgotPasswordController` and `ResetPasswordController` to use the broker of your choice by overriding the `broker` method:
+
+在你的 `auth.php` 配置文件中，你可以配置多种密码 “brokers”，用于对多种用户表进行密码重置。你可以通过在 `ForgotPasswordController` 和 `ResetPasswordController` 控制器中重写 `broker` 方法来选择指定的经纪人:
 
     /**
      * Get the broker to be used during password reset.
