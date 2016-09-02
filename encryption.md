@@ -7,7 +7,7 @@
 <a name="introduction"></a>
 ## 前言
 
-Laravel 的加密器是使用的 OpenSSL 来提供 AES-256 和 AES-128 加密。我们极力推荐你使用 Laravel 內建的加密器而不是你自己构建的加密算法。Laravel 中所有加密值的签证都是使用的消息鉴别码（MAC)算法，所以加密后的消息值，它们是无法修改的。
+Laravel 的加密器是使用的 OpenSSL 来提供 AES-256 和 AES-128 加密。我们极力推荐你使用 Laravel 內建的加密器而不是你自己构建的加密算法。Laravel 中所有加密值的签证都是使用的消息鉴别码（MAC）算法，所以加密后的消息值，它们是无法修改的。
 
 <a name="configuration"></a>
 ## 配置

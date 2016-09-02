@@ -1,4 +1,4 @@
-# API Authentication (Passport)
+# API 认证 (Passport)
 
 - [Introduction](#introduction)
 - [Installation](#installation)
