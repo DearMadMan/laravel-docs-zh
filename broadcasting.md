@@ -451,4 +451,4 @@ Laravel Echo 是一个 JavaScript 类库。它可以无缝的订阅频道和监�
             console.log(notification.type);
         });
 
-In this example, all notifications sent to `App\User` instances via the `broadcast` channel would be received by the callback. A channel authorization callback for the `App.User.*` channel is included in the default `BroadcastServiceProvider` that ships with the Laravel framework.
+在这个例子中，所有通过 `broadcast` 频道发送到 `App\User` 实例的通知都将会被回调所接收到。Laravel 框架自带的 `BroadcastServiceProvider` 中已经为 `App.User.*` 频道定义了一个频道授权回调。
