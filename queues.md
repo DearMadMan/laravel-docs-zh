@@ -122,9 +122,9 @@ Job classes are very simple, normally containing only a `handle` method which is
         }
     }
 
-In this example, note that we were able to pass an [Eloquent model](/docs/{{language}}/{{version}}/eloquent) directly into the queued job's constructor. Because of the `SerializesModels` trait that the job is using, Eloquent models will be gracefully serialized and unserialized when the job is processing. If your queued job accepts an Eloquent model in its constructor, only the identifier for the model will be serialized onto the queue. When the job is actually handled, the queue system will automatically re-retrieve the full model instance from the database. It's all totally transparent to your application and prevents issues that can arise from serializing full Eloquent model instances.
+In this example, note that we were able to pass an [Eloquent model](/docs/{{version}}/eloquent) directly into the queued job's constructor. Because of the `SerializesModels` trait that the job is using, Eloquent models will be gracefully serialized and unserialized when the job is processing. If your queued job accepts an Eloquent model in its constructor, only the identifier for the model will be serialized onto the queue. When the job is actually handled, the queue system will automatically re-retrieve the full model instance from the database. It's all totally transparent to your application and prevents issues that can arise from serializing full Eloquent model instances.
 
-The `handle` method is called when the job is processed by the queue. Note that we are able to type-hint dependencies on the `handle` method of the job. The Laravel [service container](/docs/{{language}}/{{version}}/container) automatically injects these dependencies.
+The `handle` method is called when the job is processed by the queue. Note that we are able to type-hint dependencies on the `handle` method of the job. The Laravel [service container](/docs/{{version}}/container) automatically injects these dependencies.
 
 <a name="dispatching-jobs"></a>
 ## Dispatching Jobs
@@ -155,7 +155,7 @@ Once you have written your job class, you may dispatch it using the `dispatch` h
         }
     }
 
-> {tip} The `dispatch` helper provides the convenience of a short, globally available function, while also being extremely easy to test. Check out the Laravel [testing documentation](/docs/{{language}}/{{version}}/testing) to learn more.
+> {tip} The `dispatch` helper provides the convenience of a short, globally available function, while also being extremely easy to test. Check out the Laravel [testing documentation](/docs/{{version}}/testing) to learn more.
 
 <a name="delayed-dispatching"></a>
 ### Delayed Dispatching
@@ -286,10 +286,6 @@ You may also specify which queue connection the worker should utilize. The conne
 You may customize your queue worker even further by only processing particular queues for a given connection. For example, if all of your emails are processed in an `emails` queue on your `redis` queue connection, you may issue the following command to start a worker that only processes only that queue:
 
     php artisan queue:work redis --queue=emails
-
-#### Resource Considerations
-
-Queue workers are daemons and do not restart the framework before processing each job. Therefore, you should be careful to free any heavy resources before your job finishes. For example, if you are doing image manipulation with the GD library, you should free the memory with `imagedestroy` when you are done.
 
 <a name="queue-priorities"></a>
 ### Queue Priorities
@@ -504,7 +500,7 @@ To delete all of your failed jobs, you may use the `queue:flush` command:
 <a name="job-events"></a>
 ## Job Events
 
-Using the `before` and `after` methods on the `Queue` [facade](/docs/{{language}}/{{version}}/facades), you may specify callbacks to be executed before or after a queued job is processed. These callbacks are a great opportunity to perform additional logging or increment statistics for a dashboard. Typically, you should call these methods from a [service provider](/docs/{{language}}/{{version}}/providers). For example, we may use the `AppServiceProvider` that is included with Laravel:
+Using the `before` and `after` methods on the `Queue` [facade](/docs/{{version}}/facades), you may specify callbacks to be executed before or after a queued job is processed. These callbacks are a great opportunity to perform additional logging or increment statistics for a dashboard. Typically, you should call these methods from a [service provider](/docs/{{version}}/providers). For example, we may use the `AppServiceProvider` that is included with Laravel:
 
     <?php
 
