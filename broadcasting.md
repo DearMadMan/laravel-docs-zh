@@ -186,7 +186,7 @@ Laravel 的事件广播允许你通过基于驱动的途径在 WebSockets 通道
     use Illuminate\Broadcasting\InteractsWithSockets;
     use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-    class ServerCreated extends Event implements ShouldBroadcast
+    class ServerCreated implements ShouldBroadcast
     {
         use SerializesModels;
 

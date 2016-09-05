@@ -29,6 +29,7 @@ Laravel 除了提供开箱即用的 [认证服务](/docs/{{language}}/{{version}
 <a name="gates"></a>
 ## Gates（能力）
 
+<a name="writing-gates"></a>
 ### 编写 Gates
 
 Gates 是一些闭包函数，它们用于判断用户对指定的动作是否有执行的权利，通常它们应该是使用 `Gate` 假面被定义在 `App\Providers\AuthServiceProvider` 类中。Gates 总是接收用户实例作为第一个参数，你也可以传递一些额外可选的参数，比如相关的 Eloquent 模型：
