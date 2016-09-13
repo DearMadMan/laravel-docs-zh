@@ -1,4 +1,4 @@
-# 帮助方法
+# 辅助函数
 
 - [前言](#introduction)
 - [可用的方法](#available-methods)
@@ -6,7 +6,7 @@
 <a name="introduction"></a>
 ## 前言
 
-Laravel 包含了多中 "帮手" PHP 函数，很多方法都在框架中进行了使用，如果你发现他们很方便，你也可以在自己的应用中使用。
+Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架中进行了使用，如果你发现他们很方便，你也可以在自己的应用中使用。
 
 <a name="available-methods"></a>
 ## 可用的方法
