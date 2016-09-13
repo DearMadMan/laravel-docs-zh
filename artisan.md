@@ -1,54 +1,54 @@
-# Console Commands
+# 控制台命令
 
-- [Introduction](#introduction)
-- [Writing Commands](#writing-commands)
-    - [Generating Commands](#generating-commands)
-    - [Command Structure](#command-structure)
-    - [Closure Commands](#closure-commands)
-- [Defining Input Expectations](#defining-input-expectations)
-    - [Arguments](#arguments)
-    - [Options](#options)
-    - [Input Arrays](#input-arrays)
-    - [Input Descriptions](#input-descriptions)
-- [Command I/O](#command-io)
-    - [Retrieving Input](#retrieving-input)
-    - [Prompting For Input](#prompting-for-input)
-    - [Writing Output](#writing-output)
-- [Registering Commands](#registering-commands)
-- [Programatically Executing Commands](#programatically-executing-commands)
-    - [Calling Commands From Other Commands](#calling-commands-from-other-commands)
+- [前言](#introduction)
+- [编写命令](#writing-commands)
+    - [生成命令](#generating-commands)
+    - [命令结构](#command-structure)
+    - [闭包命令](#closure-commands)
+- [定义期望的输入](#defining-input-expectations)
+    - [参数](#arguments)
+    - [选项](#options)
+    - [数组输入](#input-arrays)
+    - [输入描述](#input-descriptions)
+- [命令 I/O](#command-io)
+    - [检索输入](#retrieving-input)
+    - [输入提示](#prompting-for-input)
+    - [编写输出](#writing-output)
+- [注册命令](#registering-commands)
+- [通过代码执行命令](#programatically-executing-commands)
+    - [从其它命令中执行命令](#calling-commands-from-other-commands)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Artisan is the command-line interface included with Laravel. It provides a number of helpful commands that can assist you while you build your application. To view a list of all available Artisan commands, you may use the `list` command:
+Artisan 是 Laravel 自带的命令行工具的通讯接口。它为应用的开发提供了多种有用的协作命令。你可以使用 `list` 命令来查看所有可用的 Artisan 命令：
 
     php artisan list
 
-Every command also includes a "help" screen which displays and describes the command's available arguments and options. To view a help screen, simply precede the name of the command with `help`:
+所有的命令都提供了帮助文档，你可以在相应的命令前使用 `help` 来查看相关命令的选项和参数：
 
     php artisan help migrate
 
 <a name="writing-commands"></a>
-## Writing Commands
+## 编写命令
 
-In addition to the commands provided with Artisan, you may also build your own custom commands. Commands are typically stored in the `app/Console/Commands` directory; however, you are free to choose your own storage location as long as your commands can be loaded by Composer.
+除了 Artisan 自带的命令之外，Laravel 也允许你自行定义自己的命令工具，你可以将自定义的命令工具存放到 `app/Console/Commands` 目录下，你当然也可以存放在其他任何想要存放的目录，只要你所存放的位置能基于 `composer.json` 的设置进行自动加载就行。
 
 <a name="generating-commands"></a>
-### Generating Commands
+### 生成命令
 
-To create a new command, use the `make:command` Artisan command. This command will create a new command class in the `app/Console/Commands` directory. Don't worry if you this directory does not exist in your application, since it will be created the first time you run the `make:command` Artisan command. The generated command will include the default set of properties and methods that are present on all commands:
+你可以使用 `make:command` Artisan 命令，来进行新命令工具的生成。这个命令会在 `app/Console/Commands` 目录下生成一个新的命令类。如果你的应用中不存在这个目录，请不要担心，它会在你首次执行 `make:command` Artisan 命令时自动的生成。被生成的命令类中会包含一些默认的属性设置和方法：
 
     php artisan make:command SendEmails
 
 <a name="command-structure"></a>
-### Command Structure
+### 命令结构
 
-After generating your command, you should fill in the `signature` and `description` properties of the class, which will be used when displaying your command on the `list` screen. The `handle` method will be called when your command is executed. You may place your command logic in this method.
+在生成命令类之后，你需要在其中填充 `signature` 和 `description` 属性。这些内容会在你使用 `list` 命令时在屏幕上显示。当你的命令被执行时，会触发 `handle` 方法，你可以在这个方法里编写相应的命令逻辑。
 
-> {tip} For greater code reuse, it is good practice to keep your console commands light and let them defer to application services to accomplish their tasks. In the example below, note that we inject a service class to do the "heavy lifting" of sending the e-mails.
+> {tip} 为了更好的代码重用性，保持你的命令工具的轻量和服从应用服务来完成它们的任务是一种很好的实践。在下面的示例中，你需要注意我们注入一个服务类来完成繁重的发送邮件的任务。
 
-Let's take a look at an example command. Note that we are able to inject any dependencies we need into the command's constructor. The Laravel [service container](/docs/{{language}}/{{version}}/container) will automatically inject all dependencies type-hinted in the constructor:
+让我们来看一个示例命令。你应该知道我们可以在命令类的构造函数中进行依赖的注入。Laravel [服务容器](/docs/{{version}}/container) 会自动的注入所有在构造函数中使用类型提示的依赖:
 
     <?php
 
@@ -106,9 +106,9 @@ Let's take a look at an example command. Note that we are able to inject any dep
     }
 
 <a name="closure-commands"></a>
-### Closure Commands
+### 闭包命令
 
-Closure based commands provide an alternative to defining console commands as classes. In the same way that route Closures are an alternative to controllers, think of command Closures as an alternative to command classes. Within the `commands` method of your `app/Console/Kernel.php` file, Laravel loads the `routes/console.php` file:
+基于闭包的命令也可以用于取代使用类的方式来定义命令。使用同样方式的还有路由的闭包，也可以用于取代控制器。你可以直接认为命令闭包是命令类的一种简写方式。在 `app/Console/Kernel.php` 文件中的 `commands` 方法中，Laravel 加载了 `routes/console.php` 文件：
 
     /**
      * Register the Closure based commands for the application.
@@ -120,17 +120,17 @@ Closure based commands provide an alternative to defining console commands as cl
         require base_path('routes/console.php');
     }
 
-Even though this file does not define HTTP routes, it defines console based entry points (routes) into your application. Within this file, you may define all of your Closure based routes using the `Artisan::command` method. The `command` method accepts two arguments: the [command signature](#defining-input-expectations) and a Closure which receives the commands arguments and options:
+尽管这个文件并没有定义 HTTP 路由，但是它在你的应用中定义了基于控制台的切入点（路由）。在这个文件中，你可以使用 `Artisan::command` 方法来定义所有基于闭包的路由。`command` 方法接收两个参数：[命令签名](#defining-input-expectations) 和一个用于接收命令参数和选项的闭包：
 
     Artisan::command('build {project}', function ($project) {
         $this->info("Building {$project}!");
     });
 
-The Closure is bound to the underlying command instance, so you have full access to all of the helper methods you would typically be able to access on a full command class.
+这个闭包会被绑定到底层的命令类实例中，所以你具有访问底层命令类帮助方法的所有权限。
 
-#### Type-Hinting Dependencies
+#### 类型提示的依赖
 
-In addition to receiving your command's arguments and options, command Closures may also type-hint additional dependencies that you would like resolved out of the [service container](/docs/{{language}}/{{version}}/container):
+除了可以接收命令的参数和选项，命令闭包也可以对其它的依赖进行类型提示，这样你就可以从 [服务容器](/docs/{{version}}/container) 中解析它们：
 
     use App\User;
     use App\DripEmailer;
@@ -139,23 +139,23 @@ In addition to receiving your command's arguments and options, command Closures 
         $drip->send(User::find($user));
     });
 
-#### Closure Command Descriptions
+#### 闭包命令的描述
 
-When defining a Closure based command, you may use the `describe` method to add a description to the command. This description will be displayed when you run the `php artisan list` or `php artisan help` commands:
+当定义一个基于闭包的命令时，你可以使用 `describe` 方法来添加描述到命令中。这个描述会在你执行 `php artisan list` 或者 `php artisan help` 命令时展示：
 
     Artisan::command('build {project}', function ($project) {
         $this->info("Building {$project}!");
     })->describe('Build the project');
 
 <a name="defining-input-expectations"></a>
-## Defining Input Expectations
+## 定义输入期望值
 
-When writing console commands, it is common to gather input from the user through arguments or options. Laravel makes it very convenient to define the input you expect from the user using the `signature` property on your commands. The `signature` property allows you to define the name, arguments, and options for the command in a single, expressive, route-like syntax.
+当我们编写命令行工具时，通常都是通过用户输入的参数或者选项来收集输入。Laravel 使这一切变的非常简单。你可以使用 `signature` 属性在你的命令中定义你所期望得到的输入。`signature` 属性允许你使用一行富有表现力的类路由的语法来定义命令行中的名称，参数和选项。
 
 <a name="arguments"></a>
-### Arguments
+### 参数
 
-All user supplied arguments and options are wrapped in curly braces. In the following example, the command defines one **required** argument: `user`:
+所有用户所提供的参数和选项都被包裹在大括号内。在下面的示例中，命令行工具定义了一个 **必须** 的参数：`user`：
 
     /**
      * The name and signature of the console command.
@@ -164,7 +164,7 @@ All user supplied arguments and options are wrapped in curly braces. In the foll
      */
     protected $signature = 'email:send {user}';
 
-You may also make arguments optional and define default values for arguments:
+你也可以使参数可选，或者为一个可选的参数定义一个默认值：
 
     // Optional argument...
     email:send {user?}
@@ -173,9 +173,9 @@ You may also make arguments optional and define default values for arguments:
     email:send {user=foo}
 
 <a name="options"></a>
-### Options
+### 选项
 
-Options, like arguments, are another form of user input. Options are prefixed by two hyphens (`--`) when they are specified on the command line. There are two types of options: those that receive a value and those that don't. Options that don't receive a value serve as a boolean "switch". Let's take a look at an example of this type of option:
+选项和参数一样，它们也是用户的一种输入。但是它们在命令行被指定时会使用 `--` 作为前缀。这里有两种类型的选项：一种接收数值，而另一种不接收。对于不接收数值的选项，它们的功能就好像开关一样。让我们来看一下这种类型选项的示例：
 
     /**
      * The name and signature of the console command.
@@ -184,14 +184,14 @@ Options, like arguments, are another form of user input. Options are prefixed by
      */
     protected $signature = 'email:send {user} {--queue}';
 
-In this example, the `--queue` switch may be specified when calling the Artisan command. If the `--queue` switch is passed, the value of the option will be `true`. Otherwise, the value will be `false`:
+在这个示例中，`--queue` 开关选项可以在使用 Artisan 命令时被指定。如果指定了 `--queque`，那么这个选项的值将会为 `true`。否则选项的值将为 `false`：
 
     php artisan email:send 1 --queue
 
 <a name="options-with-values"></a>
-#### Options With Values
+#### 附带值的选项
 
-Next, let's take a look at an option that expects a value. If the user must specify a value for an option, suffix the option name with a `=` sign:
+下面，让我们来看一下可以接收值的选项。你可以通过在选项后面添加 `=` 号来表明这个选项是需要通过用户输入的：
 
     /**
      * The name and signature of the console command.
@@ -200,42 +200,42 @@ Next, let's take a look at an option that expects a value. If the user must spec
      */
     protected $signature = 'email:send {user} {--queue=}';
 
-In this example, the user may pass a value for the option like so:
+在这个例子中，用户可以传递一个值到选项，就像这样：
 
     php artisan email:send 1 --queue=default
 
-You may assign default values to options by specifying the default value after the option name. If no option value is passed by the user, the default value will be used:
+你也可以分配一个默认值到选项，当选项值没有被用户指定时，那么它将会使用默认值：
 
     email:send {user} {--queue=default}
 
 <a name="option-shortcuts"></a>
-#### Option Shortcuts
+#### 选项简写
 
-To assign a shortcut when defining an option, you may specify it before the option name and use a | delimiter to separate the shortcut from the full option name:
+你也可以为选项定义一个简写，你需要使用 `|` 来分割简写与选项名称，并将简写像下面的示例一样前置：
 
     email:send {user} {--Q|queue}
 
 <a name="input-arrays"></a>
-### Input Arrays
+### 输入数组
 
-If you would like to define arguments or options to expect array inputs, you may use the `*` character. First, let's take a look at an example that specifies an array argument:
+如果你想要定义参数或选项期望得到的是输入数组，你可以使用 `*` 通配符，首先，让我们来看一下指定数组参数的示例：
 
     email:send {user*}
 
-When calling this method, the `user` arguments may be passed in order to the command line. For example, the following command will set the value of `user` to `['foo', 'bar']`:
+当调用这个方法时，`user` 参数列可以按序的传递到命令行中。比如，下面的命令将会设置 `user` 的值为 `['foo', 'bar']`:
 
     php artisan email:send foo bar
 
-When defining an option that expects an array input, each option value passed to the command should be prefixed with the option name:
+当定义一个期待输入输入的选项时，你需要在每个选项值之前都添加选项名前缀：
 
     email:send {user} {--id=*}
 
     php artisan email:send --id=1 --id=2
 
 <a name="input-descriptions"></a>
-### Input Descriptions
+### 输入描述
 
-You may assign descriptions to input arguments and options by separating the parameter from the description using a colon. If you need a little extra room to define your command, feel free to spread the definition across multiple lines:
+你也可以分配描述信息到选项或者参数中，你需要使用 `:` 来进行分割描述和选项或参数，如果你需要一些额外的空间来定义你的命令描述，那么你可以自由的将它们格式化为多行：
 
     /**
      * The name and signature of the console command.
@@ -247,12 +247,12 @@ You may assign descriptions to input arguments and options by separating the par
                             {--queue= : Whether the job should be queued}';
 
 <a name="command-io"></a>
-## Command I/O
+## 命令 I/O
 
 <a name="retrieving-input"></a>
-### Retrieving Input
+### 检索输入
 
-While your command is executing, you will obviously need to access the values for the arguments and options accepted by your command. To do so, you may use the `argument` and `option` methods:
+当你的命令工具存在时，你明显会需要访问命令行中所期望得到的参数或选项的值。你可以使用 `argument` 和 `option` 方法来得到：
 
     /**
      * Execute the console command.
@@ -266,11 +266,11 @@ While your command is executing, you will obviously need to access the values fo
         //
     }
 
-If you need to retrieve all of the arguments as an `array`, call the `arguments` method:
+你可以通过使用 `arguments` 方法来获取所有参数所组成的数组：
 
     $arguments = $this->arguments();
 
-Options may be retrieved just as easily as arguments using the `option` method. To retrieve all of the options as an array, call the `options` method:
+选项可以非常简单的类似参数一样的通过 `option` 方法进行检索。你也可以使用 `options` 方法来返回所有选项所组成的数组：
 
     // Retrieve a specific option...
     $queueName = $this->option('queue');
@@ -278,12 +278,12 @@ Options may be retrieved just as easily as arguments using the `option` method. 
     // Retrieve all options...
     $options = $this->options();
 
-If the argument or option does not exist, `null` will be returned.
+如果相应的参数或选项没有被检索到，会返回 `null`。
 
 <a name="prompting-for-input"></a>
-### Prompting For Input
+### 为输入进行提示
 
-In addition to displaying output, you may also ask the user to provide input during the execution of your command. The `ask` method will prompt the user with the given question, accept their input, and then return the user's input back to your command:
+除了显示输出之外，你可能也需要在执行你的命令行工具的过程中向用户索求额外的输入。你可以使用 `ask` 方法来进行提示用户输入，这个方法将接收用户的输入并返回输入的内容：
 
     /**
      * Execute the console command.
@@ -295,34 +295,34 @@ In addition to displaying output, you may also ask the user to provide input dur
         $name = $this->ask('What is your name?');
     }
 
-The `secret` method is similar to `ask`, but the user's input will not be visible to them as they type in the console. This method is useful when asking for sensitive information such as a password:
+`secret` 方法与 `ask` 方法非常相似，只是用户在控制台中输入的内容并不是可见的。这个方法通常是询问用户密码相关时使用的：
 
     $password = $this->secret('What is the password?');
 
-#### Asking For Confirmation
+#### 要求确认
 
-If you need to ask the user for a simple confirmation, you may use the `confirm` method. By default, this method will return `false`. However, if the user enters `y` in response to the prompt, the method will return `true`.
+如果你只是需要用户的确认，你可以使用 `confirm` 方法。默认的，该方法返回 `false`. 但是如果用户在响应中输入了 `y`，该方法将返回 `true`.
 
     if ($this->confirm('Do you wish to continue? [y|N]')) {
         //
     }
 
-#### Auto-Completion
+#### 自动补全
 
-The `anticipate` method can be used to provide auto-completion for possible choices. The user can still choose any answer, regardless of the auto-completion hints:
+`anticipate` 方法可以用来对可选的内容进行自动完成的提示。这里只是对用户有可能选择的内容进行自动完成提示，并非强制要求用户仅选择可选的内容:
 
     $name = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
 
-#### Multiple Choice Questions
+#### 多项选择
 
-If you need to give the user a predefined set of choices, you may use the `choice` method. You may set the default value to be returned if no option is chosen:
+如果你需要给用户预置选项，你可以使用 `choice` 方法。用户必须选中选项中的索引，用户选中相应的索引的答案的值将会被返回。你可以设置一个默认的索引值，这个索引值将在用户没有做出任何选择时返回：
 
     $name = $this->choice('What is your name?', ['Taylor', 'Dayle'], $default);
 
 <a name="writing-output"></a>
-### Writing Output
+### 编写输出
 
-To send output to the console, use the `line`, `info`, `comment`, `question` and `error` methods. Each of these methods will use appropriate ANSI colors for their purpose. For example, let's display some general information to the user. Typically, the `info` method will display in the console as green text:
+你可以使用 `line`，`info`，`comment`，`question` 和 `error` 方法发送输出到控制台。这些方法会使用相应的 ANSI 颜色来表明相应的目的。比如，你可以使用 `info` 方法来向用户显示一个信息消息。通常，这条消息在控制台中是一个绿色的文本：
 
     /**
      * Execute the console command.
@@ -334,17 +334,17 @@ To send output to the console, use the `line`, `info`, `comment`, `question` and
         $this->info('Display this on the screen');
     }
 
-To display an error message, use the `error` method. Error message text is typically displayed in red:
+你可以使用 `error` 方法来显示一个错误消息。错误消息通常都是红色的：
 
     $this->error('Something went wrong!');
 
-If you would like to display plain, uncolored console output, use the `line` method:
+你可以使用 `line` 方法来显示一个原生的控制台输出。`line` 方法并没有对消息设置任何的独特颜色信息：
 
     $this->line('Display this on the screen');
 
-#### Table Layouts
+#### 表格布局
 
-The `table` method makes it easy to correctly format multiple rows / columns of data. Just pass in the headers and rows to the method. The width and height will be dynamically calculated based on the given data:
+你可以使用 `table` 方法来简单的对多行或多列的数据进行格式化布局。你只需要向方法中传递头部和行信息到方法中就可以了。宽度和高度将会自动的通过所给定的数据进行计算：
 
     $headers = ['Name', 'Email'];
 
@@ -352,9 +352,9 @@ The `table` method makes it easy to correctly format multiple rows / columns of 
 
     $this->table($headers, $users);
 
-#### Progress Bars
+#### 进度提示
 
-For long running tasks, it could be helpful to show a progress indicator. Using the output object, we can start, advance and stop the Progress Bar. First, define the total number of steps the process will iterate through. Then, advance the Progress Bar after processing each item:
+对于一些耗时的任务来说，有一个进度提示是非常有用的。如果使用输出对象，我们就可以开始，推进和停止进度条。你需要在你开始进度之前定义步长。然后根据进行的每一步来推进进度条：
 
     $users = App\User::all();
 
@@ -368,21 +368,21 @@ For long running tasks, it could be helpful to show a progress indicator. Using 
 
     $bar->finish();
 
-For more advanced options, check out the [Symfony Progress Bar component documentation](http://symfony.com/doc/2.7/components/console/helpers/progressbar.html).
+你可以通过查看 [Symfony Progress Bar component documentation](http://symfony.com/doc/2.7/components/console/helpers/progressbar.html) 来获取更多的选项信息。
 
 <a name="registering-commands"></a>
-## Registering Commands
+## 注册命令
 
-Once your command is finished, you need to register it with Artisan. All commands are registered in the `app/Console/Kernel.php` file. Within this file, you will find a list of commands in the `commands` property. To register your command, simply add the command's class name to the list. When Artisan boots, all the commands listed in this property will be resolved by the [service container](/docs/{{language}}/{{version}}/container) and registered with Artisan:
+一旦你完成了命令行的编写，你还需要注册其在 Artisan 命令中可用。这些需要在 `app/Console/Kernel.php` 文件中完成。在这个文件中，你会发现 `commands` 属性，它是一个命令行类的列表，你需要将命令类注册到这里。当 Artisan 启动时，所有在这个列表中的命令都会通过 [服务容器](/docs/{{version}}/container) 解析到 Arisan:
 
     protected $commands = [
         Commands\SendEmails::class
     ];
 
 <a name="programatically-executing-commands"></a>
-## Programatically Executing Commands
+## 通过代码执行命令
 
-Sometimes you may wish to execute an Artisan command outside of the CLI. For example, you may wish to fire an Artisan command from a route or controller. You may use the `call` method on the `Artisan` facade to accomplish this. The `call` method accepts the name of the command as the first argument, and an array of command parameters as the second argument. The exit code will be returned:
+有时候你可能希望在控制台之外执行 Artisan 命令。比如，你希望在控制器或路由中触发 Artisan 命令。你可以使用 `Artisan` 假面的 `call` 方法来完成这些。`call` 方法接收一个命令名称，和一个包含所有参数和选项所组成的数组，命令执行完成之后会返回一个退出代码：
 
     Route::get('/foo', function () {
         $exitCode = Artisan::call('email:send', [
@@ -392,7 +392,7 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
         //
     });
 
-Using the `queue` method on the `Artisan` facade, you may even queue Artisan commands so they are processed in the background by your [queue workers](/docs/{{language}}/{{version}}/queues). Before using this method, make sure you have configured your queue and are running a queue listener:
+通过使用 `Artisan` 假面的 `queue` 方法，你甚至可以队列化 `Artisan` 命令，在后台进程中 [队列工人](/docs/{{version}}/queues) 会按序的帮你执行完成命令。在使用这个方法之前，请确保你已经配置好了你的队列并且运行了一个队列监听器：
 
     Route::get('/foo', function () {
         Artisan::queue('email:send', [
@@ -402,16 +402,16 @@ Using the `queue` method on the `Artisan` facade, you may even queue Artisan com
         //
     });
 
-If you need to specify the value of an option that does not accept string values, such as the `--force` flag on the `migrate:refresh` command, you may pass `true` or `false`:
+如果你需要强制指定一个不接受字符串值的选项的值为一个字符串，就像 `migrate:refresh` 命令中的 `--force` 选项，你可以明确的传递 `true` 或者 `false`：
 
     $exitCode = Artisan::call('migrate:refresh', [
         '--force' => true,
     ]);
 
 <a name="calling-commands-from-other-commands"></a>
-### Calling Commands From Other Commands
+### 从其它命令中调用命令
 
-Sometimes you may wish to call other commands from an existing Artisan command. You may do so using the `call` method. This `call` method accepts the command name and an array of command parameters:
+有时候，你可能希望在命令行工具中调用另外一个已经存在的 Artisan 命令。你可以使用 `call` 方法来完成这些。`call` 方法接收命令的名称和一个包含所有参数和选项的数组：
 
     /**
      * Execute the console command.
@@ -427,7 +427,7 @@ Sometimes you may wish to call other commands from an existing Artisan command. 
         //
     }
 
-If you would like to call another console command and suppress all of its output, you may use the `callSilent` method. The `callSilent` method has the same signature as the `call` method:
+如果你希望调用另外一个控制台命令而不希望它有任何的输出，你可以使用 `callSilent` 方法，`callSilent` 方法具有 `call` 方法相同的调用方式：
 
     $this->callSilent('email:send', [
         'user' => 1, '--queue' => 'default'
