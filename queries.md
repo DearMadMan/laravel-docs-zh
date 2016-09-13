@@ -1,25 +1,25 @@
-# Database: Query Builder
+# 数据库: 查询生成器
 
-- [Introduction](#introduction)
-- [Retrieving Results](#retrieving-results)
-    - [Chunking Results](#chunking-results)
-    - [Aggregates](#aggregates)
-- [Selects](#selects)
-- [Raw Expressions](#raw-expressions)
+- [前言](#introduction)
+- [检索结果](#retrieving-results)
+    - [结果分块](#chunking-results)
+    - [聚合](#aggregates)
+- [查询](#selects)
+- [原生表达式](#raw-expressions)
 - [Joins](#joins)
 - [Unions](#unions)
-- [Where Clauses](#where-clauses)
-    - [Parameter Grouping](#parameter-grouping)
-    - [Where Exists Clauses](#where-exists-clauses)
-    - [JSON Where Clauses](#json-where-clauses)
+- [Where 子句](#where-clauses)
+    - [组合参数](#parameter-grouping)
+    - [Where Exists 子句](#where-exists-clauses)
+    - [JSON Where 子句](#json-where-clauses)
 - [Ordering, Grouping, Limit, & Offset](#ordering-grouping-limit-and-offset)
-- [Conditional Clauses](#conditional-clauses)
+- [条件子句](#conditional-clauses)
 - [Inserts](#inserts)
 - [Updates](#updates)
-    - [Updating JSON Columns](#updating-json-columns)
-    - [Increment & Decrement](#increment-and-decrement)
+    - [更新 JSON 列](#updating-json-columns)
+    - [增量 & 减量](#increment-and-decrement)
 - [Deletes](#deletes)
-- [Pessimistic Locking](#pessimistic-locking)
+- [悲观锁](#pessimistic-locking)
 
 <a name="introduction"></a>
 ## Introduction
@@ -96,7 +96,7 @@ If you would like to retrieve an array containing the values of a single column,
 <a name="chunking-results"></a>
 ### Chunking Results
 
-If you need to work with thousands of database records, consider using the `chunk` method. This method retrieves a small chunk of the results at a time and feeds each chunk into a `Closure` for processing. This method is very useful for writing [Artisan commands](/docs/{{language}}/{{version}}/artisan) that process thousands of records. For example, let's work with the entire `users` table in chunks of 100 records at a time:
+If you need to work with thousands of database records, consider using the `chunk` method. This method retrieves a small chunk of the results at a time and feeds each chunk into a `Closure` for processing. This method is very useful for writing [Artisan commands](/docs/{{version}}/artisan) that process thousands of records. For example, let's work with the entire `users` table in chunks of 100 records at a time:
 
     DB::table('users')->orderBy('id')->chunk(100, function($users) {
         foreach ($users as $user) {

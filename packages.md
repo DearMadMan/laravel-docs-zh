@@ -1,42 +1,42 @@
-# Package Development
+# 扩展包开发
 
-- [Introduction](#introduction)
-    - [A Note On Facades](#a-note-on-facades)
-- [Service Providers](#service-providers)
-- [Routing](#routing)
-- [Resources](#resources)
-    - [Configuration](#configuration)
-    - [Migrations](#migrations)
-    - [Translations](#translations)
-    - [Views](#views)
-- [Public Assets](#public-assets)
-- [Publishing File Groups](#publishing-file-groups)
+- [前言](#introduction)
+    - [关于假面的提示](#a-note-on-facades)
+- [服务提供者](#service-providers)
+- [路由](#routing)
+- [资源](#resources)
+    - [配置](#configuration)
+    - [迁移](#migrations)
+    - [转译](#translations)
+    - [视图](#views)
+- [公共资产](#public-assets)
+- [发布一组文件](#publishing-file-groups)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Packages are the primary way of adding functionality to Laravel. Packages might be anything from a great way to work with dates like [Carbon](https://github.com/briannesbitt/Carbon), or an entire BDD testing framework like [Behat](https://github.com/Behat/Behat).
+包开发是为 Laravel 添加扩展功能的主要方式。包可以提供任何形式的功能，比如包含处理日期的 [Carbon](https://github.com/briannesbitt/Carbon) 或者是整个 BDD 测试框架 [Behat](https://github.com/Behat/Behat)。
 
-Of course, there are different types of packages. Some packages are stand-alone, meaning they work with any PHP framework. Carbon and Behat are examples of stand-alone packages. Any of these packages may be used with Laravel by simply requesting them in your `composer.json` file.
+当然，包是有不同类型的。有些包是独立的包。意味着它可以在任何框架中使用，而不仅仅是在 Laravel 中。Carbon 和 Behat 就是独立的包。这些包你可以简单的通过在 `composer.json` 文件中进行引入安装使用。
 
-On the other hand, other packages are specifically intended for use with Laravel. These packages may have routes, controllers, views, and configuration specifically intended to enhance a Laravel application. This guide primarily covers the development of those packages that are Laravel specific.
+而在另一方面，有些包是专门用于 Laravel 使用的。这些包可能拥有路由，控制器，视图和配置文件，他们配合起来旨在提高 Laravel 的功能。这篇指南就是来告诉你如何开发增强 Laravel 功能的包。
 
 <a name="a-note-on-facades"></a>
-### A Note On Facades
+### 关于假面的提示
 
-When writing a Laravel application, it generally does not matter if you use contracts or facades since both provide essentially equal levels of testability. However, when writing packages, it is best to use [contracts](/docs/{{language}}/{{version}}/contracts) instead of [facades](/docs/{{language}}/{{version}}/facades). Since your package will not have access to all of Laravel's testing helpers, it will be easier to mock or stub a contract than to mock a facade.
+在编写 Laravel 应用时，通常来说你是使用契约还是使用假面都是无所谓的，因为它们对于可测试性来说是等量的。但是在编写扩展包时，最好使用 [契约](/docs/{{version}}/contracts) 的方式来取代 [假面](/docs/{{version}}/facades)。这是因为你的包扩展中并不能访问到 Laravel 所提供的用于测试的辅助函数，那么契约相对于假面来说就更易于模仿了。
 
 <a name="service-providers"></a>
-## Service Providers
+## 服务提供者
 
-[Service providers](/docs/{{language}}/{{version}}/providers) are the connection points between your package and Laravel. A service provider is responsible for binding things into Laravel's [service container](/docs/{{language}}/{{version}}/container) and informing Laravel where to load package resources such as views, configuration, and localization files.
+[服务提供者](/docs/{{version}}/providers) 是 Laravel 和包的连接点。服务提供者主要负责包内容在 [服务容器](/docs/{{version}}/container) 中的绑定以及应用应该如何加载资源文件如视图，配置文件和语言文件。
 
-A service provider extends the `Illuminate\Support\ServiceProvider` class and contains two methods: `register` and `boot`. The base `ServiceProvider` class is located in the `illuminate/support` Composer package, which you should add to your own package's dependencies. To learn more about the structure and purpose of service providers, check out [their documentation](/docs/{{language}}/{{version}}/providers).
+一个服务提供者应该继承 `Illuminate\Support\ServiceProvider` 类并且包含两个方法： `register` 和 `boot`。基类 `ServiceProvider` 类位于 Composer 包的 `illuminate/support` 中。你应该在你的包中添加这个依赖。你可以查看 [服务提供者](/docs/{{version}}/providers) 的文档来了解更多。
 
 <a name="routing"></a>
-## Routing
+## 路由
 
-To define routes for your package, simply `require` the routes file from within your package service provider's `boot` method. From within your routes file, you may use the `Illuminate\Support\Facades\Route` facade to [register routes](/docs/{{language}}/{{version}}/routing) just as you would within a typical Laravel application:
+你可以在你的服务提供者的 `boot` 方法中简单的 `require` 路由文件来定义包的路由。在你的路由文件中，你可以使用 `Illminate\Support\Facades\Route` 假面来 [注册路由](/docs/{{version}}/routing)，其方式就如普通的 Laravel 应用一样：
 
     /**
      * Perform post-registration booting of services.
@@ -51,12 +51,12 @@ To define routes for your package, simply `require` the routes file from within 
     }
 
 <a name="resources"></a>
-## Resources
+## 资源
 
 <a name="configuration"></a>
-### Configuration
+### 配置
 
-Typically, you will need to publish your package's configuration file to the application's own `config` directory. This will allow users of your package to easily override your default configuration options. To allow your configuration files to be published, call the `publishes` method from the `boot` method of your service provider:
+通常，你希望发布你的包配置文件到应用的 `config` 目录。这样就允许用户通过简单的配置来覆盖默认的配置选项。你可以在你的服务提供者的 `boot` 方法中使用 `publishes` 方法来发布配置文件：
 
     /**
      * Perform post-registration booting of services.
@@ -70,13 +70,13 @@ Typically, you will need to publish your package's configuration file to the app
         ]);
     }
 
-Now, when users of your package execute Laravel's `vendor:publish` command, your file will be copied to the specified publish location. Of course, once your configuration has been published, its values may be accessed like any other configuration file:
+现在当使用你包的用户使用 Laravel 的 `vendor:push` 命令时，你的配置文件将会复制到指定的位置。当然，一旦你的配置文件被发布到 `config` 目录，它就可以像访问其他配置文件一样被访问：
 
     $value = config('courier.option');
 
-#### Default Package Configuration
+#### 默认的包配置
 
-You may also merge your own package configuration file with the application's published copy. This will allow your users to define only the options they actually want to override in the published copy of the configuration. To merge the configurations, use the `mergeConfigFrom` method within your service provider's `register` method:
+你也可以选择合并包的默认配置和应用复制的配置。这样就允许用户只引入其真实需要变更的配置选项。你可以使用 `mergeConfigFrom` 方法来在你的服务提供者的 `register` 方法中进行合并：
 
     /**
      * Register bindings in the container.
@@ -91,9 +91,9 @@ You may also merge your own package configuration file with the application's pu
     }
 
 <a name="migrations"></a>
-### Migrations
+### 迁移
 
-If your package contains [database migrations](/docs/{{language}}/{{version}}/migrations), you may use the `loadMigrationsFrom` method to inform Laravel how to load them. The `loadMigrationsFrom` method accepts the path to your package's migrations as its only argument:
+如果你的扩展包中包含了 [数据迁移](/docs/{{version}}/migrations)，那么你可以使用 `loadMigrationsFrom` 方法来指导 Laravel 如何加载它们。`loadMigrationsFrom` 方法只接收一个参数，它就是你的扩展包中迁移表的存储目录的路径：
 
     /**
      * Perform post-registration booting of services.
@@ -105,12 +105,12 @@ If your package contains [database migrations](/docs/{{language}}/{{version}}/mi
         $this->loadMigrationsFrom(__DIR__.'/path/to/migrations');
     }
 
-Once your package's migrations have been registered, they will automatically be run when the `php artisan migrate` command is executed. You do not need to export them to the application's main `database/migrations` directory.
+当扩展包中的迁移表被注册完成之后，它们会在执行 `php artisan migrate` 命令时自动的进执行。你并不需要将它们暴露到应用的 `database/migrations` 目录下。
 
 <a name="translations"></a>
-### Translations
+### 转译
 
-If your package contains [translation files](/docs/{{language}}/{{version}}/localization), you may use the `loadTranslationsFrom` method to inform Laravel how to load them. For example, if your package is named `courier`, you should add the following to your service provider's `boot` method:
+如果你的包中包含了 [翻译文件](/docs/{{version}}/localization)。你可以使用 `loadTranslationsFrom` 方法来指导 Laravel 如何载入它们。比如，如果你的包名称为 `courier`，你应该使用如下的方式在你的服务提供者的 `boot` 方法中添加：
 
     /**
      * Perform post-registration booting of services.
@@ -122,13 +122,13 @@ If your package contains [translation files](/docs/{{language}}/{{version}}/loca
         $this->loadTranslationsFrom(__DIR__.'/path/to/translations', 'courier');
     }
 
-Package translations are referenced using the `package::file.line` syntax convention. So, you may load the `courier` package's `welcome` line from the `messages` file like so:
+包的转译文件的引入使用 `package::filer.line` 类似的语法。所以，你可以像这样来加载 `courier` 包中的 `messages` 文件的 `welcome` 语言行：
 
     echo trans('courier::messages.welcome');
 
-#### Publishing Translations
+#### 发布译文
 
-If you would like to publish your package's translations to the application's `resources/lang/vendor` directory, you may use the service provider's `publishes` method. The `publishes` method accepts an array of package paths and their desired publish locations. For example, to publish the translation files for the `courier` package, you may do the following:
+如果你希望发布包的译文到应用的 `resources/lang/vendor` 目录，你可以使用服务提供者的 `publishes` 方法。`publishes` 方法接收一个包含包路径和其相应的发布路径所组成的数组。比如，发布 `courier` 包中的译文：
 
     /**
      * Perform post-registration booting of services.
@@ -144,12 +144,12 @@ If you would like to publish your package's translations to the application's `r
         ]);
     }
 
-Now, when users of your package execute Laravel's `vendor:publish` Artisan command, your package's translations will be published to the specified publish location.
+现在，当你通过命令行工具使用 `vendor:publish` Artisan 命令时，包中的译文会自动的发布到指定的位置。
 
 <a name="views"></a>
-### Views
+### 视图
 
-To register your package's [views](/docs/{{language}}/{{version}}/views) with Laravel, you need to tell Laravel where the views are located. You may do this using the service provider's `loadViewsFrom` method. The `loadViewsFrom` method accepts two arguments: the path to your view templates and your package's name. For example, if your package's name is `courier`, you would add the following to your service provider's `boot` method:
+你需要告诉 Laravel [视图](/docs/{{version}}/views) 的位置才能使 Laravel 加载包中的视图。你可以通过服务提供者的 `loadViewsFrom` 方法。`loadViewsFrom` 方法接受两个参数：视图的路径和包的名称。比如，如果你的包名称是 `courier`，你应该像下面一样在 `boot` 中添加：
 
     /**
      * Perform post-registration booting of services.
@@ -161,19 +161,19 @@ To register your package's [views](/docs/{{language}}/{{version}}/views) with La
         $this->loadViewsFrom(__DIR__.'/path/to/views', 'courier');
     }
 
-Package views are referenced using the `package::view` syntax convention. So, once your view path is registered in a service provider, you may load the `admin` view from the `courier` package like so:
+包视图的使用方式是通过 `package::view` 类似的语法引用的。所以，你可以像这样从 `courier` 包中引入 `admin` 视图：
 
     Route::get('admin', function () {
         return view('courier::admin');
     });
 
-#### Overriding Package Views
+#### 覆盖扩展包中的视图
 
-When you use the `loadViewsFrom` method, Laravel actually registers two locations for your views: the application's `resources/views/vendor` directory and the directory you specify. So, using the `courier` example, Laravel will first check if a custom version of the view has been provided by the developer in `resources/views/vendor/courier`. Then, if the view has not been customized, Laravel will search the package view directory you specified in your call to `loadViewsFrom`. This makes it easy for package users to customize / override your package's views.
+当你使用 `loadViewsFrom` 方法来加载视图时，Laravel 实际上是注册了两个视图位置：一个是应用的 `resources/views/vendor` 目录，另一个是你指定的目录。所以，我们还使用上面的例子：当请求引入包视图时，Laravel 会首先检查 `resources/views/vendor/courier` 目录中是否有相应的视图，然后，如果没有才会通过 `loadViewFrom` 方法来加载指定的目录下的视图。这就引入了一种自定义包视图的简便方式。
 
-#### Publishing Views
+#### 发布视图
 
-If you would like to make your views available for publishing to the application's `resources/views/vendor` directory, you may use the service provider's `publishes` method. The `publishes` method accepts an array of package view paths and their desired publish locations:
+如果你希望有一种简单的方式将包的视图发布到 `resources/views/vendor` 目录。你可以在服务提供者中使用 `publishes` 方法。`publishes` 方法接收一个包视图路径和其发布地址路径所组成的数组：
 
     /**
      * Perform post-registration booting of services.
@@ -189,12 +189,12 @@ If you would like to make your views available for publishing to the application
         ]);
     }
 
-Now, when users of your package execute Laravel's `vendor:publish` Artisan command, your package's views will be copied to the specified publish location.
+现在，当你通过命令行工具使用 `vendor:publish` Artisan 命令时，你的扩展包中的视图会被复制到其所指定的位置。
 
 <a name="public-assets"></a>
-## Public Assets
+## 公共资产
 
-Your package may have assets such as JavaScript, CSS, and images. To publish these assets to the application's `public` directory, use the service provider's `publishes` method. In this example, we will also add a `public` asset group tag, which may be used to publish groups of related assets:
+你的包文件中可能含有一些资源文件比如 JavaScript，CSS，图片。你同样可以在你的服务提供者中使用 `publishes` 方法来发布这些资源到应用的 `public` 目录。我们同样可以添加一个 `public` 组标签，这样可以选择在发布时只发布 `public` 标签组的文件：
 
     /**
      * Perform post-registration booting of services.
@@ -208,14 +208,14 @@ Your package may have assets such as JavaScript, CSS, and images. To publish the
         ], 'public');
     }
 
-Now, when your package's users execute the `vendor:publish` command, your assets will be copied to the specified publish location. Since you will typically need to overwrite the assets every time the package is updated, you may use the `--force` flag:
+现在，使用你的扩展包的用户在执行 `vendor:publish` 命令时，你的资源文件会被发布到指定的位置。由于你需要每次发布资源时覆盖之前发布的内容，所以你可以使用 `--force` 标识：
 
     php artisan vendor:publish --tag=public --force
 
 <a name="publishing-file-groups"></a>
-## Publishing File Groups
+## 发布一组文件
 
-You may want to publish groups of package assets and resources separately. For instance, you might want to allow your users to publish your package's configuration files without being forced to publish your package's assets. You may do this by "tagging" them when calling the `publishes` method from a package's service provider. For example, let's use tags to define two publish groups in the `boot` method of a package service provider:
+你可能希望将前端资源和后端资源进行分组分开发布。比如，你可能希望用户在发布配置文件的同时并不重新发布更新公共资源文件。你可以通过在使用 `publishes` 方法时对发布项打标签的方式来对发布进行分组。那么我们来看一个示例，让我们在扩展包的服务提供者中的 `boot` 方法中定义两个发布组：
 
     /**
      * Perform post-registration booting of services.
@@ -233,6 +233,6 @@ You may want to publish groups of package assets and resources separately. For i
         ], 'migrations');
     }
 
-Now your users may publish these groups separately by referencing their tag when executing the `vendor:publish` command:
+现在，你的扩展包的用户可以在使用 `vendor:publish` 命令发布文件时通过组标签来分开发布了：
 
-    php artisan vendor:publish --tag="config"
+    php artisan vendor:publish --tag=config
