@@ -1,23 +1,23 @@
-# Mocking
+# 模拟
 
-- [Introduction](#introduction)
-- [Events](#mocking-events)
-- [Jobs](#mocking-jobs)
-- [Facades](#mocking-facades)
+- [前言](#introduction)
+- [事件](#mocking-events)
+- [任务](#mocking-jobs)
+- [假面](#mocking-facades)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-When testing Laravel applications, you may wish to "mock" certain aspects of your application so they are not actually executed during a given test. For example, when testing a controller that fires an event, you may wish to mock the event listeners so they are not actually executed during the test. This allows you to only test the controller's HTTP response without worrying about the execution of the event listeners, since the event listeners can be tested in their own test case.
+当测试 Laravel 应用时，你可能会希望在进行测试时并不真正的执行某些操作，而只是模仿应用中的某些方面。比如，当测试一个可以触发事件的控制器时，你可能希望去模拟事件监听器，而不是在测试时真实的执行事件。这允许你在测试控制器的 HTTP 响应时完全不需要考虑事件监听器的执行，因为事件监听器可以在它们自己的测试用例里进行测试。
 
-Laravel provides helpers for mocking events, jobs, and facades out of the box. These helpers primarily provide a convenience layer over Mockery so you do not have to manually make complicated Mockery method calls. Of course, are free to use [Mockery](http://docs.mockery.io/en/latest/) or PHPUnit to create your own mocks or spies.
+Laravel 为模拟事件，任务和假面提供了及其有用的帮助方法。这些帮助方法主要用于提供便利的应用层模拟，所以你并不需要手动的构造复杂的模拟方法的调用。当然，你可以自由的使用 [Mockery](http://docs.mockery.io/en/latest/) 或者 PHPUnit 来创建自己的模拟或者侦探。
 
 <a name="mocking-events"></a>
-## Events
+## 事件
 
-If you are making heavy use of Laravel's event system, you may wish to silence or mock certain events while testing. For example, if you are testing user registration, you probably do not want all of a `UserRegistered` event's handlers firing, since the listeners may send "welcome" e-mails, etc.
+如果你在 Laravel 中大量使用了事件系统，那么你可能会想在进行测试时不触发事件或者模拟运行一些事件。比如，如果你测试用户注册，你可能并不想触发所有 `UserRegistered` 事件，因为这可能会发送电子邮件等。
 
-Laravel provides a convenient `expectsEvents` method which verifies the expected events are fired, but prevents any listeners for those events from executing:
+Laravel 提供了方便的 `expectsEvents` 方法来验证预期的事件是否触发，但是会避免这些事件的真正的执行：
 
     <?php
 
@@ -36,7 +36,7 @@ Laravel provides a convenient `expectsEvents` method which verifies the expected
         }
     }
 
-You may use the `doesntExpectEvents` method to verify that the given events are not fired:
+你也可以使用 `doesntExpectEvents` 方法来验证给定的事件没有被触发：
 
     <?php
 
@@ -57,7 +57,7 @@ You may use the `doesntExpectEvents` method to verify that the given events are 
         }
     }
 
-If you would like to prevent all event listeners from running, you may use the `withoutEvents` method. When this method is called, all listeners for all events will be mocked:
+如果你需要避免所有的事件触发，你可以使用 `withoutEvents` 方法，当这个方法被调用时，所有事件的监听器都将会被模拟：
 
     <?php
 
@@ -72,11 +72,11 @@ If you would like to prevent all event listeners from running, you may use the `
     }
 
 <a name="mocking-jobs"></a>
-## Jobs
+## 任务
 
-Sometimes, you may wish to test that given jobs are dispatched when making requests to your application. This will allow you to test your routes and controllers in isolation without worrying about your job's logic. Of course, you should then test the job in a separate test case.
+有时候，你想在构建请求到应用时，简单的测试一下控制器中是否进行了指定任务的分发。这可以使你隔离测试你的路由 / 控制器和你的任务逻辑，当然，你可以再写一个测试用例来单独的测试任务的执行。
 
-Laravel provides the convenient `expectsJobs` method which will verify that the expected jobs are dispatched. However, the job itself will not be executed:
+Laravel 提供了方便的 `expectsJobs` 方法来验证期望的任务是否被分发，但是任务并不会被真正的分发执行：
 
     <?php
 
@@ -92,9 +92,9 @@ Laravel provides the convenient `expectsJobs` method which will verify that the 
         }
     }
 
-> {note} This method only detects jobs that are dispatched via the `DispatchesJobs` trait's dispatch methods or the `dispatch` helper function. It does not detect queued jobs that are sent directly to `Queue::push`.
+> {note} 这个方法仅用来测试通过 `DispatchesJobs` trait 或者 `dispatch` 帮助方法所进行的分发。它并不检测直接使用 `Queue::push` 发布的任务。
 
-Like the event mocking helpers, you may also test that a job is not dispatched using the `doesntExpectJobs` method:
+类似事件模拟，你也可以使用 `doesntExpectJobs` 方法来断言任务并没有被分发：
 
     <?php
 
@@ -113,7 +113,7 @@ Like the event mocking helpers, you may also test that a job is not dispatched u
         }
     }
 
-Alternatively, you may ignore all dispatched jobs using the `withoutJobs` method. When this method is called within a test method, all jobs that are dispatched during that test will be discarded:
+另外，你也可以使用 `withoutJobs` 方法来忽略所有任务的分发。当在测试方法中使用这个方法时，所有的通过测试进行的分发任务都将会被丢弃：
 
     <?php
 
@@ -133,9 +133,9 @@ Alternatively, you may ignore all dispatched jobs using the `withoutJobs` method
     }
 
 <a name="mocking-facades"></a>
-## Facades
+## 假面
 
-Unlike traditional static method calls, [facades](/docs/{{language}}/{{version}}/facades) may be mocked. This provides a great advantage over traditional static methods and grants you the same testability you would have if you were using dependency injection. When testing, you may often want to mock a call to a Laravel facade in one of your controllers. For example, consider the following controller action:
+不像传统的静态方法的调用，[假面](/docs/{{language}}/{{version}}/facades) 是可以被模拟的。如果你使用依赖注入的话，那么它相对于传统的静态方法来说更是具有极大的优势，同时也提供了更高的可测试性。当测试时，你或许经常需要模拟一个 Laravel 假面的调用。比如，考虑一下下面的控制器操作：
 
     <?php
 
@@ -158,7 +158,7 @@ Unlike traditional static method calls, [facades](/docs/{{language}}/{{version}}
         }
     }
 
-We can mock the call to the `Cache` facade by using the `shouldReceive` method, which will return an instance of a [Mockery](https://github.com/padraic/mockery) mock. Since facades are actually resolved and managed by the Laravel [service container](/docs/{{language}}/{{version}}/container), they have much more testability than a typical static class. For example, let's mock our call to the `Cache` facade's `get` method:
+我们可以使用 `shouldReceive` 方法来模拟调用 `Cache` 假面，它会返回一个 [Mockery](https://github.com/padraic/mockery) 的模拟实例。由于假面实际上是通过 Laravel 的 [服务容器](/docs/{{language}}/{{version}}/container) 来解析和管理的，所以它们比一般的静态类更具可测试性。比如，让我们来模拟 `Cache` 假面的 `get` 方法的调用：
 
     <?php
 
@@ -175,4 +175,4 @@ We can mock the call to the `Cache` facade by using the `shouldReceive` method, 
         }
     }
 
-> {note} You should not mock the `Request` facade. Instead, pass the input you desire into the HTTP helper methods such as `call` and `post` when running your test.
+> {note} 你不应该模拟 `Request` 假面。你应该在运行测试时使用 HTTP 帮助方法如 `call` 和 `post` 来传递你所希望的输入。
