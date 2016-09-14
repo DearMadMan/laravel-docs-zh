@@ -52,7 +52,7 @@
     - [查询构造器](/docs/{{language}}/{{version}}/queries)
     - [分页](/docs/{{language}}/{{version}}/pagination)
     - [迁移](/docs/{{language}}/{{version}}/migrations)
-    - [播种](/docs/{{language}}/{{version}}/seeding)
+    - [填充](/docs/{{language}}/{{version}}/seeding)
     - [Redis](/docs/{{language}}/{{version}}/redis)
 - Eloquent ORM
     - [起步](/docs/{{language}}/{{version}}/eloquent)
