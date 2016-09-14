@@ -1,21 +1,21 @@
-# Application Testing
+# 应用测试
 
-- [Introduction](#introduction)
-- [Interacting With Your Application](#interacting-with-your-application)
-    - [Interacting With Links](#interacting-with-links)
-    - [Interacting With Forms](#interacting-with-forms)
-- [Testing JSON APIs](#testing-json-apis)
-    - [Verifying Exact Match](#verifying-exact-match)
-    - [Verifying Structural Match](#verifying-structural-match)
-- [Sessions / Authentication](#sessions-and-authentication)
-- [Disabling Middleware](#disabling-middleware)
-- [Custom HTTP Requests](#custom-http-requests)
-- [PHPUnit Assertions](#phpunit-assertions)
+- [前言](#introduction)
+- [与应用交互](#interacting-with-your-application)
+    - [与连接交互](#interacting-with-links)
+    - [与表单交互](#interacting-with-forms)
+- [测试 JSON APIs](#testing-json-apis)
+    - [完全匹配验证](#verifying-exact-match)
+    - [结构匹配验证](#verifying-structural-match)
+- [会话 / 认证](#sessions-and-authentication)
+- [禁用中间件](#disabling-middleware)
+- [自定义 HTTP 请求](#custom-http-requests)
+- [PHPUnit 断言](#phpunit-assertions)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Laravel provides a very fluent API for making HTTP requests to your application, examining the output, and even filling out forms. For example, take a look at the test defined below:
+Laravel 可以提供非常顺畅的 API 来构建 HTTP 请求用以检查输出甚至是填充表格。比如，让我们看下下面的测试定义：
 
     <?php
 
@@ -37,27 +37,27 @@ Laravel provides a very fluent API for making HTTP requests to your application,
         }
     }
 
-The `visit` method makes a `GET` request into the application. The `see` method asserts that we should see the given text in the response returned by the application. The `dontSee` method asserts that the given text is not returned in the application response. This is the most basic application test available in Laravel.
+`visit` 方法可以在应用中构造一个 `GET` 请求。`see` 方法会断言我们应该从应用的响应中看到所给定的文本。`dontSee` 方法刚好与 `see` 相反，它断言我们不应该看到给定的文本。这就是 Laravel 提供的最基本的应用测试。
 
-You may also use the 'visitRoute' method to make a 'GET' request via a named route:
+你也可以使用 `visitRoute` 方法通过命名的路由构造一个 `GET` 请求：
 
     $this->visitRoute('profile');
 
     $this->visitRoute('profile', ['user' => 1]);
 
 <a name="interacting-with-your-application"></a>
-## Interacting With Your Application
+## 与应用进行交互
 
-Of course, you can do much more than simply assert that text appears in a given response. Let's take a look at some examples of clicking links and filling out forms:
+当然，相对于这种简单的断言响应给定的文本，你可以做的更多。让我们来看一些点击链接和填充表单的例子：
 
 <a name="interacting-with-links"></a>
-### Interacting With Links
+### 与链接交互
 
-In this test, we will make a request to the application, "click" a link in the returned response, and then assert that we landed on a given URI. For example, let's assume there is a link in our response that has a text value of "About Us":
+在这个测试，我们会为应用构造一个请求，在响应中会返回一个可点击的超链，并且我们会断言它应该导向给定的 URL。比如，让我们假设应用中返回了一个文本为 "About Us" 的超链:
 
     <a href="/about-us">About Us</a>
 
-Now, let's write a test that clicks the link and asserts the user lands on the correct page:
+现在，让我们编写一个测试并断言点击链接会跳转到相应的页面：
 
     public function testBasicExample()
     {
@@ -66,14 +66,14 @@ Now, let's write a test that clicks the link and asserts the user lands on the c
              ->seePageIs('/about-us');
     }
 
-You may also check that the user has arrived at the correct named route using the `seeRouteIs` method:
+你也可以使用 `seeRouteIs` 方法来检查用户是否抵达正确的命名路由：
 
     ->seeRouteIs('profile', ['user' => 1]);
 
 <a name="interacting-with-forms"></a>
-### Interacting With Forms
+### 与表单交互
 
-Laravel also provides several methods for testing forms. The `type`, `select`, `check`, `attach`, and `press` methods allow you to interact with all of your form's inputs. For example, let's imagine this form exists on the application's registration page:
+Laravel 同样也提供了多种方法来进行表单测试。`type`，`select`，`check`，`attach`，和 `press` 方法允许你与所有的表单输入进行交互。比如，让我们来想象一下一个存在于注册页面中的表单：
 
     <form action="/register" method="POST">
         {{ csrf_field() }}
@@ -91,7 +91,7 @@ Laravel also provides several methods for testing forms. The `type`, `select`, `
         </div>
     </form>
 
-We can write a test to complete this form and inspect the result:
+我们可以编写一个测试来完成表单并检查结果：
 
     public function testNewUserRegistration()
     {
@@ -102,21 +102,21 @@ We can write a test to complete this form and inspect the result:
              ->seePageIs('/dashboard');
     }
 
-Of course, if your form contains other inputs such as radio buttons or drop-down boxes, you may easily fill out those types of fields as well. Here is a list of each form manipulation method:
+当然，如果你的表单中包含了一些单选按钮或者下拉框之类的其他输入，你同样可以轻松的进行填充这些类型的字段。下面列出了所有的表单操作方法：
 
 Method  | Description
 ------------- | -------------
-`$this->type($text, $elementName)`  |  "Type" text into a given field.
-`$this->select($value, $elementName)`  |  "Select" a radio button or drop-down field.
-`$this->check($elementName)`  |  "Check" a checkbox field.
-`$this->uncheck($elementName)`  |  "Uncheck" a checkbox field.
-`$this->attach($pathToFile, $elementName)`  |  "Attach" a file to the form.
-`$this->press($buttonTextOrElementName)`  |  "Press" a button with the given text or name.
+`$this->type($text, $elementName)`         | 对给定的字段进行输入
+`$this->select($value, $elementName)`      | 选中一个单选按钮或者下拉框
+`$this->check($elementName)`               | 选中复选框
+`$this->uncheck($elementName)`             | 取消选中复选框
+`$this->attach($pathToFile, $elementName)` | 附加一个文件到表单
+`$this->press($buttonTextOrElementName)`   | 单击给定的文本或名称的按钮
 
 <a name="file-inputs"></a>
-#### File Inputs
+#### 文件输入
 
-If your form contains `file` inputs, you may attach files to the form using the `attach` method:
+如果你的表单中包含了 `file` 输入类型，你可以使用 `attach` 方法来附加附件：
 
     public function testPhotoCanBeUploaded()
     {
@@ -127,9 +127,9 @@ If your form contains `file` inputs, you may attach files to the form using the 
     }
 
 <a name="testing-json-apis"></a>
-### Testing JSON APIs
+### 测试 JSON APIs
 
-Laravel also provides several helpers for testing JSON APIs and their responses. For example, the `json`, `get`, `post`, `put`, `patch`, and `delete` methods may be used to issue requests with various HTTP verbs. You may also easily pass data and headers to these methods. To get started, let's write a test to make a `POST` request to `/user` and assert that the expected data was returned:
+Laravel 同样也为测试 JSON APIs 和它们的响应提供了多种帮助方法。比如，`get`，`post`，`put`，`patch`，和 `delete` 方法可以用来发布一个相应 HTTP 行为方式的请求。你可以轻松的传递数据和头信息到这些方法中。在开始之前，让我们来编写一个 `POST` 请求的测试来断言 `/user` 会返回给定数组的 JSON 格式：
 
     <?php
 
@@ -149,12 +149,12 @@ Laravel also provides several helpers for testing JSON APIs and their responses.
         }
     }
 
-> {tip} The `seeJson` method converts the given array into JSON, and then verifies that the JSON fragment occurs **anywhere** within the entire JSON response returned by the application. So, if there are other properties in the JSON response, this test will still pass as long as the given fragment is present.
+> {tip} `seeJson` 方法会转换给定的数组为 JSON，并且会验证应用响应的完整 JSON 中是否会出现相应的片段。所以，如果响应中还含有其他 JSON 属性，那么这个测试依然会被通过。
 
 <a name="verifying-exact-match"></a>
-### Verifying Exact Match
+### 完全匹配验证
 
-If you would like to verify that the given array is an **exact** match for the JSON returned by the application, you should use the `seeJsonEquals` method:
+如果你希望验证完整的 JSON 响应，你可以使用 `seeJsonEquals` 方法，除非 JSON 相应于所给定的数组完全匹配，否则该测试不会被通过：
 
     <?php
 
@@ -175,9 +175,9 @@ If you would like to verify that the given array is an **exact** match for the J
     }
 
 <a name="verifying-structural-match"></a>
-### Verifying Structural Match
+### 结构匹配验证
 
-It is also possible to verify that a JSON response adheres to a specific structure. In this scenario, you should use the `seeJsonStructure` method and pass it your expected JSON structure:
+验证 JSON 响应是否采取给定的结构也是可以的。你可以使用 `seeJsonStructure` 方法并传递你所期待的 JSON 结构：
 
     <?php
 
@@ -200,9 +200,9 @@ It is also possible to verify that a JSON response adheres to a specific structu
         }
     }
 
-The above example illustrates an expectation of receiving a `name` attribute and a nested `pet` object with its own `name` and `age` attributes. `seeJsonStructure` will not fail if additional keys are present in the response. For example, the test would still pass if the `pet` had a `weight` attribute.
+在上面的例子中表明了期望获取一个含有 `name` 和 `pet` 属性的 JSON，并且 `pet` 键是一个含有 `name` 和 `age` 属性的对象。如果含有额外的键，`seeJsonStructure` 方法并不会失败。比如，如果 `pet` 还含有 `weight` 属性，那么测试依然会被通过。
 
-You may use the `*` to assert that the returned JSON structure has a list where each list item contains at least the attributes found in the set of values:
+你可以使用 `*` 来断言所返回的 JSON 结构中的每一项都应该包含所列出的这些属性：
 
     <?php
 
@@ -225,7 +225,7 @@ You may use the `*` to assert that the returned JSON structure has a list where 
         }
     }
 
-You may also nest the `*` notation. In this case, we will assert that each user in the JSON response contains a given set of attributes and that each pet on each user also contains a given set of attributes:
+你也可以嵌套使用 `*`，下面的例子中，我们断言 JSON 响应返回的每一个用户都应该包含所列出的属性，并且 `pet` 属性应该也包含所给定的属性：
 
     $this->get('/users')
          ->seeJsonStructure([
@@ -239,9 +239,9 @@ You may also nest the `*` notation. In this case, we will assert that each user 
          ]);
 
 <a name="sessions-and-authentication"></a>
-### Sessions / Authentication
+### 会话 / 认证
 
-Laravel provides several helpers for working with the session during testing. First, you may set the session data to a given array using the `withSession` method. This is useful for loading the session with data before issuing a request to your application:
+Laravel 为测试期间的会话提供了多种帮助方法。首先，你需要通过 `withSession` 方法来根据给定的数组设置 session 数据，这通常用来在测试应用的请求到在之前先设置一些 session 数据：
 
     <?php
 
@@ -254,7 +254,7 @@ Laravel provides several helpers for working with the session during testing. Fi
         }
     }
 
-Of course, one common use of the session is for maintaining state for the authenticated user. The `actingAs` helper method provides a simple way to authenticate a given user as the current user. For example, we may use a [model factory](#model-factories) to generate and authenticate a user:
+当然，会话常见的用途就是保留用户的状态，比如用户认证。`actingAs` 帮助方法提供了一种方式来使用给定的用户作为已认证的当前用户。比如，我们可以使用 [模型工厂](/docs/{{version}}/database-testing#model-factories) 来生成一个认证用户：
 
     <?php
 
@@ -271,14 +271,14 @@ Of course, one common use of the session is for maintaining state for the authen
         }
     }
 
-You may also specify which guard should be used to authenticate the given user by passing the guard name as the second argument to the `actingAs` method:
+你也可以传递一个给定的守卫名称到 `actingAs` 方法的第二个参数来指定用户认证时所使用的守卫：
 
     $this->actingAs($user, 'api')
 
 <a name="disabling-middleware"></a>
-### Disabling Middleware
+### 禁用中间件
 
-When testing your application, you may find it convenient to disable [middleware](/docs/{{language}}/{{version}}/middleware) for some of your tests. This will allow you to test your routes and controller in isolation from any middleware concerns. Laravel includes a simple `WithoutMiddleware` trait that you can use to automatically disable all middleware for the test class:
+当测试应用时，你可以方便的在测试中禁用 [中间件](/docs/{{version}}/middleware)。这使你可以隔离的测试路由和控制器而免除中间件的顾虑。你可以简单的引入 `WithoutMiddleware` trait 来在测试类中禁用所有的中间件：
 
     <?php
 
@@ -293,7 +293,7 @@ When testing your application, you may find it convenient to disable [middleware
         //
     }
 
-If you would like to only disable middleware for a few test methods, you may call the `withoutMiddleware` method from within the test methods:
+如果你希望只在个别的测试方法中禁用中间件，你可以在方法中使用 `withoutMiddleware` 方法：
 
     <?php
 
@@ -314,9 +314,9 @@ If you would like to only disable middleware for a few test methods, you may cal
     }
 
 <a name="custom-http-requests"></a>
-### Custom HTTP Requests
+### 定制化 HTTP 请求
 
-If you would like to make a custom HTTP request into your application and get the full `Illuminate\Http\Response` object, you may use the `call` method:
+如果你希望构造一个自定义的 HTTP 请求，并且返回完整的 `Illuminate\Http\Response` 对象，那么你可以使用 `call` 方法：
 
     public function testApplication()
     {
@@ -325,27 +325,27 @@ If you would like to make a custom HTTP request into your application and get th
         $this->assertEquals(200, $response->status());
     }
 
-If you are making `POST`, `PUT`, or `PATCH` requests you may pass an array of input data with the request. Of course, this data will be available in your routes and controller via the [Request instance](/docs/{{language}}/{{version}}/requests):
+如果你构造 `POST`，`PUT`，或者 `PATCH` 请求，你可以传递一个数组来作为请求的输入数据。当然，这些数据可以通过 [请求实例](/docs/{{version}}/requests) 在你的路由和控制器中可用：
 
        $response = $this->call('POST', '/user', ['name' => 'Taylor']);
 
 <a name="phpunit-assertions"></a>
-### PHPUnit Assertions
+### PHPUnit 断言
 
-Laravel provides a variety of custom assertion methods for [PHPUnit](https://phpunit.de/) tests:
+Laravel 为 [PHPUnit](https://phpunit.de/) 测试提供了多种额外的断言方法：
 
 Method  | Description
 ------------- | -------------
-`->assertResponseOk();`  |  Assert that the client response has an OK status code.
-`->assertResponseStatus($code);`  |  Assert that the client response has a given code.
-`->assertViewHas($key, $value = null);`  |  Assert that the response view has a given piece of bound data.
-`->assertViewHasAll(array $bindings);`  |  Assert that the view has a given list of bound data.
-`->assertViewMissing($key);`  |  Assert that the response view is missing a piece of bound data.
-`->assertRedirectedTo($uri, $with = []);`  |  Assert whether the client was redirected to a given URI.
-`->assertRedirectedToRoute($name, $parameters = [], $with = []);`  |  Assert whether the client was redirected to a given route.
-`->assertRedirectedToAction($name, $parameters = [], $with = []);`  |  Assert whether the client was redirected to a given action.
-`->assertSessionHas($key, $value = null);`  |  Assert that the session has a given value.
-`->assertSessionHasAll(array $bindings);`  |  Assert that the session has a given list of values.
-`->assertSessionHasErrors($bindings = [], $format = null);`  |  Assert that the session has errors bound.
-`->assertHasOldInput();`  |  Assert that the session has old input.
-`->assertSessionMissing($key);`  |  Assert that the session is missing a given key.
+`->assertResponseOk();`                                           | 断言客户端响应会返回 OK 状态码
+`->assertResponseStatus($code)`                                   | 断言客户端响应给定的状态码
+`->assertViewHas($key, $value = null);`                           | 断言响应的视图中是否含有给定的数据片段。
+`->assertViewHasAll(array $bindings);`                            | 断言视图中是否含有所有的绑定数据
+`->assertViewMissing($key);`                                      | 断言视图中是否缺失所给定的片段
+`->assertRedirectedTo($uri, $with = []);`                         | 断言客户端是否重定向到给定的 URI
+`->assertRedirectedToRoute($name, $parameters = [], $with = []);` | 断言客户端是否重定向到给定的路由
+`->assertRedirectedToAction($name, $parameters = [], $with = []);`  | 断言客户端是否重定向到给定的动作
+`->assertSessionHas($key, $value = null);`                        | 断言会话中是否含有给定的键
+`->assertSessionHasAll(array $bindings);`                         | 断言会话中是否包含给定列表的数据
+`->assertSessionHasErrors($bindings = [], $format = null);`       | 断言会话中是否包含错误数据
+`->assertHasOldInput();`                                          | 断言会话中是否包含旧的输入
+`->assertSessionMissing($key);`                                   | 断言会话中是否缺失给定的键
