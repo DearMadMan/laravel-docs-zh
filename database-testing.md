@@ -1,20 +1,20 @@
-# Database Testing
+# 数据库测试
 
-- [Introduction](#introduction)
-- [Resetting The Database After Each Test](#resetting-the-database-after-each-test)
-    - [Using Migrations](#using-migrations)
-    - [Using Transactions](#using-transactions)
-- [Writing Factories](#writing-factories)
-    - [Factory Types](#factory-types)
-- [Using Factories](#using-factories)
-    - [Creating Models](#creating-models)
-    - [Persisting Models](#persisting-models)
-    - [Relationships](#relationships)
+- [前言](#introduction)
+- [每次测试完成后重置数据库](#resetting-the-database-after-each-test)
+    - [使用迁移](#using-migrations)
+    - [使用事务](#using-transactions)
+- [编写工厂](#writing-factories)
+    - [工厂类型](#factory-types)
+- [使用工厂](#using-factories)
+    - [创建模型](#creating-models)
+    - [持久化模型](#persisting-models)
+    - [关联](#relationships)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Laravel provides a variety of helpful tools to make it easier to test your database driven applications. First, you may use the `seeInDatabase` helper to assert that data exists in the database matching a given set of criteria. For example, if you would like to verify that there is a record in the `users` table with the `email` value of `sally@example.com`, you can do the following:
+Laravel 也提供了各种有用的工具来使测试基于数据库驱动的应用更为简单。首先，你可以使用 `seeInDatabase` 方法来断言给定的规范是否能在数据库中匹配到相应的数据。比如，如果你希望验证 `users` 表中是否含有 `email` 为 `sally@example.com` 的记录，那么你可以这么做：
 
     public function testDatabase()
     {
@@ -25,17 +25,17 @@ Laravel provides a variety of helpful tools to make it easier to test your datab
         ]);
     }
 
-Of course, the `seeInDatabase` method and other helpers like it are for convenience. You are free to use any of PHPUnit's built-in assertion methods to supplement your tests.
+当然，类似 `seeInDatabase` 等方法仅仅是为了测试的方便。你可以自由的使用任意的 PHPUnit 自带的断言方法来补充你的测试。
 
 <a name="resetting-the-database-after-each-test"></a>
-## Resetting The Database After Each Test
+## 在每个测试后重置数据库
 
-It is often useful to reset your database after each test so that data from a previous test does not interfere with subsequent tests.
+我们通常要在每次测试后还原数据库，以便之前的测试数据不会对随后的测试产生干扰。
 
 <a name="using-migrations"></a>
-### Using Migrations
+### 使用迁移
 
-One approach to resetting the database state is to rollback the database after each test and migrate it before the next test. Laravel provides a simple `DatabaseMigrations` trait that will automatically handle this for you. Simply use the trait on your test class and everything will be handled for you:
+一种选择是在下个测试之前进行数据库回滚和迁移操作。Laravel 提供了简洁的 `DatabaseMigrations` trait 来自动的处理这些，你只需要在测试类引入该性状就可以了：
 
     <?php
 
@@ -60,9 +60,9 @@ One approach to resetting the database state is to rollback the database after e
     }
 
 <a name="using-transactions"></a>
-### Using Transactions
+### 使用事务
 
-Another approach to resetting the database state is to wrap each test case in a database transaction. Again, Laravel provides a convenient `DatabaseTransactions` trait that will automatically handle this for you:
+另外一种选择就是在每个测试用例中都使用数据库的事务进行包装，这一次，Laravel 提供了方便的 `DatabaseTransactions` trait 来自动的处理这些：
 
     <?php
 
@@ -86,12 +86,12 @@ Another approach to resetting the database state is to wrap each test case in a 
         }
     }
 
-> {note} This trait will only wrap the default database connection in a transaction. If your application is using multiple database connections, you will need to manually handle the transaction logic for those connections.
+> {note} 这一性状只会包装默认数据库连接的事务。如果你的应用使用多个数据库连接，那么你需要手动的为这些连接处理事务逻辑。
 
 <a name="model-factories"></a>
-## Writing Factories
+## 编写工厂
 
-When testing, it is common to need to insert a few records into your database before executing your test. Instead of manually specifying the value of each column when you create this test data, Laravel allows you to define a default set of attributes for each of your [Eloquent models](/docs/{{language}}/{{version}}/eloquent) using model factories. To get started, take a look at the `database/factories/ModelFactory.php` file in your application. Out of the box, this file contains one factory definition:
+当测试时，通常需要在执行测试之前在数据库中添加一些测试所需要的数据记录。Laravel 允许你使用 "factories" 来对你的 [Eloquent 模型](/docs/{{version}}/eloquent) 定义一些默认的属性设置来取代这些手动的添加数据的行为。在开始之前，我们来看一下应用的 `database/factories/ModelFactory.php` 文件。该文件中只包含了一个工厂的定义：
 
     $factory->define(App\User::class, function (Faker\Generator $faker) {
         return [
@@ -102,14 +102,14 @@ When testing, it is common to need to insert a few records into your database be
         ];
     });
 
-Within the Closure, which serves as the factory definition, you may return the default test values of all attributes on the model. The Closure will receive an instance of the [Faker](https://github.com/fzaninotto/Faker) PHP library, which allows you to conveniently generate various kinds of random data for testing.
+在工厂定义中的闭包中，你可以返回一些模型中的用作测试的默认值。这个闭包会接收一个 [Faker](https://github.com/fzaninotto/Faker) PHP 类库的实例，它会帮你生成一些随机数据用于测试。
 
-Of course, you are free to add your own additional factories to the `ModelFactory.php` file. You may also create additional factory files for each model for better organization. For example, you could create `UserFactory.php` and `CommentFactory.php` files within your `database/factories` directory. All of the files within the `factories` directory will automatically be loaded by Laravel.
+当然，你可以自由的在 `ModelFactory.php` 文件中添加额外的工厂。你也可以创建额外的工厂文件来有效的组织管理。比如，你可以在 `database/factories` 目录下创建一个 `UserFactory.php` 和一个 `CommentFactory.php` 文件。所有存放在 `factories` 目录下的工厂文件都会自动的被 Laravel 加载。
 
 <a name="factory-types"></a>
-### Factory Types
+### 工厂类型
 
-Sometimes you may wish to have multiple factories for the same Eloquent model class. For example, perhaps you would like to have a factory for "Administrator" users in addition to normal users. You may define these factories using the `defineAs` method:
+有时候，你可能希望在同一个 Eloquent 模型上有多个工厂类型。比如，可能你希望除了普通用户之外还有一个管理员的工厂。你可以使用 `defineAs` 方法来定义这些工厂：
 
     $factory->defineAs(App\User::class, 'admin', function ($faker) {
         return [
@@ -121,7 +121,7 @@ Sometimes you may wish to have multiple factories for the same Eloquent model cl
         ];
     });
 
-Instead of duplicating all of the attributes from your base user factory, you may use the `raw` method to retrieve the base attributes. Once you have the attributes, simply supplement them with any additional values you require:
+你可以使用 `raw` 方法来检索基础工厂的属性，这样可用于属性的复用，然后合并添加你所需要的额外属性：
 
     $factory->defineAs(App\User::class, 'admin', function ($faker) use ($factory) {
         $user = $factory->raw(App\User::class);
@@ -130,12 +130,12 @@ Instead of duplicating all of the attributes from your base user factory, you ma
     });
 
 <a name="using-factories"></a>
-## Using Factories
+## 使用工厂
 
 <a name="creating-models"></a>
-### Creating Models
+### 创建模型
 
-Once you have defined your factories, you may use the global `factory` function in your tests or seed files to generate model instances. So, let's take a look at a few examples of creating models. First, we'll use the `make` method to create models but not save them to the database:
+一旦你定义了工厂，你就可以在你的测试文件或者数据库 seed 文件中使用全局帮助函数 `factory` 工厂方法来生成模型的实例。那么，让我们来看一些创建模型的示例。首先，我们将使用 `make` 方法，它将会创建一些模型但是却不会将其保存到数据库：
 
     public function testDatabase()
     {
@@ -144,7 +144,7 @@ Once you have defined your factories, you may use the global `factory` function 
         // Use model in tests...
     }
 
-You may also create a Collection of many models or create models of a given type:
+你也可以根据给定的类型创建多个模型的集合：
 
     // Create three App\User instances...
     $users = factory(App\User::class, 3)->make();
@@ -155,18 +155,18 @@ You may also create a Collection of many models or create models of a given type
     // Create three "admin" App\User instances...
     $users = factory(App\User::class, 'admin', 3)->make();
 
-#### Overriding Attributes
+#### 覆盖属性
 
-If you would like to override some of the default values of your models, you may pass an array of values to the `make` method. Only the specified values will be replaced while the rest of the values remain set to their default values as specified by the factory:
+你可以通过传递一个数组到 `make` 方法中来覆盖模型中的默认值。只有指定的部分会被替换掉，而其它部分都会被保留为工厂定义的默认值：
 
     $user = factory(App\User::class)->make([
         'name' => 'Abigail',
     ]);
 
 <a name="persisting-models"></a>
-### Persisting Models
+### 持久化模型
 
-The `create` method not only creates the model instances but also saves them to the database using Eloquent's `save` method:
+`create` 方法不仅仅会创建一个模型实例，它还会使用 Eloquent 的 `save` 方法将其存储到数据库中：
 
     public function testDatabase()
     {
@@ -179,16 +179,16 @@ The `create` method not only creates the model instances but also saves them to 
         // Use model in tests...
     }
 
-You may override attributes on the model by passing an array to the `create` method:
+你也可以传递一个数组到 `create` 方法中来覆盖默认的属性值：
 
     $user = factory(App\User::class)->create([
         'name' => 'Abigail',
     ]);
 
 <a name="relationships"></a>
-### Relationships
+### 关联
 
-In this example, we'll attach a relation to some created models. When using the `create` method to create multiple models, an Eloquent [collection instance](/docs/{{language}}/{{version}}/eloquent-collections) is returned, allowing you to use any of the convenient functions provided by the collection, such as `each`:
+在这个例子中，我们甚至会为创建的模型附加一个关联模型。当使用 `create` 方法来创建多个模型时，会返回一个 [集合实例](/docs/{{version}}/eloquent-collections)，这允许你使用集合实例的方法，比如 `each` :
 
     $users = factory(App\User::class, 3)
                ->create()
@@ -196,9 +196,9 @@ In this example, we'll attach a relation to some created models. When using the 
                     $u->posts()->save(factory(App\Post::class)->make());
                 });
 
-#### Relations & Attribute Closures
+#### 关联 & 属性闭包
 
-You may also attach relationships to models using Closure attributes in your factory definitions. For example, if you would like to create a new `User` instance when creating a `Post`, you may do the following:
+你也可以在工厂定义内使用一个闭包来附加关系模型，比如，如果你希望创建一个 `Post` 时也创建一个关联的 `User` 实例，你可以这么做：
 
     $factory->define(App\Post::class, function ($faker) {
         return [
@@ -210,7 +210,7 @@ You may also attach relationships to models using Closure attributes in your fac
         ];
     });
 
-These Closures also receive the evaluated attribute array of the factory that contains them:
+这些闭包还会接收工厂所包含的当前属性数组：
 
     $factory->define(App\Post::class, function ($faker) {
         return [
