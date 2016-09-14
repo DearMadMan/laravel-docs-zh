@@ -62,7 +62,7 @@
     - [序列化](/docs/{{language}}/{{version}}/eloquent-serialization)
 - Artisan 命令
     - [命令](/docs/{{language}}/{{version}}/artisan)
-    - [任务调度](/docs/{{language}}/{{version}}/scheduling)
+    - [任务计划](/docs/{{language}}/{{version}}/scheduling)
 - 测试
     - [起步](/docs/{{language}}/{{version}}/testing)
     - [应用测试](/docs/{{language}}/{{version}}/application-testing)
