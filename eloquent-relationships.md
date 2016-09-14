@@ -1,53 +1,53 @@
-# Eloquent: Relationships
+# Eloquent: 关联
 
-- [Introduction](#introduction)
-- [Defining Relationships](#defining-relationships)
-    - [One To One](#one-to-one)
-    - [One To Many](#one-to-many)
-    - [One To Many (Inverse)](#one-to-many-inverse)
-    - [Many To Many](#many-to-many)
-    - [Has Many Through](#has-many-through)
-    - [Polymorphic Relations](#polymorphic-relations)
-    - [Many To Many Polymorphic Relations](#many-to-many-polymorphic-relations)
-- [Querying Relations](#querying-relations)
-    - [Relationship Methods Vs. Dynamic Properties](#relationship-methods-vs-dynamic-properties)
-    - [Querying Relationship Existence](#querying-relationship-existence)
-    - [Counting Related Models](#counting-related-models)
-- [Eager Loading](#eager-loading)
-    - [Constraining Eager Loads](#constraining-eager-loads)
-    - [Lazy Eager Loading](#lazy-eager-loading)
-- [Inserting & Updating Related Models](#inserting-and-updating-related-models)
-    - [The `save` Method](#the-save-method)
-    - [The `create` Method](#the-create-method)
-    - [Belongs To Relationships](#updating-belongs-to-relationships)
-    - [Many To Many Relationships](#updating-many-to-many-relationships)
-- [Touching Parent Timestamps](#touching-parent-timestamps)
+- [前言](#introduction)
+- [定义关联](#defining-relationships)
+    - [一对一](#one-to-one)
+    - [一对多](#one-to-many)
+    - [一对多（反向）](#one-to-many-inverse)
+    - [多对多](#many-to-many)
+    - [远程一对多](#has-many-through)
+    - [多态关联](#polymorphic-relations)
+    - [多对多多态关联](#many-to-many-polymorphic-relations)
+- [关联查询](#querying-relations)
+    - [关联查询方法 Vs. 动态属性](#relationship-methods-vs-dynamic-properties)
+    - [查询存在的关联](#querying-relationship-existence)
+    - [度量关联模型](#counting-related-models)
+- [预加载](#eager-loading)
+    - [预加载约束](#constraining-eager-loads)
+    - [懒加载](#lazy-eager-loading)
+- [插入 & 更新关联模型](#inserting-and-updating-related-models)
+    - [`save` 方法](#the-save-method)
+    - [`create` 方法](#the-create-method)
+    - [Belongs To 关联](#updating-belongs-to-relationships)
+    - [多对多关联](#updating-many-to-many-relationships)
+- [时间戳](#touching-parent-timestamps)
 
 <a name="introduction"></a>
-## Introduction
+## 前言
 
-Database tables are often related to one another. For example, a blog post may have many comments, or an order could be related to the user who placed it. Eloquent makes managing and working with these relationships easy, and supports several different types of relationships:
+数据库中的表经常性的与其它的表相关联。比如，一个博客文章可以有很多的评论，或者一个订单会关联一个下单的用户。Eloquent 使管理和协作这些关系变的非常的容易，并且支持多种不同类型的关联：
 
-- [One To One](#one-to-one)
-- [One To Many](#one-to-many)
-- [Many To Many](#many-to-many)
-- [Has Many Through](#has-many-through)
-- [Polymorphic Relations](#polymorphic-relations)
-- [Many To Many Polymorphic Relations](#many-to-many-polymorphic-relations)
+- [一对一](#one-to-one)
+- [一对多](#one-to-many)
+- [多对多](#many-to-many)
+- [远程一对多](#has-many-through)
+- [多态关联](#polymorphic-relations)
+- [多对多多态关联](#many-to-many-polymorphic-relations)
 
 <a name="defining-relationships"></a>
-## Defining Relationships
+## 定义关联
 
-Eloquent relationships are defined as functions on your Eloquent model classes. Since, like Eloquent models themselves, relationships also serve as powerful [query builders](/docs/{{language}}/{{version}}/queries), defining relationships as functions provides powerful method chaining and querying capabilities. For example, we may chain additional constraints on this `posts` relationship:
+Eloquent 关联可以像定义方法一样在 Eloquent 模型类中进行定义。同时，它就像 Eloquent 模型自身一样也提供了强大的 [查询生成器](/docs/{{version}}/queries)。这允许关联模型可以链式的执行查询能力。比如，我们可以在 `posts` 关联中添加额外的约束：
 
     $user->posts()->where('active', 1)->get();
 
-But, before diving too deep into using relationships, let's learn how to define each type.
+但是，在更深入的使用关联之前，让我们先来学习一下如何定义各种类型的关联。
 
 <a name="one-to-one"></a>
-### One To One
+### 一对一
 
-A one-to-one relationship is a very basic relation. For example, a `User` model might be associated with one `Phone`. To define this relationship, we place a `phone` method on the `User` model. The `phone` method should call the `hasOne` method and return its result:
+一对一的关联是最基础的关联。比如，一个 `User` 模型可能关联一个 `Phone`。我们需要在 `User` 模型上放置一个 `phone` 方法来定义这种关联。`phone` 方法应该返回一个 `hasOne` 方法的结果：
 
     <?php
 
@@ -66,21 +66,21 @@ A one-to-one relationship is a very basic relation. For example, a `User` model 
         }
     }
 
-The first argument passed to the `hasOne` method is the name of the related model. Once the relationship is defined, we may retrieve the related record using Eloquent's dynamic properties. Dynamic properties allow you to access relationship functions as if they were properties defined on the model:
+传递到 `hasOne` 方法的第一个参数应该是关联模型的名称。一旦关联被定义完成，我们可以使用 Eloquent 的动态属性来访问关联模型的记录。动态属性允许你访问关联函数，就像是它们是定义在模型中的属性一样：
 
     $phone = User::find(1)->phone;
 
-Eloquent determines the foreign key of the relationship based on the model name. In this case, the `Phone` model is automatically assumed to have a `user_id` foreign key. If you wish to override this convention, you may pass a second argument to the `hasOne` method:
+Eloquent 假定所关联的外键是基于模型的名称的。在这个前提下，`Phone` 模型会自动的假定其拥有一个 `user_id` 外键。如果你希望修改这个惯例，你可以传递第二个参数到 `hasOne` 方法中：
 
     return $this->hasOne('App\Phone', 'foreign_key');
 
-Additionally, Eloquent assumes that the foreign key should have a value matching the `id` (or the custom `$primaryKey`) column of the parent. In other words, Eloquent will look for the value of the user's `id` column in the `user_id` column of the `Phone` record. If you would like the relationship to use a value other than `id`, you may pass a third argument to the `hasOne` method specifying your custom key:
+另外，Eloquent 也会假定外键应该在其上层模型上拥有一个匹配的 `id`（或者自定义的 `$primaryKey`）值。换句话说，Eloquent 会查询 `Phone` 记录中的 `user_id` 列所对应的用户的 `id` 列的记录。如果你希望关联使用 `id` 以外的值，你可以传递第三个参数到 `hasOne` 方法来指定自定义的键：
 
     return $this->hasOne('App\Phone', 'foreign_key', 'local_key');
 
-#### Defining The Inverse Of The Relationship
+#### 定义相对的关联
 
-So, we can access the `Phone` model from our `User`. Now, let's define a relationship on the `Phone` model that will let us access the `User` that owns the phone. We can define the inverse of a `hasOne` relationship using the `belongsTo` method:
+那么，我们可以从我们的 `User` 中访问 `Phone` 模型。现在，让我们在 `Phone` 模型上定义一个关联，着让我们可以从 `Phone` 模型中访问其所属的 `User`。我们使用 `belongsTo` 方法来定义 `hasOne` 相对的关联：
 
     <?php
 
@@ -99,7 +99,7 @@ So, we can access the `Phone` model from our `User`. Now, let's define a relatio
         }
     }
 
-In the example above, Eloquent will try to match the `user_id` from the `Phone` model to an `id` on the `User` model. Eloquent determines the default foreign key name by examining the name of the relationship method and suffixing the method name with `_id`. However, if the foreign key on the `Phone` model is not `user_id`, you may pass a custom key name as the second argument to the `belongsTo` method:
+在上面的例子中，Eloquent 将会尝试从 `Phone` 模型中的 `user_id` 字段中匹配查找 `id` 相同的 `User`。Eloquent 会依据所关联的模型的蛇形命名和 `_id` 后缀来假定默认的外键名。事实上，如果在 `Phone` 模型上的外键不是 `user_id`，那么你可以传递自定义的外键名到 `belongsTo` 方法的第二个参数：
 
     /**
      * Get the user that owns the phone.
@@ -109,7 +109,7 @@ In the example above, Eloquent will try to match the `user_id` from the `Phone` 
         return $this->belongsTo('App\User', 'foreign_key');
     }
 
-If your parent model does not use `id` as its primary key, or you wish to join the child model to a different column, you may pass a third argument to the `belongsTo` method specifying your parent table's custom key:
+如果你的上级模型并没有使用 `id` 作为主键名，或者你希望下级模型关联一个不同的列。你可以传递第三个参数到 `belongsTo` 方法来指定上级模型表中的自定义键：
 
     /**
      * Get the user that owns the phone.
@@ -120,9 +120,9 @@ If your parent model does not use `id` as its primary key, or you wish to join t
     }
 
 <a name="one-to-many"></a>
-### One To Many
+### 一对多
 
-A "one-to-many" relationship is used to define relationships where a single model owns any amount of other models. For example, a blog post may have an infinite number of comments. Like all other Eloquent relationships, one-to-many relationships are defined by placing a function on your Eloquent model:
+一个一对多的关联常常用来定义一个模型拥有其他任意数目的模型。比如，一个博客文章可以拥有很多条评论。就像其他的 Eloquent 关联一样，一对多关联在 Eloquent 模型中通过方法来进行定义：
 
     <?php
 
@@ -141,9 +141,9 @@ A "one-to-many" relationship is used to define relationships where a single mode
         }
     }
 
-Remember, Eloquent will automatically determine the proper foreign key column on the `Comment` model. By convention, Eloquent will take the "snake case" name of the owning model and suffix it with `_id`. So, for this example, Eloquent will assume the foreign key on the `Comment` model is `post_id`.
+记住，Eloquent 会自动的根据 `Comment` 模型来判断合适的外键。依据惯例，Eloquent 会使用自身模型的蛇形命名和 `_id` 来作为外键。所以，在这个例子中，Eloquent 会假定 `Comment` 模型的外键是 `post_id`。
 
-Once the relationship has been defined, we can access the collection of comments by accessing the `comments` property. Remember, since Eloquent provides "dynamic properties", we can access relationship functions as if they were defined as properties on the model:
+一旦关联定义完成之后，我们可以通过 `comments` 属性来访问所有关联的评论的集合。记住，由于 Eloquent 提供了动态属性，我们可以对关联函数进行访问，就像他们是在模型中定义的属性一样：
 
     $comments = App\Post::find(1)->comments;
 
@@ -151,20 +151,20 @@ Once the relationship has been defined, we can access the collection of comments
         //
     }
 
-Of course, since all relationships also serve as query builders, you can add further constraints to which comments are retrieved by calling the `comments` method and continuing to chain conditions onto the query:
+当然，由于所有的关联都提供了查询生成器的功能，所以你可以在调用 `comments` 方法时继续的添加一些限制条件，你可以通过链式的调用来进行查询条件的添加：
 
     $comments = App\Post::find(1)->comments()->where('title', 'foo')->first();
 
-Like the `hasOne` method, you may also override the foreign and local keys by passing additional arguments to the `hasMany` method:
+就像 `hasOne` 方法，你可以通过添加额外的参数到 `hasMany` 方法中来重置外键和主键：
 
     return $this->hasMany('App\Comment', 'foreign_key');
 
     return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
 
 <a name="one-to-many-inverse"></a>
-### One To Many (Inverse)
+### 一对多（反向）
 
-Now that we can access all of a post's comments, let's define a relationship to allow a comment to access its parent post. To define the inverse of a `hasMany` relationship, define a relationship function on the child model which calls the `belongsTo` method:
+现在我们可以访问文章中所有的评论了，让我们为评论定义一个关联使其可以访问它的上层文章模型。为了定义一个 `hasMany` 相对的关联，你需要在下层模型中定义一个关联方法并调用 `belongsTo` 方法：
 
     <?php
 
@@ -183,13 +183,13 @@ Now that we can access all of a post's comments, let's define a relationship to 
         }
     }
 
-Once the relationship has been defined, we can retrieve the `Post` model for a `Comment` by accessing the `post` "dynamic property":
+一旦关联被定义完成，我们就可以通过 `Comment` 模型的 `post` 动态属性来检索到其对应的 `Post` 模型：
 
     $comment = App\Comment::find(1);
 
     echo $comment->post->title;
 
-In the example above, Eloquent will try to match the `post_id` from the `Comment` model to an `id` on the `Post` model. Eloquent determines the default foreign key name by examining the name of the relationship method and suffixing the method name with `_id`. However, if the foreign key on the `Comment` model is not `post_id`, you may pass a custom key name as the second argument to the `belongsTo` method:
+在上面的例子中，Eloquent 会尝试从 `Comment` 模型中的 `post_id` 字段检索与其相对应 `id` 的 `Post` 模型。Eloquent 会使用关联模型的蛇形命名和 `_id` 后缀来作为默认的外键。如果 `Comment` 模型的外键不是 `post_id`，你可以传递一个自定义的键名到 `belongsTo` 方法的第二个参数：
 
     /**
      * Get the post that owns the comment.
@@ -199,7 +199,7 @@ In the example above, Eloquent will try to match the `post_id` from the `Comment
         return $this->belongsTo('App\Post', 'foreign_key');
     }
 
-If your parent model does not use `id` as its primary key, or you wish to join the child model to a different column, you may pass a third argument to the `belongsTo` method specifying your parent table's custom key:
+如果上层模型并没有使用 `id` 作为主键，或者你想在下层模型中关联其他的列，你可以传递第三个参数到 `belongsTo` 方法中：
 
     /**
      * Get the post that owns the comment.
@@ -210,11 +210,11 @@ If your parent model does not use `id` as its primary key, or you wish to join t
     }
 
 <a name="many-to-many"></a>
-### Many To Many
+### 多对多
 
-Many-to-many relations are slightly more complicated than `hasOne` and `hasMany` relationships. An example of such a relationship is a user with many roles, where the roles are also shared by other users. For example, many users may have the role of "Admin". To define this relationship, three database tables are needed: `users`, `roles`, and `role_user`. The `role_user` table is derived from the alphabetical order of the related model names, and contains the `user_id` and `role_id` columns.
+多对多的关联比 `hasOne` 和 `hasMany` 关联要稍微复杂一些。假如一个用户拥有多个角色，而角色又可以被其他的用户所共享。比如，多个用户可以拥有管理员的角色。如果定义这种关联，我们需要定义三个数据库表：`users`，`roles`，和 `role_user`。`role_user` 表的命名是以相关联的两个模型数据表来依照字母顺序命名，并且表中包含了 `user_id` 和 `role_id` 列。
 
-Many-to-many relationships are defined by writing a method that returns the result of the `belongsToMany` method. For example, let's define the `roles` method on our `User` model:
+多对多关联需要编写一个方法调用 `belongsToMany` 方法。比如，让我们在 `User` 模型中定义一个 `roles` 方法：
 
     <?php
 
@@ -233,7 +233,7 @@ Many-to-many relationships are defined by writing a method that returns the resu
         }
     }
 
-Once the relationship is defined, you may access the user's roles using the `roles` dynamic property:
+一旦关联被定义，你可以通过 `roles` 动态属性来访问用户的角色：
 
     $user = App\User::find(1);
 
@@ -241,21 +241,21 @@ Once the relationship is defined, you may access the user's roles using the `rol
         //
     }
 
-Of course, like all other relationship types, you may call the `roles` method to continue chaining query constraints onto the relationship:
+当然，就像其他类型的关联，你也可以调用 `roles` 方法进而链式添加查询条件：
 
     $roles = App\User::find(1)->roles()->orderBy('name')->get();
 
-As mentioned previously, to determine the table name of the relationship's joining table, Eloquent will join the two related model names in alphabetical order. However, you are free to override this convention. You may do so by passing a second argument to the `belongsToMany` method:
+就如先前所提到的，Eloquent 会合并两个关联模型并依照字母顺序进行命名表名。当然你也可以随意的重写这个约定，你可以传递第二个参数到 `belongsToMany` 方法：
 
     return $this->belongsToMany('App\Role', 'role_user');
 
-In addition to customizing the name of the joining table, you may also customize the column names of the keys on the table by passing additional arguments to the `belongsToMany` method. The third argument is the foreign key name of the model on which you are defining the relationship, while the fourth argument is the foreign key name of the model that you are joining to:
+除了自定义合并数据表的名称之外，你也可以通过往 `belongsToMany` 方法传传递额外参数来自定义数据表里的键的字段名称。第三个参数是你定义在关联中模型外键的名称。第四个参数则是你要合并的模型外键的名称：
 
     return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
 
-#### Defining The Inverse Of The Relationship
+#### 定义相对的关联
 
-To define the inverse of a many-to-many relationship, you simply place another call to `belongsToMany` on your related model. To continue our user roles example, let's define the `users` method on the `Role` model:
+你只需要在相对应的关联模型里放置其他的方法来调用 `belongsToMany` 方法就可以定义相对关联。继续我们上面的用户角色示例，让我们在 `Role` 模型中定义一个 `users` 方法：
 
     <?php
 
@@ -274,11 +274,11 @@ To define the inverse of a many-to-many relationship, you simply place another c
         }
     }
 
-As you can see, the relationship is defined exactly the same as its `User` counterpart, with the exception of simply referencing the `App\User` model. Since we're reusing the `belongsToMany` method, all of the usual table and key customization options are available when defining the inverse of many-to-many relationships.
+就如你所看到的，这个关联的定义与用 `App\User` 模型的关联定义完全相同。因为我们重复的使用了 `belongsToMany` 方法，当定义相对多对多的关联时，所有常用的自定义数据表和键的选项都是可用的。
 
-#### Retrieving Intermediate Table Columns
+#### 检索中间表的列
 
-As you have already learned, working with many-to-many relations requires the presence of an intermediate table. Eloquent provides some very helpful ways of interacting with this table. For example, let's assume our `User` object has many `Role` objects that it is related to. After accessing this relationship, we may access the intermediate table using the `pivot` attribute on the models:
+正如你已经了解到的。定义多对多的关联需要引入一个中间表。Eloquent 提供了几种非常有帮助的方式来与这个表进行交互。比如，让我们假定我们的 `User` 对象关联到了很多 `Role` 对象。在访问这些关联对象时，我们可以通过在模型上使用 `pivot` 属性来访问中间表：
 
     $user = App\User::find(1);
 
@@ -286,28 +286,28 @@ As you have already learned, working with many-to-many relations requires the pr
         echo $role->pivot->created_at;
     }
 
-Notice that each `Role` model we retrieve is automatically assigned a `pivot` attribute. This attribute contains a model representing the intermediate table, and may be used like any other Eloquent model.
+注意我们取出的每个 `Role` 对象，都会被自动的分配 `pivot` 属性。这个属性包含了一个代表中间表的模型，并且可以像其他 Eloquent 模型一样被使用。
 
-By default, only the model keys will be present on the `pivot` object. If your pivot table contains extra attributes, you must specify them when defining the relationship:
+默认的，只有模型的键会被 `pivot` 对象提供，如果你的中间表包含了额外的属性，你必须在定义关联时指定它们：
 
     return $this->belongsToMany('App\Role')->withPivot('column1', 'column2');
 
-If you want your pivot table to have automatically maintained `created_at` and `updated_at` timestamps, use the `withTimestamps` method on the relationship definition:
+如果你想要中间表自动维护 `created_at` 和 `updated_at` 时间戳，你可以在定义关联时使用 `withTimestamps` 方法：
 
     return $this->belongsToMany('App\Role')->withTimestamps();
 
-#### Filtering Relationships Via Intermediate Table Columns
+#### 通过中间表字段过滤关联
 
-You can also filter the results returned by `belongsToMany` using the `wherePivot` and `wherePivotIn` methods when defining the relationship:
+你可以通过在定义关联时使用 `wherePrivot` 和 `wherePivotIn` 方法来在返回的结果中进行过滤：
 
     return $this->belongsToMany('App\Role')->wherePivot('approved', 1);
 
     return $this->belongsToMany('App\Role')->wherePivotIn('priority', [1, 2]);
 
 <a name="has-many-through"></a>
-### Has Many Through
+### 远程一对多
 
-The "has-many-through" relationship provides a convenient short-cut for accessing distant relations via an intermediate relation. For example, a `Country` model might have many `Post` models through an intermediate `User` model. In this example, you could easily gather all blog posts for a given country. Let's look at the tables required to define this relationship:
+远程一对多关联提供了简短便捷的方法通过中间关联件来访问远端的关联。比如，一个 `Country` 模型应该通过 `User` 模型可以拥有很多的 `Post` 模型。在这个例子中，你可以非常容易的就检索出一个国家中的所有的文章。让我们来看一下定义这些关联所需要的表:
 
     countries
         id - integer
@@ -323,9 +323,9 @@ The "has-many-through" relationship provides a convenient short-cut for accessin
         user_id - integer
         title - string
 
-Though `posts` does not contain a `country_id` column, the `hasManyThrough` relation provides access to a country's posts via `$country->posts`. To perform this query, Eloquent inspects the `country_id` on the intermediate `users` table. After finding the matching user IDs, they are used to query the `posts` table.
+远端的 `posts` 并没有包含 `country_id` 列，`hasManyThrough` 关联可以通过 `$country->posts` 来访问一个国家的文章。为了执行这个查询，Eloquent 会通过中间表 `users` 的 `country_id` 来检索 `posts` 表中用户 ID 相匹配的记录。
 
-Now that we have examined the table structure for the relationship, let's define it on the `Country` model:
+现在我们已经明确了关联表的结构，那么让我们来在 `Country` 模型上定义关联：
 
     <?php
 
@@ -344,9 +344,9 @@ Now that we have examined the table structure for the relationship, let's define
         }
     }
 
-The first argument passed to the `hasManyThrough` method is the name of the final model we wish to access, while the second argument is the name of the intermediate model.
+传递到 `hasManyThrough` 方法的第一个参数是我们最终想要访问到的模型，而第二个参数则是中间层的模型名称。
 
-Typical Eloquent foreign key conventions will be used when performing the relationship's queries. If you would like to customize the keys of the relationship, you may pass them as the third and fourth arguments to the `hasManyThrough` method. The third argument is the name of the foreign key on the intermediate model, the fourth argument is the name of the foreign key on the final model, and the fifth argument is the local key:
+当使用关联查询时，通常 Eloquent 会遵循外键约定。如果你希望对关联的键进行自定义，你可以传递第三和第四个参数到 `hasManyThrough` 方法。第三个参数是中间层模型的外键名称，第四个参数是最终想要获取的模型中的所对应的中间层的外键, 而第五个参数则是当前模型的主键：
 
     class Country extends Model
     {
@@ -360,11 +360,11 @@ Typical Eloquent foreign key conventions will be used when performing the relati
     }
 
 <a name="polymorphic-relations"></a>
-### Polymorphic Relations
+### 多态关联
 
-#### Table Structure
+#### 表结构
 
-Polymorphic relations allow a model to belong to more than one other model on a single association. For example, imagine users of your application can "comment" both posts and videos. Using polymorphic relationships, you can use a single `comments` table for both of these scenarios. First, let's examine the table structure required to build this relationship:
+多态关联允许一个模型在单个关联中从属一个或多个其它模型。比如，想象一下应用中的用户可以对文章及视频进行评论。如果使用多态关联，那么你就可以使用一个单独的 `comments` 表来关联这两个场景。首先，让我们确定定义这种关联所需要的表结构：
 
     posts
         id - integer
@@ -382,11 +382,11 @@ Polymorphic relations allow a model to belong to more than one other model on a 
         commentable_id - integer
         commentable_type - string
 
-Two important columns to note are the `commentable_id` and `commentable_type` columns on the `comments` table. The `commentable_id` column will contain the ID value of the post or video, while the `commentable_type` column will contain the class name of the owning model. The `commentable_type` column is how the ORM determines which "type" of owning model to return when accessing the `commentable` relation.
+你需要注意到的两个在 `comments` 表中重要的字段 `commentable_id` 和 `commentable_type`。`commentable_id` 字段会包含文章或者视频的 ID 值，而 `commentable_type` 字段会包含其所属的模型的类名。`commentable_type` 就是当访问 `commentable` 关联时 ORM 用来判断所属的模型是哪个类型。
 
-#### Model Structure
+#### 模型结构
 
-Next, let's examine the model definitions needed to build this relationship:
+接着，让我们检查一下这个关联所需要的模型定义：
 
     <?php
 
@@ -427,9 +427,9 @@ Next, let's examine the model definitions needed to build this relationship:
         }
     }
 
-#### Retrieving Polymorphic Relations
+#### 获取多态关联
 
-Once your database table and models are defined, you may access the relationships via your models. For example, to access all of the comments for a post, we can simply use the `comments` dynamic property:
+一旦数据库表和模型都定义完成，你就可以在你的模型中访问这些关联。比如，你可以使用 `comments` 动态属性来访问文章中所有关联的 comments 模型:
 
     $post = App\Post::find(1);
 
@@ -437,17 +437,17 @@ Once your database table and models are defined, you may access the relationship
         //
     }
 
-You may also retrieve the owner of a polymorphic relation from the polymorphic model by accessing the name of the method that performs the call to `morphTo`. In our case, that is the `commentable` method on the `Comment` model. So, we will access that method as a dynamic property:
+你也可以通过在模型上调用提供 `morphTo` 的方法来获取多态模型其关系所有者。在上面的例子中，指的就是 `Comment` 模型中的 `commentable` 方法。所以，我们可以像使用动态属性一样使用方法来进行访问：
 
     $comment = App\Comment::find(1);
 
     $commentable = $comment->commentable;
 
-The `commentable` relation on the `Comment` model will return either a `Post` or `Video` instance, depending on which type of model owns the comment.
+`Comment` 模型的 `commentable` 关联将会返回一个 `Post` 或者 `Video` 实例，这取决于其所属者的类型。
 
-#### Custom Polymorphic Types
+#### 自定义多态类型
 
-By default, Laravel will use the fully qualified class name to store the type of the related model. For instance, given the example above where a `Comment` may belong to a `Post` or a `Video`, the default `commentable_type` would be either `App\Post` or `App\Video`, respectively. However, you may wish to decouple your database from your application's internal structure. In that case, you may define a relationship "morph map" to instruct Eloquent to use a custom name for each model instead of the class name:
+默认的，Laravel 会使用完全限定类名来存储所关联模型的类型。比如，上面的例子中 `Comment` 可以属于 `Post` 或者 `Video`。默认的 `commentable_type` 应该是 `App\Post` 或者 `App\Video`。事实上，你可能希望从你的应用程序的内部结构分离数据库。在这个例子中，你可以定义一个关联的多态映射来指导 Eloquent 使用模型关联的表名称来替代类名：
 
     use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -456,14 +456,14 @@ By default, Laravel will use the fully qualified class name to store the type of
         'videos' => App\Video::class,
     ]);
 
-You may register the `morphMap` in the `boot` function of your `AppServiceProvider` or create a separate service provider if you wish.
+你可以在你的 `AppServiceProvider` 或者一个分离的服务提供者的 `boot` 方法中注册你的 `morphMap`。
 
 <a name="many-to-many-polymorphic-relations"></a>
-### Many To Many Polymorphic Relations
+### 多对多多态关联
 
-#### Table Structure
+#### 表结构
 
-In addition to traditional polymorphic relations, you may also define "many-to-many" polymorphic relations. For example, a blog `Post` and `Video` model could share a polymorphic relation to a `Tag` model. Using a many-to-many polymorphic relation allows you to have a single list of unique tags that are shared across blog posts and videos. First, let's examine the table structure:
+除了传统的多态关联，你也可以定义多对多的多态关联。比如，一个博客的 `Post` 和 `Video` 模型应该可以共享一个多态关联的 `Tag` 模型。使用多对多的多态关联可以允许你的博客文章和视频能够共享独特标签的单个列表。首先，让我们来看一下表结构：
 
     posts
         id - integer
@@ -482,9 +482,9 @@ In addition to traditional polymorphic relations, you may also define "many-to-m
         taggable_id - integer
         taggable_type - string
 
-#### Model Structure
+#### 模型结构
 
-Next, we're ready to define the relationships on the model. The `Post` and `Video` models will both have a `tags` method that calls the `morphToMany` method on the base Eloquent class:
+接着，我们来定义模型中的关联。`Post` 和 `Video` 模型将都会包含调用基础 Eloquent 类的 `morphToMany` 方法的 `tags` 方法：
 
     <?php
 
@@ -503,9 +503,9 @@ Next, we're ready to define the relationships on the model. The `Post` and `Vide
         }
     }
 
-#### Defining The Inverse Of The Relationship
+#### 定义相对的关联
 
-Next, on the `Tag` model, you should define a method for each of its related models. So, for this example, we will define a `posts` method and a `videos` method:
+接着，在 `Tag` 模型中，你应该为所有关联模型定义相应的方法。所以，在这个例子中，我们将定义 `posts` 方法和 `videos` 方法：
 
     <?php
 
@@ -532,9 +532,9 @@ Next, on the `Tag` model, you should define a method for each of its related mod
         }
     }
 
-#### Retrieving The Relationship
+#### 获取关联
 
-Once your database table and models are defined, you may access the relationships via your models. For example, to access all of the tags for a post, you can simply use the `tags` dynamic property:
+当定义完成数据表和模型之后，你就可以通过模型来访问其关联。比如，你可以简单的使用 `tags` 动态属性来访问当前文章所有的标签模型：
 
     $post = App\Post::find(1);
 
@@ -542,7 +542,7 @@ Once your database table and models are defined, you may access the relationship
         //
     }
 
-You may also retrieve the owner of a polymorphic relation from the polymorphic model by accessing the name of the method that performs the call to `morphedByMany`. In our case, that is the `posts` or `videos` methods on the `Tag` model. So, you will access those methods as dynamic properties:
+你也可以通过访问模型中提供执行 `morphedByMany` 方法的方法来获取关联模型的所属模型。在上面的例子中，就是 `Tag` 模型上的 `posts` 或者 `videos` 方法。所以，你可以像动态属性一样访问这些方法：
 
     $tag = App\Tag::find(1);
 
@@ -551,11 +551,11 @@ You may also retrieve the owner of a polymorphic relation from the polymorphic m
     }
 
 <a name="querying-relations"></a>
-## Querying Relations
+## 关联查询
 
-Since all types of Eloquent relationships are defined via functions, you may call those functions to obtain an instance of the relationship without actually executing the relationship queries. In addition, all types of Eloquent relationships also serve as [query builders](/docs/{{language}}/{{version}}/queries), allowing you to continue to chain constraints onto the relationship query before finally executing the SQL against your database.
+由于所有的 Eloquent 关联类型都是通过方法定义的，所以你可以调用这些方法来获取所关联的模型的实例而无需实际的执行关联查询。另外，所有的 Eloquent 关联也都提供了 [查询生成器](/docs/{{version}}/queries) 服务，这允许你可以继续的链式执行查询操作。
 
-For example, imagine a blog system in which a `User` model has many associated `Post` models:
+比如，想象一下博客系统中 `User` 模型拥有很多 `Post` 关联的模型：
 
     <?php
 
@@ -574,18 +574,18 @@ For example, imagine a blog system in which a `User` model has many associated `
         }
     }
 
-You may query the `posts` relationship and add additional constraints to the relationship like so:
+你可以查询 `posts` 关联的同时添加一些额外的查询约束：
 
     $user = App\User::find(1);
 
     $user->posts()->where('active', 1)->get();
 
-You are able to use any of the [query builder](/docs/{{language}}/{{version}}/queries) methods on the relationship, so be sure to explore the query builder documentation to learn about all of the methods that are available to you.
+你应该注意到了，你可以在关联中使用任何的 [查询生成器](/docs/{{version}}/queries) 的方法，所以，请探索查询生成器的文档来学习更多可用的方法。
 
 <a name="relationship-methods-vs-dynamic-properties"></a>
-### Relationship Methods Vs. Dynamic Properties
+### 关联方法 Vs. 动态属性
 
-If you do not need to add additional constraints to an Eloquent relationship query, you may simply access the relationship as if it were a property. For example, continuing to use our `User` and `Post` example models, we may access all of a user's posts like so:
+如果你不需要在进行 Eloquent 关联查询时添加额外的约束，你可以简单的像它的属性一样进行访问。比如，我们继续使用 `User` 和 `Post` 示例模型。我们可以像这样来访问用户的所有文章：
 
     $user = App\User::find(1);
 
@@ -593,27 +593,27 @@ If you do not need to add additional constraints to an Eloquent relationship que
         //
     }
 
-Dynamic properties are "lazy loading", meaning they will only load their relationship data when you actually access them. Because of this, developers often use [eager loading](#eager-loading) to pre-load relationships they know will be accessed after loading the model. Eager loading provides a significant reduction in SQL queries that must be executed to load a model's relations.
+动态属性是惰性加载的，这意味着在你实际访问他们之前，其关联数据是不会加载的。正因为如此，开发的时候通常使用预加载来进行加载一些即将用到的关联模型。[预加载](#eager-loading) 要求必须加载一个模型的关系，这有效的减少了查询的次数。
 
 <a name="querying-relationship-existence"></a>
-### Querying Relationship Existence
+### 查询存在的关联
 
-When accessing the records for a model, you may wish to limit your results based on the existence of a relationship. For example, imagine you want to retrieve all blog posts that have at least one comment. To do so, you may pass the name of the relationship to the `has` method:
+当访问一个模型的记录时，你可能会希望基于关联的记录是否存在来对结果进行限制。比如，想象一下你希望获取最少有一条评论的博客文章。你可以传递关联的名称到 `has` 方法来做这些：
 
     // Retrieve all posts that have at least one comment...
     $posts = App\Post::has('comments')->get();
 
-You may also specify an operator and count to further customize the query:
+你也可以指定操作符，和数量来进一步定制查询：
 
     // Retrieve all posts that have three or more comments...
     $posts = Post::has('comments', '>=', 3)->get();
 
-Nested `has` statements may also be constructed using "dot" notation. For example, you may retrieve all posts that have at least one comment and vote:
+你也可以使用 `.` 语法来构造嵌套的 `has` 语句。比如，你可以获取所有包含至少一条评论和投票的文章：
 
     // Retrieve all posts that have at least one comment with votes...
     $posts = Post::has('comments.votes')->get();
 
-If you need even more power, you may use the `whereHas` and `orWhereHas` methods to put "where" conditions on your `has` queries. These methods allow you to add customized constraints to a relationship constraint, such as checking the content of a comment:
+如果你需要更高的控制，你可以使用 `whereHas` 和 `orWhereHas` 方法来在 `has` 查询中插入 `where` 子句。这些方法允许你为关联进行自定义的约束查询。比如检查评论的内容：
 
     // Retrieve all posts with at least one comment containing words like foo%
     $posts = Post::whereHas('comments', function ($query) {
@@ -621,9 +621,9 @@ If you need even more power, you may use the `whereHas` and `orWhereHas` methods
     })->get();
 
 <a name="counting-related-models"></a>
-### Counting Related Models
+### 度量关联模型
 
-If you want to count the number of results from a relationship without actually loading them you may use the `withCount` method, which will place a `{relation}_count` column on your resulting models. For example:
+如果你希望统计关联的结果而不实际的加载它们，你可以使用 `withCount` 方法，这将在你的结果模型中添加 `{relation}_count` 列。比如：
 
     $posts = App\Post::withCount('comments')->get();
 
@@ -631,7 +631,7 @@ If you want to count the number of results from a relationship without actually 
         echo $post->comments_count;
     }
 
-You may add retrieve the "counts" for multiple relations as well as add constraints to the queries:
+你也可以同时检索多个关联的统计，以及添加查询约束：
 
     $posts = Post::withCount(['votes', 'comments' => function ($query) {
         $query->where('content', 'like', 'foo%');
@@ -641,9 +641,9 @@ You may add retrieve the "counts" for multiple relations as well as add constrai
     echo $posts[0]->comments_count;
 
 <a name="eager-loading"></a>
-## Eager Loading
+## 预加载
 
-When accessing Eloquent relationships as properties, the relationship data is "lazy loaded". This means the relationship data is not actually loaded until you first access the property. However, Eloquent can "eager load" relationships at the time you query the parent model. Eager loading alleviates the N + 1 query problem. To illustrate the N + 1 query problem, consider a `Book` model that is related to `Author`:
+当通过属性访问 Eloquent 关联时，该关联的数据会被延迟加载。这意味着该关联数据只有在你真实的访问属性时才会进行加载。事实上，Eloquent 可以在上层模型中一次性预加载的。预加载有效避免了 N + 1 的查找问题。要说明 N + 1 查找问题，我们可以来看一个 `Author` 关联 `Book` 的示例：
 
     <?php
 
@@ -662,7 +662,7 @@ When accessing Eloquent relationships as properties, the relationship data is "l
         }
     }
 
-Now, let's retrieve all books and their authors:
+现在，让我们检索所有的书籍和他们的作者：
 
     $books = App\Book::all();
 
@@ -670,9 +670,9 @@ Now, let's retrieve all books and their authors:
         echo $book->author->name;
     }
 
-This loop will execute 1 query to retrieve all of the books on the table, then another query for each book to retrieve the author. So, if we have 25 books, this loop would run 26 queries: 1 for the original book, and 25 additional queries to retrieve the author of each book.
+这个循环会执行一次查找回所有的书籍，接着每本书会运行一次查找作者的操作。所以，如果我们拥有 25 本书，那么循环将会进行 26 次查询：1 次查询所有的书籍，25 次查询相关书籍的作者。
 
-Thankfully, we can use eager loading to reduce this operation to just 2 queries. When querying, you may specify which relationships should be eager loaded using the `with` method:
+非常幸运的，我们可以使用预加载来将查询有效的控制在 2 次。当查询时，使用 `with` 方法来指定关联的预加载：
 
     $books = App\Book::with('author')->get();
 
@@ -680,43 +680,43 @@ Thankfully, we can use eager loading to reduce this operation to just 2 queries.
         echo $book->author->name;
     }
 
-For this operation, only two queries will be executed:
+对于这个操作，只会执行两个查询：
 
     select * from books
 
     select * from authors where id in (1, 2, 3, 4, 5, ...)
 
-#### Eager Loading Multiple Relationships
+#### 预加载多个关联
 
-Sometimes you may need to eager load several different relationships in a single operation. To do so, just pass additional arguments to the `with` method:
+有时候你可能需要在一个操作中预加载多个不同的关联，你只需要传递额外的参数到 `with` 方法中就可以：
 
     $books = App\Book::with('author', 'publisher')->get();
 
-#### Nested Eager Loading
+#### 嵌套的预加载
 
-To eager load nested relationships, you may use "dot" syntax. For example, let's eager load all of the book's authors and all of the author's personal contacts in one Eloquent statement:
+你可以使用 `.` 语法来加载嵌套的关联。比如，让我们在一个 Eloquent 语句中一次加载所有书籍的作者以及作者的私人通讯簿：
 
     $books = App\Book::with('author.contacts')->get();
 
 <a name="constraining-eager-loads"></a>
-### Constraining Eager Loads
+### 预加载约束
 
-Sometimes you may wish to eager load a relationship, but also specify additional query constraints for the eager loading query. Here's an example:
+有时候你可能希望预加载一些关联，但是也需要对预加载查询指定额外的约束，这里有个示例：
 
     $users = App\User::with(['posts' => function ($query) {
         $query->where('title', 'like', '%first%');
     }])->get();
 
-In this example, Eloquent will only eager load posts where the post's `title` column contains the word `first`. Of course, you may call other [query builder](/docs/{{language}}/{{version}}/queries) methods to further customize the eager loading operation:
+在这个例子中，Eloquent 会只预加载文章的 `title` 列包含 `first` 单词的记录。当然，你也可以调用其他 [查询生成器](/docs/{{version}}/queries) 可用的方法来进一步的定制预加载操作：
 
     $users = App\User::with(['posts' => function ($query) {
         $query->orderBy('created_at', 'desc');
     }])->get();
 
 <a name="lazy-eager-loading"></a>
-### Lazy Eager Loading
+### 延迟预加载
 
-Sometimes you may need to eager load a relationship after the parent model has already been retrieved. For example, this may be useful if you need to dynamically decide whether to load related models:
+有时候你可能需要在上层模型被获取后才预加载其关联。当你需要来动态决定是否加载关联模型时尤其有用:
 
     $books = App\Book::all();
 
@@ -724,19 +724,19 @@ Sometimes you may need to eager load a relationship after the parent model has a
         $books->load('author', 'publisher');
     }
 
-If you need to set additional query constraints on the eager loading query, you may pass an array keyed by the relationships you wish to load. The array values should be `Closure` instances which receive the query instance:
+如果你需要对预加载做一些查询约束，你可以传递一个包含待加载的关联与 `Closure` 的键值对数组到 `load` 方法，数组值应该是一个 `Closure` 实例，并且它会接收查询实例作为参数：
 
     $books->load(['author' => function ($query) {
         $query->orderBy('published_date', 'asc');
     }]);
 
 <a name="inserting-and-updating-related-models"></a>
-## Inserting & Updating Related Models
+## 插入 & 更新关联模型
 
 <a name="the-save-method"></a>
-### The Save Method
+### Save 方法
 
-Eloquent provides convenient methods for adding new models to relationships. For example, perhaps you need to insert a new `Comment` for a `Post` model. Instead of manually setting the `post_id` attribute on the `Comment`, you may insert the `Comment` directly from the relationship's `save` method:
+Eloquent 提供了方便的方法来为模型添加一个关联。比如，也许你需要为 `Post` 模型新增一个 `Comment`。除了手动的设置 `Comment` 的 `post_id` 属性，你也可以直接在关联模型中调用 `save` 方法来插入 `Comment`:
 
     $comment = new App\Comment(['message' => 'A new comment.']);
 
@@ -744,9 +744,9 @@ Eloquent provides convenient methods for adding new models to relationships. For
 
     $post->comments()->save($comment);
 
-Notice that we did not access the `comments` relationship as a dynamic property. Instead, we called the `comments` method to obtain an instance of the relationship. The `save` method will automatically add the appropriate `post_id` value to the new `Comment` model.
+注意上面我们并没有使用关联模型的动态属性的方式来访问 `comments`，而是使用 `comments` 方法的形式来获取关联模型的实例。`save` 方法会自动的添加相应的 `post_id` 值到新的 `Comment` 模型上。
 
-If you need to save multiple related models, you may use the `saveMany` method:
+如果你需要一次添加多个关联模型，你需要使用 `saveMany` 方法：
 
     $post = App\Post::find(1);
 
@@ -756,9 +756,9 @@ If you need to save multiple related models, you may use the `saveMany` method:
     ]);
 
 <a name="the-create-method"></a>
-### The Create Method
+### Create 方法
 
-In addition to the `save` and `saveMany` methods, you may also use the `create` method, which accepts an array of attributes, creates a model, and inserts it into the database. Again, the difference between `save` and `create` is that `save` accepts a full Eloquent model instance while `create` accepts a plain PHP `array`:
+除了 `save` 和 `saveMany` 方法之外，你也可以使用 `create` 方法，它可以接收属性组成的数组，然后创建一个模型并且将其存储到数据库。这一次，`save` 和 `create` 方法的区别是 `save` 接收一个完整的 Eloquent 模型实例，而 `create` 接收的是一个原生的 PHP `array`:
 
     $post = App\Post::find(1);
 
@@ -766,12 +766,12 @@ In addition to the `save` and `saveMany` methods, you may also use the `create` 
         'message' => 'A new comment.',
     ]);
 
-Before using the `create` method, be sure to review the documentation on attribute [mass assignment](/docs/{{language}}/{{version}}/eloquent#mass-assignment).
+在使用 `create` 方法之前，你应该确保已经阅读了属性的 [批量赋值文档](/docs/{{version}}/eloquent#mass-assignment)。
 
 <a name="updating-belongs-to-relationships"></a>
-### Belongs To Relationships
+### Belongs To 关联
 
-When updating a `belongsTo` relationship, you may use the `associate` method. This method will set the foreign key on the child model:
+当更新一个 `belongsTo` 关联时，你应该使用 `associate` 方法。这个方法会在下层模型中设置外键：
 
     $account = App\Account::find(10);
 
@@ -779,28 +779,28 @@ When updating a `belongsTo` relationship, you may use the `associate` method. Th
 
     $user->save();
 
-When removing a `belongsTo` relationship, you may use the `dissociate` method. This method will set the relationship's foreign key to `null`:
+当删除 `belongsTo` 关联时，你应该使用 `dissociate` 方法，该方法会重置模型所关联的外键为 `null`：
 
     $user->account()->dissociate();
 
     $user->save();
 
 <a name="updating-many-to-many-relationships"></a>
-### Many To Many Relationships
+### 多对多关联
 
-#### Attaching / Detaching
+#### 附加 / 抽离
 
-Eloquent also provides a few additional helper methods to make working with related models more convenient. For example, let's imagine a user can have many roles and a role can have many users. To attach a role to a user by inserting a record in the intermediate table that joins the models, use the `attach` method:
+Eloquent 提供了一些额外的帮助方法来更方便的管理关联模型。比如，让我们想象一下用户可以有很多角色并且角色可以有很多用户。你可以使用 `attach` 方法来附加一个角色到用户并且在中间表中加入这条记录：
 
     $user = App\User::find(1);
 
     $user->roles()->attach($roleId);
 
-When attaching a relationship to a model, you may also pass an array of additional data to be inserted into the intermediate table:
+当附加关联到模型时，你也可以传递一个含有额外数据的数组来将其添加到中间表中：
 
     $user->roles()->attach($roleId, ['expires' => $expires]);
 
-Of course, sometimes it may be necessary to remove a role from a user. To remove a many-to-many relationship record, use the `detach` method. The `detach` method will remove the appropriate record out of the intermediate table; however, both models will remain in the database:
+当然，有时候你可能需要从用户中删除一个角色。你可以使用 `detach` 方法来删除多对多关联的记录。`datech` 方法将从中间表中删除相应的记录。但是，除了中间表之外，其它两个模型的记录都还会被保留：
 
     // Detach a single role from the user...
     $user->roles()->detach($roleId);
@@ -808,7 +808,7 @@ Of course, sometimes it may be necessary to remove a role from a user. To remove
     // Detach all roles from the user...
     $user->roles()->detach();
 
-For convenience, `attach` and `detach` also accept arrays of IDs as input:
+为了更加的便捷，`attach` 和 `detach` 也可以接收 IDs 所组成的数组作为输入：
 
     $user = App\User::find(1);
 
@@ -816,38 +816,38 @@ For convenience, `attach` and `detach` also accept arrays of IDs as input:
 
     $user->roles()->attach([1 => ['expires' => $expires], 2, 3]);
 
-#### Syncing Associations
+#### 同步
 
-You may also use the `sync` method to construct many-to-many associations. The `sync` method accepts an array of IDs to place on the intermediate table. Any IDs that are not in the given array will be removed from the intermediate table. So, after this operation is complete, only the IDs in the given array will exist in the intermediate table:
+你也可以使用 `sync` 方法来构建多对多的关联。`sync` 方法接收放置中间表 IDs 所组成的数组。任意 IDs 如果没有在所给定的数组中，那么其将会从中间表中进行删除。所以，在操作完成之后，只有存在于给定数组里的 IDs 才会存在于中间表中：
 
     $user->roles()->sync([1, 2, 3]);
 
-You may also pass additional intermediate table values with the IDs:
+你也可以同时传递额外的中间表数据：
 
     $user->roles()->sync([1 => ['expires' => true], 2, 3]);
 
-If you do not want to detach existing IDs, you may use the `syncWithoutDetaching` method:
+如果你不想要剥离已经存在的 IDs，那么你可以使用 `syncWithoutDetaching` 方法：
 
     $user->roles()->syncWithoutDetaching([1, 2, 3]);
 
-#### Saving Additional Data On A Pivot Table
+#### 在中间表中存储额外的数据
 
-When working with a many-to-many relationship, the `save` method accepts an array of additional intermediate table attributes as its second argument:
+当使用多对多关联时，`save` 方法可以接收中间表属性所组成的额外数据数组作为第二个参数：
 
     App\User::find(1)->roles()->save($role, ['expires' => $expires]);
 
-#### Updating A Record On A Pivot Table
+#### 更新中间表的记录
 
-If you need to update an existing row in your pivot table, you may use `updateExistingPivot` method. This method accepts the pivot record foreign key and an array of attributes to update:
+如果你需要更新中间表中存在的行，你可以使用 `updateExistingPivot` 方法，该方法会接收中间表的外键和一个包含待更新属性的数组：
 
     $user = App\User::find(1);
 
 	$user->roles()->updateExistingPivot($roleId, $attributes);
 
 <a name="touching-parent-timestamps"></a>
-## Touching Parent Timestamps
+## 联动上层模型时间戳
 
-When a model `belongsTo` or `belongsToMany` another model, such as a `Comment` which belongs to a `Post`, it is sometimes helpful to update the parent's timestamp when the child model is updated. For example, when a `Comment` model is updated, you may want to automatically "touch" the `updated_at` timestamp of the owning `Post`. Eloquent makes it easy. Just add a `touches` property containing the names of the relationships to the child model:
+当一个模型 `belongsTo` 或者 `belongsToMany` 另外一个模型时，比如 `Comment` 从属于 `Post`，这将对于下层模型更新时同时要求更新上层模型的时间戳时会很有帮助。比如，当 `Comment` 模型更新了，你想要自动的更新其所属的 `Post` 模型的 `updated_at` 时间戳。Eloquent 使之变的非常容易。你只需要在下层模型中添加一个 `touches` 属性来包含关联的名称就可以了：
 
     <?php
 
@@ -873,7 +873,7 @@ When a model `belongsTo` or `belongsToMany` another model, such as a `Comment` w
         }
     }
 
-Now, when you update a `Comment`, the owning `Post` will have its `updated_at` column updated as well, making it more convenient to know when to invalidate a cache of the `Post` model:
+现在，当你更新 `Comment` 时，其所属的 `Post` 将会同时更新 `updated_at` 列，这将方便的知道 `Post` 模型的缓存何时失效：
 
     $comment = App\Comment::find(1);
 
