@@ -49,7 +49,7 @@
     - [队列](/{{language}}/{{version}}/queues)
 - 数据库
     - [起步](/{{language}}/{{version}}/database)
-    - [查询构造器](/{{language}}/{{version}}/queries)
+    - [查询生成器](/{{language}}/{{version}}/queries)
     - [分页](/{{language}}/{{version}}/pagination)
     - [迁移](/{{language}}/{{version}}/migrations)
     - [填充](/{{language}}/{{version}}/seeding)
@@ -66,7 +66,7 @@
 - 测试
     - [起步](/{{language}}/{{version}}/testing)
     - [应用测试](/{{language}}/{{version}}/application-testing)
-    - [数据](/{{language}}/{{version}}/database-testing)
+    - [数据库](/{{language}}/{{version}}/database-testing)
     - [模拟](/{{language}}/{{version}}/mocking)
 - 官方扩展包
     - [Cashier](/{{language}}/{{version}}/billing)
