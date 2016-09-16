@@ -12,9 +12,9 @@
 
 #### CSS
 
-[Laravel Elixir](/docs/{{language}}/{{version}}/elixir) 提供了一种简洁丰富的 API 来指导 SASS 或者 Less 的编译，SASS 或者 Less 是原生 CSS 的扩展，它们为 CSS 添加了变量，混合和其它的一些强大的特性，这使你能够更轻松愉悦的编写和管理你的 CSS。
+[Laravel Elixir](/{{language}}/{{version}}/elixir) 提供了一种简洁丰富的 API 来指导 SASS 或者 Less 的编译，SASS 或者 Less 是原生 CSS 的扩展，它们为 CSS 添加了变量，混合和其它的一些强大的特性，这使你能够更轻松愉悦的编写和管理你的 CSS。
 
-在这个文档中，我们将会短暂的来探讨一下大体的 CSS 编译过程。事实上，你应该查阅完整的 [Laravel Elixir 文档](/docs/{{language}}/{{version}}/elixir) 来了解更多的 SASS 或 Less 编译相关的信息。
+在这个文档中，我们将会短暂的来探讨一下大体的 CSS 编译过程。事实上，你应该查阅完整的 [Laravel Elixir 文档](/{{language}}/{{version}}/elixir) 来了解更多的 SASS 或 Less 编译相关的信息。
 
 #### JavaScript
 
@@ -33,7 +33,7 @@ Laravel 的 `package.json` 文件中引入了 `bootstrap-sass` 包来帮助你�
 
     gulp
 
-Laravel 默认包含的 `gulpfile.js` 将会编译 `resources/assets/sass/app.scss` SASS 文件。这个 `app.scss` 文件只是简单的引入 Bootstrap 中的 SASS 变量，这对于大多数应用来说是提供了一个良好的开始。你可以自由的根据喜好来修改 `app.scss` 文件，或者你也可以通过 [配置 Laravel Elixir](/docs/{{language}}/{{version}}/elixir) 来使用完全不同的预处理器。
+Laravel 默认包含的 `gulpfile.js` 将会编译 `resources/assets/sass/app.scss` SASS 文件。这个 `app.scss` 文件只是简单的引入 Bootstrap 中的 SASS 变量，这对于大多数应用来说是提供了一个良好的开始。你可以自由的根据喜好来修改 `app.scss` 文件，或者你也可以通过 [配置 Laravel Elixir](/{{language}}/{{version}}/elixir) 来使用完全不同的预处理器。
 
 <a name="writing-javascript"></a>
 ## 编写 JavaScript
@@ -44,7 +44,7 @@ Laravel 默认包含的 `gulpfile.js` 将会编译 `resources/assets/sass/app.sc
 
 默认的，Laravel 的 `package.json` 文件中引入了一些如 `vue` 和 `vue-resource` 之类的包来帮助你更快的构建 JavaScript 应用。你可以根据自己的需要自由的添加或者删除 `package.json` 文件中的依赖项。
 
-当包安装完毕之后，你可以使用 `gulp` 命令来 [编译你的资源](/docs/{{language}}/{{version}}/elixir)。Gulp 是为 JavaScript 提供的一种命令行构建系统。当你执行 `gulp` 命令时，Gulp 会依据 `gulpfile.js` 文件的指导来执行:
+当包安装完毕之后，你可以使用 `gulp` 命令来 [编译你的资源](/{{language}}/{{version}}/elixir)。Gulp 是为 JavaScript 提供的一种命令行构建系统。当你执行 `gulp` 命令时，Gulp 会依据 `gulpfile.js` 文件的指导来执行:
 
     gulp
 

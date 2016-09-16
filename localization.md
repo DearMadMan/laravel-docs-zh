@@ -57,7 +57,7 @@ Laravel 的本土化特性提供了一种便捷的方式来获取各种语言的
 
     echo trans('messages.welcome');
 
-如果你使用 [Blade 模板引擎](/docs/{{language}}/{{version}}/blade)，那么你可以在视图文件中使用 `{{ }}` 语法或者使用 `@lang` 指令来提取内容：
+如果你使用 [Blade 模板引擎](/{{language}}/{{version}}/blade)，那么你可以在视图文件中使用 `{{ }}` 语法或者使用 `@lang` 指令来提取内容：
 
     {{ trans('messages.welcome') }}
 

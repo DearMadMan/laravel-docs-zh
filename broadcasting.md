@@ -28,14 +28,14 @@
 
 很多现代化的应用中，会使用 WebSockets 来实现实时交互的用户接口。当一些数据在服务端变更时，一条消息会通过 websocket 连接来传递到客户端进行处理。这相比较轮询的方式来说更为健壮有效。
 
-为了帮助你构建这种类型的应用。Laravel 使通过 WebSocket 连接进行广播事件变的非常简单。Laravel 允许你通过 WebSocket 广播 [事件](/docs/{{language}}/{{version}}/events) 来共享事件的名称到你的服务端和客户端的 JavaScript 框架。
+为了帮助你构建这种类型的应用。Laravel 使通过 WebSocket 连接进行广播事件变的非常简单。Laravel 允许你通过 WebSocket 广播 [事件](/{{language}}/{{version}}/events) 来共享事件的名称到你的服务端和客户端的 JavaScript 框架。
 
-> {tip} 在我们更深入的探讨事件广播之前，请确认你已经读完了关于 Laravel 的 [事件和监听器](/docs/{{language}}/{{version}}/events) 文档。
+> {tip} 在我们更深入的探讨事件广播之前，请确认你已经读完了关于 Laravel 的 [事件和监听器](/{{language}}/{{version}}/events) 文档。
 
 <a name="configuration"></a>
 ### 配置
 
-所有的事件广播配置选项都被存储在 `config/broadcasting.php` 配置文件中。Laravel 支持多种开箱即用的广播驱动：[Pusher](https://pusher.com/)，[Redis](/docs/{{language}}/{{version}}/redis) 和 `log` 驱动来提供本地开发和调试。另外，还有一个 `null` 驱动用于完全的禁用广播。在这个配置文件中包含了每种驱动的配置示例。
+所有的事件广播配置选项都被存储在 `config/broadcasting.php` 配置文件中。Laravel 支持多种开箱即用的广播驱动：[Pusher](https://pusher.com/)，[Redis](/{{language}}/{{version}}/redis) 和 `log` 驱动来提供本地开发和调试。另外，还有一个 `null` 驱动用于完全的禁用广播。在这个配置文件中包含了每种驱动的配置示例。
 
 #### 广播服务提供者
 
@@ -96,7 +96,7 @@ Redis 将利用 Redis 自身的发布 / 订阅机制来广播信息。然而，�
 
 #### 队列依赖
 
-在进行事件广播之前，你需要先配置好 [队列监听器](/docs/{{language}}/{{version}}/queues)。所有的广播都是通过队列任务来异步执行的，这样应用响应就不会受到影响。
+在进行事件广播之前，你需要先配置好 [队列监听器](/{{language}}/{{version}}/queues)。所有的广播都是通过队列任务来异步执行的，这样应用响应就不会受到影响。
 
 <a name="concept-overview"></a>
 ## 概念概述
@@ -213,7 +213,7 @@ Laravel 的事件广播允许你通过基于驱动的途径在 WebSockets 通道
         }
     }
 
-任何，你只需要像平常一样 [触发事件](/docs/{{language}}/{{version}}/events) 就可以了。当事件被触发时，一个 [队列任务](/docs/{{language}}/{{version}}/queues) 会自动的依据你指定的广播驱动来广播事件。
+任何，你只需要像平常一样 [触发事件](/{{language}}/{{version}}/events) 就可以了。当事件被触发时，一个 [队列任务](/{{language}}/{{version}}/queues) 会自动的依据你指定的广播驱动来广播事件。
 
 <a name="broadcast-data"></a>
 ### 广播数据
@@ -442,7 +442,7 @@ Laravel Echo 是一个 JavaScript 类库。它可以无缝的订阅频道和监�
 <a name="notifications"></a>
 ## 通知
 
-[通知](/docs/{{language}}/{{version}}/notifications) 总是伴随着事件广播，你的 JavaScript 应用可以在其发生时接受一个新的通知而不用刷新页面。首先，你需要确定你已经读完了使用 [广播通知频道](/docs/{{language}}/{{version}}/notifications#broadcast-notifications) 的文档。
+[通知](/{{language}}/{{version}}/notifications) 总是伴随着事件广播，你的 JavaScript 应用可以在其发生时接受一个新的通知而不用刷新页面。首先，你需要确定你已经读完了使用 [广播通知频道](/{{language}}/{{version}}/notifications#broadcast-notifications) 的文档。
 
 当你为广播频道配置好通知之后，你可以使用 Echo 的 `notification` 方法来监听广播的事件。你要记得，频道名称应该与所接收到的通知的类名相匹配：
 

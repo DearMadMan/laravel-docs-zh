@@ -98,7 +98,7 @@
 <a name="controller-middleware"></a>
 ## 控制器中间件
 
-[中间件](/docs/{{language}}/{{version}}/middleware) 可以这样被分配到控制器路由中：
+[中间件](/{{language}}/{{version}}/middleware) 可以这样被分配到控制器路由中：
 
     Route::get('profile', 'UserController@show')->middleware('auth');
 
@@ -207,7 +207,7 @@ DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
 
 #### 构造器注入
 
-Laravel [服务容器](/docs/{{language}}/{{version}}/container) 支持所有的 Laravel 控制器的解析。由于这个原因，你可以在控制器的构造函数中添加你所需要依赖的相应的类型提示，这些依赖会被自动的解析并注入进控制器实例中:
+Laravel [服务容器](/{{language}}/{{version}}/container) 支持所有的 Laravel 控制器的解析。由于这个原因，你可以在控制器的构造函数中添加你所需要依赖的相应的类型提示，这些依赖会被自动的解析并注入进控制器实例中:
 
     <?php
 
@@ -234,7 +234,7 @@ Laravel [服务容器](/docs/{{language}}/{{version}}/container) 支持所有的
         }
     }
 
-当然，你也可以对任意的 [Laravel contract](/docs/{{language}}/{{version}}/contracts) 进行类型提示，只要服务容器可以正确的解析，那么你都可以对其进行类型提示。在你的控制器中提供依赖注入，可以其具有更高的可测试性。
+当然，你也可以对任意的 [Laravel contract](/{{language}}/{{version}}/contracts) 进行类型提示，只要服务容器可以正确的解析，那么你都可以对其进行类型提示。在你的控制器中提供依赖注入，可以其具有更高的可测试性。
 
 #### 方法注入
 

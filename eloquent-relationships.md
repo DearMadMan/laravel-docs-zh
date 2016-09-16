@@ -38,7 +38,7 @@
 <a name="defining-relationships"></a>
 ## 定义关联
 
-Eloquent 关联可以像定义方法一样在 Eloquent 模型类中进行定义。同时，它就像 Eloquent 模型自身一样也提供了强大的 [查询生成器](/docs/{{version}}/queries)。这允许关联模型可以链式的执行查询能力。比如，我们可以在 `posts` 关联中添加额外的约束：
+Eloquent 关联可以像定义方法一样在 Eloquent 模型类中进行定义。同时，它就像 Eloquent 模型自身一样也提供了强大的 [查询生成器](/{{language}}/{{version}}/queries)。这允许关联模型可以链式的执行查询能力。比如，我们可以在 `posts` 关联中添加额外的约束：
 
     $user->posts()->where('active', 1)->get();
 
@@ -553,7 +553,7 @@ Eloquent 假定所关联的外键是基于模型的名称的。在这个前提�
 <a name="querying-relations"></a>
 ## 关联查询
 
-由于所有的 Eloquent 关联类型都是通过方法定义的，所以你可以调用这些方法来获取所关联的模型的实例而无需实际的执行关联查询。另外，所有的 Eloquent 关联也都提供了 [查询生成器](/docs/{{version}}/queries) 服务，这允许你可以继续的链式执行查询操作。
+由于所有的 Eloquent 关联类型都是通过方法定义的，所以你可以调用这些方法来获取所关联的模型的实例而无需实际的执行关联查询。另外，所有的 Eloquent 关联也都提供了 [查询生成器](/{{language}}/{{version}}/queries) 服务，这允许你可以继续的链式执行查询操作。
 
 比如，想象一下博客系统中 `User` 模型拥有很多 `Post` 关联的模型：
 
@@ -580,7 +580,7 @@ Eloquent 假定所关联的外键是基于模型的名称的。在这个前提�
 
     $user->posts()->where('active', 1)->get();
 
-你应该注意到了，你可以在关联中使用任何的 [查询生成器](/docs/{{version}}/queries) 的方法，所以，请探索查询生成器的文档来学习更多可用的方法。
+你应该注意到了，你可以在关联中使用任何的 [查询生成器](/{{language}}/{{version}}/queries) 的方法，所以，请探索查询生成器的文档来学习更多可用的方法。
 
 <a name="relationship-methods-vs-dynamic-properties"></a>
 ### 关联方法 Vs. 动态属性
@@ -707,7 +707,7 @@ Eloquent 假定所关联的外键是基于模型的名称的。在这个前提�
         $query->where('title', 'like', '%first%');
     }])->get();
 
-在这个例子中，Eloquent 会只预加载文章的 `title` 列包含 `first` 单词的记录。当然，你也可以调用其他 [查询生成器](/docs/{{version}}/queries) 可用的方法来进一步的定制预加载操作：
+在这个例子中，Eloquent 会只预加载文章的 `title` 列包含 `first` 单词的记录。当然，你也可以调用其他 [查询生成器](/{{language}}/{{version}}/queries) 可用的方法来进一步的定制预加载操作：
 
     $users = App\User::with(['posts' => function ($query) {
         $query->orderBy('created_at', 'desc');
@@ -766,7 +766,7 @@ Eloquent 提供了方便的方法来为模型添加一个关联。比如，也�
         'message' => 'A new comment.',
     ]);
 
-在使用 `create` 方法之前，你应该确保已经阅读了属性的 [批量赋值文档](/docs/{{version}}/eloquent#mass-assignment)。
+在使用 `create` 方法之前，你应该确保已经阅读了属性的 [批量赋值文档](/{{language}}/{{version}}/eloquent#mass-assignment)。
 
 <a name="updating-belongs-to-relationships"></a>
 ### Belongs To 关联

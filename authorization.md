@@ -20,7 +20,7 @@
 <a name="introduction"></a>
 ## 前言
 
-Laravel 除了提供开箱即用的 [认证服务](/docs/{{language}}/{{version}}/authentication)，还提供了许多简单的方式来管理授权逻辑和资源的访问控制。就像认证一样，Laravel 的授权方法非常简单，它主要通过两种形式作出授权动作：gates 和 策略
+Laravel 除了提供开箱即用的 [认证服务](/{{language}}/{{version}}/authentication)，还提供了许多简单的方式来管理授权逻辑和资源的访问控制。就像认证一样，Laravel 的授权方法非常简单，它主要通过两种形式作出授权动作：gates 和 策略
 
 你可以将 gates 和 策略想象为路由和控制器。Gates 提供了基于闭包的方法来进行授权操作，而策略就像控制器一样，将特定的模型或资源组织在一起。我们接下来将会先剖析 gates，然后再来探讨一下策略。
 
@@ -71,7 +71,7 @@ Gates 是一些闭包函数，它们用于判断用户对指定的动作是否�
 
 策略就是一些类文件，它们用来管理围绕特定模型或资源的授权逻辑。比如，如果你的应用是一个博客，那么你可以拥有一个 `Post` 模型和相应的 `PostPolicy` 来对如创建或者更新 post 的用户动作进行授权。
 
-你可以通过 `make:policy` [artisan command](/docs/{{language}}/{{version}}/artisan) 命令来生成一个策略。所生成的策略会存放在 `app/Policies` 目录，如果该目录不存在，那么 Laravel 将会自动的为你创建：
+你可以通过 `make:policy` [artisan command](/{{language}}/{{version}}/artisan) 命令来生成一个策略。所生成的策略会存放在 `app/Policies` 目录，如果该目录不存在，那么 Laravel 将会自动的为你创建：
 
     php artisan make:policy PostPolicy
 
@@ -79,7 +79,7 @@ Gates 是一些闭包函数，它们用于判断用户对指定的动作是否�
 
     php artisan make:policy PostPolicy --model=Post
 
-> {tip} 所有的策略类都是通过 [服务容器](/docs/{{language}}/{{version}}/container) 解析而来。这意味着你可以使用类型提示来在策略类的构造函数中进行依赖注入所需要的依赖。
+> {tip} 所有的策略类都是通过 [服务容器](/{{language}}/{{version}}/container) 解析而来。这意味着你可以使用类型提示来在策略类的构造函数中进行依赖注入所需要的依赖。
 
 <a name="registering-policies"></a>
 ### 注册策略
@@ -224,7 +224,7 @@ Laravel 引入的中间可以在进入的请求到达路由或者控制器之前
         // The current user may update the post...
     })->middleware('can:update,post');
 
-在这个示例中，我们为 `can` 中间件传递了两个参数。第一个参数是我们想要进行授权验证的动作名称，第二个参数则是我们需要传递到策略方法中的路由参数名称。上述例子中，由于我们是使用的 [隐式模型绑定](/docs/{{language}}/{{version}}/routing#implicit-binding)，所以一个 `Post` 模型的实例将会传递到策略方法中。如果用户并没有被授权访问跟多的动作，那么中间件会自动的生成一个 `403` 状态码的 HTTP 响应。
+在这个示例中，我们为 `can` 中间件传递了两个参数。第一个参数是我们想要进行授权验证的动作名称，第二个参数则是我们需要传递到策略方法中的路由参数名称。上述例子中，由于我们是使用的 [隐式模型绑定](/{{language}}/{{version}}/routing#implicit-binding)，所以一个 `Post` 模型的实例将会传递到策略方法中。如果用户并没有被授权访问跟多的动作，那么中间件会自动的生成一个 `403` 状态码的 HTTP 响应。
 
 #### 不依赖于模型的动作
 

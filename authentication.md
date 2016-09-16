@@ -36,7 +36,7 @@ Laravel 使实施认证的变得非常简单，事实上，它提供了非常全
 <a name="introduction-database-considerations"></a>
 ### 数据库考量
 
-默认的，Laravel 在 `app` 目录下包含了 `App\User` [Eloquent model](/docs/{{language}}/{{version}}/eloquent) 模型。该模型使用了默认的 Eloquent 认证驱动。如果你的应用不是使用 Eloquent 驱动，你可以使用 `database` 认证驱动，`database` 认证驱动是基于 Laravel 的查询构造器的。
+默认的，Laravel 在 `app` 目录下包含了 `App\User` [Eloquent model](/{{language}}/{{version}}/eloquent) 模型。该模型使用了默认的 Eloquent 认证驱动。如果你的应用不是使用 Eloquent 驱动，你可以使用 `database` 认证驱动，`database` 认证驱动是基于 Laravel 的查询构造器的。
 
 当你为 `App\User` 模型去构建数据库表结构时，你应该确认密码应该保持最少 60 个字符的长度，默认的 255 是一个比较好的选择。
 
@@ -93,7 +93,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 
 在 `RegisterController` 类中使用 `validate` 方法来验证新用户表单与验证规则的匹配程度。你可以根据自身的需要来修改这个方法。
 
-在 `RegisterController` 类中使用 `create` 方法用来在数据库中新增一条 `App\User` 的记录。这里使用了 [Eloquent ORM](/docs/{{language}}/{{version}}/eloquent)。你可以根据自身的需求修改这个方法。
+在 `RegisterController` 类中使用 `create` 方法用来在数据库中新增一条 `App\User` 的记录。这里使用了 [Eloquent ORM](/{{language}}/{{version}}/eloquent)。你可以根据自身的需求修改这个方法。
 
 <a name="retrieving-the-authenticated-user"></a>
 ### 获取已认证的用户
@@ -136,18 +136,18 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
         // The user is logged in...
     }
 
-> {tip} 即使可以通过使用 `check` 方法来判断用户已经通过认证，你通常也需要在用户访问某些路由或者控制器时使用中间件来过滤未被授权的用户。你可以查看 [包含路由](/docs/{{language}}/{{version}}/authentication#protecting-routes)  来了解更多。
+> {tip} 即使可以通过使用 `check` 方法来判断用户已经通过认证，你通常也需要在用户访问某些路由或者控制器时使用中间件来过滤未被授权的用户。你可以查看 [包含路由](/{{language}}/{{version}}/authentication#protecting-routes)  来了解更多。
 
 <a name="protecting-routes"></a>
 ### 包含路由
 
-[路由中间件](/docs/{{language}}/{{version}}/middleware) 可以被用来限制只有已经被认证的用户才能访问所给定的路由。Laravel 自带了 `auth` 中间件，该中间件被定义在 `Illuminate\Auth\Middleware\Authenticate`。由于这个中间件已经被注册到了你的 HTTP 核心中，所以你只需要在定义路由时附加上该中间件就可以了:
+[路由中间件](/{{language}}/{{version}}/middleware) 可以被用来限制只有已经被认证的用户才能访问所给定的路由。Laravel 自带了 `auth` 中间件，该中间件被定义在 `Illuminate\Auth\Middleware\Authenticate`。由于这个中间件已经被注册到了你的 HTTP 核心中，所以你只需要在定义路由时附加上该中间件就可以了:
 
     Route::get('profile', function() {
         // Only authenticated users may enter...
     })->middleware('auth');
 
-当然，如果你使用 [控制器](/docs/{{language}}/{{version}}/controllers) 来注册路由，你可以在控制器的构造函数中使用 `middleware` 方法来附加中间件：
+当然，如果你使用 [控制器](/{{language}}/{{version}}/controllers) 来注册路由，你可以在控制器的构造函数中使用 `middleware` 方法来附加中间件：
 
     public function __construct()
     {
@@ -173,7 +173,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 
 当然，你没有必要一定使用 Laravel 內建的认证控制器。如果你选择删除这些认证控制器，那么你需要直接的使用 Laravel 认证类来管理用户的认证。别担心，这当然不在话下。
 
-我们将通过 `Auth` [假面](/docs/{{language}}/{{version}}/facades) 来访问 Laravel 的认证服务，所以，我们要确保在类文件的顶部引入 `Auth` 假面。接着，让我们查看一下 `attempt` 方法：
+我们将通过 `Auth` [假面](/{{language}}/{{version}}/facades) 来访问 Laravel 的认证服务，所以，我们要确保在类文件的顶部引入 `Auth` 假面。接着，让我们查看一下 `attempt` 方法：
 
     <?php
 
@@ -251,7 +251,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 
 #### 通过用户实例进行认证
 
-如果你需要在应用中认证一个已经存在的用户实例，你可以使用 `login` 方法。所给定的参数必须是实现了 `Illuminate\Contracts\Auth\Authenticatable`  [contract](/docs/{{language}}/{{version}}/contracts) 的一个实例。当然，在 Laravel 中 `App\User` 模型已经实现了这个接口：
+如果你需要在应用中认证一个已经存在的用户实例，你可以使用 `login` 方法。所给定的参数必须是实现了 `Illuminate\Contracts\Auth\Authenticatable`  [contract](/{{language}}/{{version}}/contracts) 的一个实例。当然，在 Laravel 中 `App\User` 模型已经实现了这个接口：
 
     Auth::login($user);
 
@@ -282,7 +282,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 <a name="http-basic-authentication"></a>
 ## HTTP 基础认证
 
-[HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) 提供了快速的用户认证机制而不用设立专门的登录页面。为了开始，你应该附加 `auth.basic` 中间件到你的路由。Laravel 中已经內建了 `auth.basic` [中间件](/docs/{{language}}/{{version}}/middleware)，所以你不需要去定义它:
+[HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) 提供了快速的用户认证机制而不用设立专门的登录页面。为了开始，你应该附加 `auth.basic` 中间件到你的路由。Laravel 中已经內建了 `auth.basic` [中间件](/{{language}}/{{version}}/middleware)，所以你不需要去定义它:
 
     Route::get('profile', function() {
         // Only authenticated users may enter...
@@ -300,7 +300,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 <a name="stateless-http-basic-authentication"></a>
 ### 无状态的 HTTP 基本认证
 
-你也可以在使用 HTTP 基本认证时不使用 session 保存用户的身份到 cookie。这在基于 API 的认证尤其有效。为了做到这些，你可以定义一个 [中间件](/docs/{{language}}/{{version}}/middleware)，然后调用 `onceBasic` 方法。如果 `onceBasic` 方法没有返回响应，那么请求将被进一步传递到应用：
+你也可以在使用 HTTP 基本认证时不使用 session 保存用户的身份到 cookie。这在基于 API 的认证尤其有效。为了做到这些，你可以定义一个 [中间件](/{{language}}/{{version}}/middleware)，然后调用 `onceBasic` 方法。如果 `onceBasic` 方法没有返回响应，那么请求将被进一步传递到应用：
 
     <?php
 
@@ -324,7 +324,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 
     }
 
-接着，[注册路由中间件](/docs/{{language}}/{{version}}/middleware#registering-middleware) 并且附加到路由中：
+接着，[注册路由中间件](/{{language}}/{{version}}/middleware#registering-middleware) 并且附加到路由中：
 
     Route::get('api/user', function() {
         // Only authenticated users may enter...
@@ -333,7 +333,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 <a name="adding-custom-guards"></a>
 ## 添加自定义的守卫
 
-你可以在 [服务提供者](/docs/{{language}}/{{version}}/providers) 中使用 `Auth` 假面的 `extend` 方法来定义自己的认证守卫，由于 Laravel 已经自带了 `AuthServiceProvider`，所以你可以将这些代码写入到这个提供者中:
+你可以在 [服务提供者](/{{language}}/{{version}}/providers) 中使用 `Auth` 假面的 `extend` 方法来定义自己的认证守卫，由于 Laravel 已经自带了 `AuthServiceProvider`，所以你可以将这些代码写入到这个提供者中:
 
     <?php
 
@@ -476,7 +476,7 @@ laravel 提供了一个快速的方法来生成认证的路由和视图的脚手
 <a name="events"></a>
 ## 事件
 
-Laravel 在认证进程中提供了各种各样的 [事件](/docs/{{language}}/{{version}}/events)。你可以在你的 `EventServiceProvider` 中附加监听这些事件：
+Laravel 在认证进程中提供了各种各样的 [事件](/{{language}}/{{version}}/events)。你可以在你的 `EventServiceProvider` 中附加监听这些事件：
 
     /**
      * The event listener mappings for the application.

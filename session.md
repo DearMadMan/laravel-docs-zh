@@ -33,7 +33,7 @@ session 的配置文件被存储在 `config/session.php`。你应该确保在使
 -  `array` - sessions 会使简单存储在 PHP 的数组中，并且它不能被跨请求访问。
 </div>
 
-> {tip}：`array` 驱动通常是用来进行 [测试](/docs/{{language}}/{{version}}/testing) 时使用的以避免持久的 session 数据。
+> {tip}：`array` 驱动通常是用来进行 [测试](/{{language}}/{{version}}/testing) 时使用的以避免持久的 session 数据。
 
 <a name="driver-prerequisites"></a>
 ### 驱动依赖
@@ -67,7 +67,7 @@ session 的配置文件被存储在 `config/session.php`。你应该确保在使
 <a name="retrieving-data"></a>
 ### 检索数据
 
-在 Laravel 中有两种主要的方式来与 session 进行交互：`session` 帮助函数和 `Request` 实例。首先，让我们通过 `Request` 实例来访问 session，我们可以可以将请求类在控制器方法中进行类型提示。还记得吗，控制器方法中的依赖会通过 Laravel 的 [服务容器](/docs/{{language}}/{{version}}/container) 自动的注入:
+在 Laravel 中有两种主要的方式来与 session 进行交互：`session` 帮助函数和 `Request` 实例。首先，让我们通过 `Request` 实例来访问 session，我们可以可以将请求类在控制器方法中进行类型提示。还记得吗，控制器方法中的依赖会通过 Laravel 的 [服务容器](/{{language}}/{{version}}/container) 自动的注入:
 
     <?php
 
@@ -116,7 +116,7 @@ session 的配置文件被存储在 `config/session.php`。你应该确保在使
         session(['key' => 'value']);
     });
 
-> {tip} 在实际使用时不论是使用 HTTP 请求实例还是通过全局帮助方法 `session` 都没有太多的区别。两个方法都是可以在测试用例中通过 `assertSessionHas` 方法进行 [测试的](/docs/{{language}}/{{version}}/testing)。
+> {tip} 在实际使用时不论是使用 HTTP 请求实例还是通过全局帮助方法 `session` 都没有太多的区别。两个方法都是可以在测试用例中通过 `assertSessionHas` 方法进行 [测试的](/{{language}}/{{version}}/testing)。
 
 #### 检索所有 Session 数据
 
@@ -230,7 +230,7 @@ session 的配置文件被存储在 `config/session.php`。你应该确保在使
 <a name="registering-the-driver"></a>
 #### 注册驱动
 
-当你完成驱动的编写之后，你就可将之注册到框架中了。你需要使用 `Session` [假面](/docs/{{language}}/{{version}}/facades) 的 `extend` 方法才能添加额外的 session 驱动到 Laravel 中。你应该在 [服务提供者](/docs/{{language}}/{{version}}/providers) 的 `boot` 方法中来调用 `extend` 方法：
+当你完成驱动的编写之后，你就可将之注册到框架中了。你需要使用 `Session` [假面](/{{language}}/{{version}}/facades) 的 `extend` 方法才能添加额外的 session 驱动到 Laravel 中。你应该在 [服务提供者](/{{language}}/{{version}}/providers) 的 `boot` 方法中来调用 `extend` 方法：
 
     <?php
 

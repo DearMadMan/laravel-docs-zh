@@ -23,12 +23,12 @@
 
 迁移就像是为数据库提供的版本控制，这允许你的团队可以轻易的修改和共享应用数据库结构。迁移通常配合 Laravel 的结构生成器来轻松的构建应用中的数据库结构。如果你曾不得不告知你的队友让他手动的修改本地的数据结构以添加新增的列。那么你就可以使用数据库迁移来解决这个问题。
 
-Laravel 的 `Schema` [facade](/docs/{{version}}/facades) 提供了创建和操作数据库的相关支持。它为所有 Laravel 支持的数据库系统提供了丰富流畅且相同的 API 接口。
+Laravel 的 `Schema` [facade](/{{language}}/{{version}}/facades) 提供了创建和操作数据库的相关支持。它为所有 Laravel 支持的数据库系统提供了丰富流畅且相同的 API 接口。
 
 <a name="generating-migrations"></a>
 ## 生成迁移
 
-你可以使用 `make:migration` [Artisan 命令](/docs/{{version}}/artisan) 来生成迁移：
+你可以使用 `make:migration` [Artisan 命令](/{{language}}/{{version}}/artisan) 来生成迁移：
 
     php artisan make:migration create_users_table
 
@@ -90,7 +90,7 @@ Laravel 的 `Schema` [facade](/docs/{{version}}/facades) 提供了创建和操�
 
     php artisan migrate
 
-> {note} 如果你使用 [Homestead 虚拟机](/docs/{{version}}/homestead)，你应该在你的虚拟机中运行这个命令。
+> {note} 如果你使用 [Homestead 虚拟机](/{{language}}/{{version}}/homestead)，你应该在你的虚拟机中运行这个命令。
 
 #### 在生产环境中强制迁移
 

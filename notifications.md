@@ -37,7 +37,7 @@
 <a name="introduction"></a>
 ## 前言
 
-除了支持 [发送邮件](/docs/{{version}}/mail) 之外，Laravel 也支持多种交付渠道的通知行为。其中包括邮件，短信（通过 [Nexmo](https://www.nexmo.com/) ），和 [Slack](https://slack.com)。通知也可以被存储于数据库中，这样它们就可以在你的 web 接口中用于展示。
+除了支持 [发送邮件](/{{language}}/{{version}}/mail) 之外，Laravel 也支持多种交付渠道的通知行为。其中包括邮件，短信（通过 [Nexmo](https://www.nexmo.com/) ），和 [Slack](https://slack.com)。通知也可以被存储于数据库中，这样它们就可以在你的 web 接口中用于展示。
 
 通常，通知应该是告知用户应用中发生了某些事情的短消息信息。比如，如果你在编写一个计费应用，那么你可能会需要通过邮件或者短信的渠道来为你的用户发送一个 "账单已支付" 的通知。
 
@@ -56,7 +56,7 @@
 <a name="using-the-notifiable-trait"></a>
 ### 使用 Notifiable Trait
 
-通知可以通过两个方式进行发送：使用 `Notifiable` trait 的 `notify` 方法，或者使用 `Notification` [假面](/docs/{{version}}/facades)。首先，让我们来检验一下 `Notifiable` trait。这个性状被默认的 `App\User` 模型所引入，并且它提供了一个方法用于发送通知：`notify`。`notify` 方法接收一个通知类实例作为参数：
+通知可以通过两个方式进行发送：使用 `Notifiable` trait 的 `notify` 方法，或者使用 `Notification` [假面](/{{language}}/{{version}}/facades)。首先，让我们来检验一下 `Notifiable` trait。这个性状被默认的 `App\User` 模型所引入，并且它提供了一个方法用于发送通知：`notify`。`notify` 方法接收一个通知类实例作为参数：
 
     use App\Notifications\InvoicePaid;
 
@@ -94,7 +94,7 @@
 <a name="queueing-notifications"></a>
 ### 异步队列通知
 
-> {note} 在你队列化通知之前，你应该先配置你的队列并且 [启动一个队列工人](/docs/{{version}}/queues)
+> {note} 在你队列化通知之前，你应该先配置你的队列并且 [启动一个队列工人](/{{language}}/{{version}}/queues)
 
 发送通知可能会消耗一些时间，特别是当你需要调用外部的 API 来交付你的通知时。为了能快速的响应，你可以让你的通知类实现 `ShouldQueue` 接口和引入 `Queueable` trait 来使其队列化。在使用 `make:notification` 所生成的通知类中已经导入了这个接口和 trait，所以你只需要直接添加它们到你的通知类就可以了：
 
@@ -313,12 +313,12 @@
 <a name="broadcast-prerequisites"></a>
 ### 依赖
 
-在进行广播通知之前，你应该先配置和熟悉 Laravel 的 [事件广播](/docs/{{version}}/broadcasting) 服务。事件广播为你的 JavaScript Client 接收服务端所触发的 Laravel 事件提供了一种途径。
+在进行广播通知之前，你应该先配置和熟悉 Laravel 的 [事件广播](/{{language}}/{{version}}/broadcasting) 服务。事件广播为你的 JavaScript Client 接收服务端所触发的 Laravel 事件提供了一种途径。
 
 <a name="formatting-broadcast-notifications"></a>
 ### 格式化广播通知
 
-`broadcast` 渠道的广播通知使用了 Laravel 的 [事件广播](/docs/{{version}}/broadcasting) 服务，这允许你的 JavaScript 客户端可以实时的捕捉到通知信息。如果通知支持广播的形式，那么你需要在通知类中定义 `toBroadcast` 或者 `toArray` 方法。这些方法将会接收一个 `$notifiable` 实体并且返回一个原生的 PHP 数组。被返回的数组将会经过 JSON 格式化并被广播到你的 JavaScript 客户端。让我们来看一下 `toArray` 方法的示例：
+`broadcast` 渠道的广播通知使用了 Laravel 的 [事件广播](/{{language}}/{{version}}/broadcasting) 服务，这允许你的 JavaScript 客户端可以实时的捕捉到通知信息。如果通知支持广播的形式，那么你需要在通知类中定义 `toBroadcast` 或者 `toArray` 方法。这些方法将会接收一个 `$notifiable` 实体并且返回一个原生的 PHP 数组。被返回的数组将会经过 JSON 格式化并被广播到你的 JavaScript 客户端。让我们来看一下 `toArray` 方法的示例：
 
     /**
      * Get the array representation of the notification.
@@ -343,7 +343,7 @@
 <a name="listening-for-notifications"></a>
 ### 监听通知
 
-通知将会以 `{notifiable}.{id}` 所约定的格式经过一个私有频道进行广播。所以，如果你发送一个通知到 `App\User` 模型实例 ID 为 1 的用户，那么通知将会被通过 `App.User.1` 私有频道进行广播。当使用 [Laravel Echo](/docs/{{version}}/broadcasting) 时，你可以在频道中使用 `notification` 帮助方法来轻松的监听通知：
+通知将会以 `{notifiable}.{id}` 所约定的格式经过一个私有频道进行广播。所以，如果你发送一个通知到 `App\User` 模型实例 ID 为 1 的用户，那么通知将会被通过 `App.User.1` 私有频道进行广播。当使用 [Laravel Echo](/{{language}}/{{version}}/broadcasting) 时，你可以在频道中使用 `notification` 帮助方法来轻松的监听通知：
 
     Echo.private('App.User.' + userId)
         .notification((notification) => {

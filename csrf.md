@@ -19,7 +19,7 @@ Laravel 会自动的为每个活跃用户生成一个 CSRF "token"，而这个 t
         ...
     </form>
 
-你并不需要去手动的验证这些能够修改状态的 HTTP 请求，比如 POST，PUT，或者 DELETE 请求，已经被包含在 `web` 中间件组中的 `VerifyCsrfToken` [middleware](/docs/{{language}}/{{version}}/middleware) 会自动的处理这些请求，它会根据请求中的 token 与会话中存储的 token 进行匹配验证。
+你并不需要去手动的验证这些能够修改状态的 HTTP 请求，比如 POST，PUT，或者 DELETE 请求，已经被包含在 `web` 中间件组中的 `VerifyCsrfToken` [middleware](/{{language}}/{{version}}/middleware) 会自动的处理这些请求，它会根据请求中的 token 与会话中存储的 token 进行匹配验证。
 
 <a name="csrf-excluding-uris"></a>
 ## 从 CSRF 保护中排除某些 URLs

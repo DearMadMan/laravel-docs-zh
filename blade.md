@@ -312,7 +312,7 @@ Blade 也允许你在其它视图或布局中已经命名的堆栈中压入数�
 <a name="service-injection"></a>
 ## 服务注入
 
-你可以使用 `@inject` 指令来从 Larvel [服务容器](/docs/{{language}}/{{version}}/container) 中取回服务。该指令的第一个参数将作为所取回服务存放的变量名，而第二个参数是你想要在服务容器中取回的类或接口名称：
+你可以使用 `@inject` 指令来从 Larvel [服务容器](/{{language}}/{{version}}/container) 中取回服务。该指令的第一个参数将作为所取回服务存放的变量名，而第二个参数是你想要在服务容器中取回的类或接口名称：
 
     @inject('metrics', 'App\Services\MetricsService')
 

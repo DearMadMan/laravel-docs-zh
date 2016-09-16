@@ -135,7 +135,7 @@ Laravel 提供了方便的 `expectsJobs` 方法来验证期望的任务是否被
 <a name="mocking-facades"></a>
 ## 假面
 
-不像传统的静态方法的调用，[假面](/docs/{{language}}/{{version}}/facades) 是可以被模拟的。如果你使用依赖注入的话，那么它相对于传统的静态方法来说更是具有极大的优势，同时也提供了更高的可测试性。当测试时，你或许经常需要模拟一个 Laravel 假面的调用。比如，考虑一下下面的控制器操作：
+不像传统的静态方法的调用，[假面](/{{language}}/{{version}}/facades) 是可以被模拟的。如果你使用依赖注入的话，那么它相对于传统的静态方法来说更是具有极大的优势，同时也提供了更高的可测试性。当测试时，你或许经常需要模拟一个 Laravel 假面的调用。比如，考虑一下下面的控制器操作：
 
     <?php
 
@@ -158,7 +158,7 @@ Laravel 提供了方便的 `expectsJobs` 方法来验证期望的任务是否被
         }
     }
 
-我们可以使用 `shouldReceive` 方法来模拟调用 `Cache` 假面，它会返回一个 [Mockery](https://github.com/padraic/mockery) 的模拟实例。由于假面实际上是通过 Laravel 的 [服务容器](/docs/{{language}}/{{version}}/container) 来解析和管理的，所以它们比一般的静态类更具可测试性。比如，让我们来模拟 `Cache` 假面的 `get` 方法的调用：
+我们可以使用 `shouldReceive` 方法来模拟调用 `Cache` 假面，它会返回一个 [Mockery](https://github.com/padraic/mockery) 的模拟实例。由于假面实际上是通过 Laravel 的 [服务容器](/{{language}}/{{version}}/container) 来解析和管理的，所以它们比一般的静态类更具可测试性。比如，让我们来模拟 `Cache` 假面的 `get` 方法的调用：
 
     <?php
 

@@ -48,7 +48,7 @@ Artisan 是 Laravel 自带的命令行工具的通讯接口。它为应用的开
 
 > {tip} 为了更好的代码重用性，保持你的命令工具的轻量和服从应用服务来完成它们的任务是一种很好的实践。在下面的示例中，你需要注意我们注入一个服务类来完成繁重的发送邮件的任务。
 
-让我们来看一个示例命令。你应该知道我们可以在命令类的构造函数中进行依赖的注入。Laravel [服务容器](/docs/{{version}}/container) 会自动的注入所有在构造函数中使用类型提示的依赖:
+让我们来看一个示例命令。你应该知道我们可以在命令类的构造函数中进行依赖的注入。Laravel [服务容器](/{{language}}/{{version}}/container) 会自动的注入所有在构造函数中使用类型提示的依赖:
 
     <?php
 
@@ -130,7 +130,7 @@ Artisan 是 Laravel 自带的命令行工具的通讯接口。它为应用的开
 
 #### 类型提示的依赖
 
-除了可以接收命令的参数和选项，命令闭包也可以对其它的依赖进行类型提示，这样你就可以从 [服务容器](/docs/{{version}}/container) 中解析它们：
+除了可以接收命令的参数和选项，命令闭包也可以对其它的依赖进行类型提示，这样你就可以从 [服务容器](/{{language}}/{{version}}/container) 中解析它们：
 
     use App\User;
     use App\DripEmailer;
@@ -373,7 +373,7 @@ Artisan 是 Laravel 自带的命令行工具的通讯接口。它为应用的开
 <a name="registering-commands"></a>
 ## 注册命令
 
-一旦你完成了命令行的编写，你还需要注册其在 Artisan 命令中可用。这些需要在 `app/Console/Kernel.php` 文件中完成。在这个文件中，你会发现 `commands` 属性，它是一个命令行类的列表，你需要将命令类注册到这里。当 Artisan 启动时，所有在这个列表中的命令都会通过 [服务容器](/docs/{{version}}/container) 解析到 Arisan:
+一旦你完成了命令行的编写，你还需要注册其在 Artisan 命令中可用。这些需要在 `app/Console/Kernel.php` 文件中完成。在这个文件中，你会发现 `commands` 属性，它是一个命令行类的列表，你需要将命令类注册到这里。当 Artisan 启动时，所有在这个列表中的命令都会通过 [服务容器](/{{language}}/{{version}}/container) 解析到 Arisan:
 
     protected $commands = [
         Commands\SendEmails::class
@@ -392,7 +392,7 @@ Artisan 是 Laravel 自带的命令行工具的通讯接口。它为应用的开
         //
     });
 
-通过使用 `Artisan` 假面的 `queue` 方法，你甚至可以队列化 `Artisan` 命令，在后台进程中 [队列工人](/docs/{{version}}/queues) 会按序的帮你执行完成命令。在使用这个方法之前，请确保你已经配置好了你的队列并且运行了一个队列监听器：
+通过使用 `Artisan` 假面的 `queue` 方法，你甚至可以队列化 `Artisan` 命令，在后台进程中 [队列工人](/{{language}}/{{version}}/queues) 会按序的帮你执行完成命令。在使用这个方法之前，请确保你已经配置好了你的队列并且运行了一个队列监听器：
 
     Route::get('/foo', function () {
         Artisan::queue('email:send', [

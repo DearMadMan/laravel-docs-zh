@@ -43,7 +43,7 @@ Vlate 可以完美支持以下软件，但是它并不仅仅局限于此：
 <a name="valet-or-homestead"></a>
 ### Valet 还是 Homestead
 
-就如你所知道的，Laravel 提供了 [Homestead](/docs/{{language}}/{{version}}/homestead)，一个本地的 Laravel 开发环境。Homestead 和 Valet 对于目标受众和对于本地开发的途径是不同的。Homestead 提供了一个完整的 Ubuntu 虚拟机和自动化的 Nginx 配置。而如果你使用的是 Windows / Linux 或者你需要一个完整的虚拟化的 Linux 开发环境，那么 Homestead 将是一个完美的选择。
+就如你所知道的，Laravel 提供了 [Homestead](/{{language}}/{{version}}/homestead)，一个本地的 Laravel 开发环境。Homestead 和 Valet 对于目标受众和对于本地开发的途径是不同的。Homestead 提供了一个完整的 Ubuntu 虚拟机和自动化的 Nginx 配置。而如果你使用的是 Windows / Linux 或者你需要一个完整的虚拟化的 Linux 开发环境，那么 Homestead 将是一个完美的选择。
 
 Valet 只能支持 Mac 平台，并且它需要你在本地主机中安装 PHP 和数据库服务。你可以轻松的通过使用 [Homebrew](http://brew.sh/) 的安装命令来进行本地安装，如 `brew install php70` 和 `brew install mariadb`。Valte 提供了极速的本地开发环境的同时伴随着极低的资源消耗，所以它对于那些仅仅只是使用 PHP / MySQL 并且不需要完整的虚拟化开发环境的开发者来说是及其友好的。
 

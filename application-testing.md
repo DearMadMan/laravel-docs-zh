@@ -254,7 +254,7 @@ Laravel 为测试期间的会话提供了多种帮助方法。首先，你需要
         }
     }
 
-当然，会话常见的用途就是保留用户的状态，比如用户认证。`actingAs` 帮助方法提供了一种方式来使用给定的用户作为已认证的当前用户。比如，我们可以使用 [模型工厂](/docs/{{version}}/database-testing#model-factories) 来生成一个认证用户：
+当然，会话常见的用途就是保留用户的状态，比如用户认证。`actingAs` 帮助方法提供了一种方式来使用给定的用户作为已认证的当前用户。比如，我们可以使用 [模型工厂](/{{language}}/{{version}}/database-testing#model-factories) 来生成一个认证用户：
 
     <?php
 
@@ -278,7 +278,7 @@ Laravel 为测试期间的会话提供了多种帮助方法。首先，你需要
 <a name="disabling-middleware"></a>
 ### 禁用中间件
 
-当测试应用时，你可以方便的在测试中禁用 [中间件](/docs/{{version}}/middleware)。这使你可以隔离的测试路由和控制器而免除中间件的顾虑。你可以简单的引入 `WithoutMiddleware` trait 来在测试类中禁用所有的中间件：
+当测试应用时，你可以方便的在测试中禁用 [中间件](/{{language}}/{{version}}/middleware)。这使你可以隔离的测试路由和控制器而免除中间件的顾虑。你可以简单的引入 `WithoutMiddleware` trait 来在测试类中禁用所有的中间件：
 
     <?php
 
@@ -325,7 +325,7 @@ Laravel 为测试期间的会话提供了多种帮助方法。首先，你需要
         $this->assertEquals(200, $response->status());
     }
 
-如果你构造 `POST`，`PUT`，或者 `PATCH` 请求，你可以传递一个数组来作为请求的输入数据。当然，这些数据可以通过 [请求实例](/docs/{{version}}/requests) 在你的路由和控制器中可用：
+如果你构造 `POST`，`PUT`，或者 `PATCH` 请求，你可以传递一个数组来作为请求的输入数据。当然，这些数据可以通过 [请求实例](/{{language}}/{{version}}/requests) 在你的路由和控制器中可用：
 
        $response = $this->call('POST', '/user', ['name' => 'Taylor']);
 

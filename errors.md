@@ -153,7 +153,7 @@ Laravel 使根据 HTTP 响应状态码来创建自定义的错误页面非常简
 <a name="logging"></a>
 ## 记录日志
 
-Laravel 的日志系统是基于强大的 [Monolog](http://github.com/seldaek/monolog) 类库的。默认的，Laravel 设置了 `storage/logs` 目录来存放日志文件。你可以使用 `Log` [假面](/docs/{{language}}/{{version}}/facades) 来记录日志信息：
+Laravel 的日志系统是基于强大的 [Monolog](http://github.com/seldaek/monolog) 类库的。默认的，Laravel 设置了 `storage/logs` 目录来存放日志文件。你可以使用 `Log` [假面](/{{language}}/{{version}}/facades) 来记录日志信息：
 
     <?php
 

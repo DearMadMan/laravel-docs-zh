@@ -21,7 +21,7 @@
 <a name="writing-service-providers"></a>
 ## 编写服务提供者
 
-所有的服务提供者都继承自 `Illuminate\Support\ServiceProvider` 类。大多数服务提供者都包含一个 `register` 方法和一个 `boot` 方法。在 `register` 方法中你应该**只绑定内容**到 [服务容器](/docs/{{language}}/{{version}}/container) 。你永远不要尝试在其中注册任何的事件监听，路由或者其它功能。
+所有的服务提供者都继承自 `Illuminate\Support\ServiceProvider` 类。大多数服务提供者都包含一个 `register` 方法和一个 `boot` 方法。在 `register` 方法中你应该**只绑定内容**到 [服务容器](/{{language}}/{{version}}/container) 。你永远不要尝试在其中注册任何的事件监听，路由或者其它功能。
 
 Artisan CLI 可以通过 `make:provider` 命令来非常便捷的生成一个新的提供者:
 
@@ -30,7 +30,7 @@ Artisan CLI 可以通过 `make:provider` 命令来非常便捷的生成一个新
 <a name="the-register-method"></a>
 ### Register 方法
 
-就如前面所提到的，在 `register` 方法中，你应该只做一件事，那就是绑定事物到 [服务容器](/docs/{{language}}/{{version}}/container) 中。不要做其它的事情。否则，可能你所使用的提供者提供的服务还没有被注册。
+就如前面所提到的，在 `register` 方法中，你应该只做一件事，那就是绑定事物到 [服务容器](/{{language}}/{{version}}/container) 中。不要做其它的事情。否则，可能你所使用的提供者提供的服务还没有被注册。
 
 现在，让我们来看一个最基础的服务提供者。在这些服务提供者中的任意方法，你总是可以通过 `$app` 属性来访问基础的服务容器：
 
@@ -56,7 +56,7 @@ Artisan CLI 可以通过 `make:provider` 命令来非常便捷的生成一个新
         }
     }
 
-这个服务提供者仅仅只定义了一个 `register` 方法，并且使用这个方法在服务容器中定义了一个 `Riak\Connection` 的实现。如果你并不理解服务容器是如何工作的，你可以看一下 [服务容器](/docs/{{language}}/{{version}}/container) 的文档。
+这个服务提供者仅仅只定义了一个 `register` 方法，并且使用这个方法在服务容器中定义了一个 `Riak\Connection` 的实现。如果你并不理解服务容器是如何工作的，你可以看一下 [服务容器](/{{language}}/{{version}}/container) 的文档。
 
 <a name="the-boot-method"></a>
 ### Boot 方法
@@ -86,7 +86,7 @@ Artisan CLI 可以通过 `make:provider` 命令来非常便捷的生成一个新
 
 #### Boot 方法的依赖注入
 
-你可以在服务提供者的 `boot` 方法中使用类型提示来标识依赖。[服务容器](/docs/{{language}}/{{version}}/container) 将会自动的将所需要的依赖注入进去：
+你可以在服务提供者的 `boot` 方法中使用类型提示来标识依赖。[服务容器](/{{language}}/{{version}}/container) 将会自动的将所需要的依赖注入进去：
 
     use Illuminate\Contracts\Routing\ResponseFactory;
 
@@ -113,7 +113,7 @@ Artisan CLI 可以通过 `make:provider` 命令来非常便捷的生成一个新
 <a name="deferred-providers"></a>
 ## 延迟加载提供者
 
-如果你的提供者**只是**在 [服务容器](/docs/{{language}}/{{version}}/container) 中注册一些绑定信息，那么你可以选择推迟注册，这样这些服务只有在真正被需要用到时才会进行注册。推迟注册能够提高你的应用的性能。因为它不会在所有请求到来时都通过文件系统来加载。
+如果你的提供者**只是**在 [服务容器](/{{language}}/{{version}}/container) 中注册一些绑定信息，那么你可以选择推迟注册，这样这些服务只有在真正被需要用到时才会进行注册。推迟注册能够提高你的应用的性能。因为它不会在所有请求到来时都通过文件系统来加载。
 
 Laravel 会为哪些惰性的提供者编译并存储一张清单，只有在请求尝试解析这些服务时，Laravel 才会加载相应的提供者。
 

@@ -26,7 +26,7 @@
 
     $collection = collect([1, 2, 3]);
 
-> {tip} [Eloquent](/docs/{{version}}/eloquent) 查询总是返回 `Collection` 的实例。
+> {tip} [Eloquent](/{{language}}/{{version}}/eloquent) 查询总是返回 `Collection` 的实例。
 
 <a name="available-methods"></a>
 ## 可用的方法
@@ -170,7 +170,7 @@
 
     // [[1, 2, 3, 4], [5, 6, 7]]
 
-该方法在 [视图](/docs/{{version}}/views) 中使用类似于 [Bootstrap](http://getbootstrap.com/css/#grid) 的网格系统时特别有用。想象一下，你有一个关于 [Eloquent](/docs/{{version}}/eloquent) 模型的集合想要在网格中显示：
+该方法在 [视图](/{{language}}/{{version}}/views) 中使用类似于 [Bootstrap](http://getbootstrap.com/css/#grid) 的网格系统时特别有用。想象一下，你有一个关于 [Eloquent](/{{language}}/{{version}}/eloquent) 模型的集合想要在网格中显示：
 
     @foreach ($products->chunk(3) as $chunk)
         <div class="row">
@@ -1213,7 +1213,7 @@
 <a name="method-toarray"></a>
 #### `toArray()` {#collection-method}
 
-`toArray` 方法会将集合退化为原生的 PHP 数组。如果集合的值列是 [Eloquent](/docs/{{version}}/eloquent) 模型。模型也会被转化为数组：
+`toArray` 方法会将集合退化为原生的 PHP 数组。如果集合的值列是 [Eloquent](/{{language}}/{{version}}/eloquent) 模型。模型也会被转化为数组：
 
     $collection = collect(['name' => 'Desk', 'price' => 200]);
 

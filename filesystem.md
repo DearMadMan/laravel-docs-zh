@@ -312,7 +312,7 @@ Laravel 的文件系统可以很好的支持 Rackspace 的集成，但是在默�
 
 Laravel 的文件系统对几种常见的存储系统提供了开箱即用的支持。事实上，文件系统并没有限制你只使用所提供的这些。你可以自己创建一个适配器来构建一个自定义的驱动去支持你所期望使用的文件存储系统。
 
-你需要创建一个 [服务提供者](/docs/{{language}}/{{version}}/providers) 来进行自定义文件存储系统的构建。比如 `DropboxServiceProvider`。在提供者的 `boot` 方法中，你需要使用 `Storage` 假面的 `extend` 方法来定义你自己的驱动：
+你需要创建一个 [服务提供者](/{{language}}/{{version}}/providers) 来进行自定义文件存储系统的构建。比如 `DropboxServiceProvider`。在提供者的 `boot` 方法中，你需要使用 `Storage` 假面的 `extend` 方法来定义你自己的驱动：
 
     <?php
 

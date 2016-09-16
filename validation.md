@@ -130,7 +130,7 @@ Laravel 对验证应用的输入数据提供了多中途径的实现。默认的
 <a name="quick-displaying-the-validation-errors"></a>
 ### 显示验证错误
 
-那么，假如传入的请求参数并没有通过给定约束的验证怎么办？就如前面所提到的，Laravel 会自动的重定向用户到之前的位置。另外，所有的验证错误信息都会被自动的闪存到 [session](/docs/{{version}}/session#flash-data) 中。
+那么，假如传入的请求参数并没有通过给定约束的验证怎么办？就如前面所提到的，Laravel 会自动的重定向用户到之前的位置。另外，所有的验证错误信息都会被自动的闪存到 [session](/{{language}}/{{version}}/session#flash-data) 中。
 
 你需要注意到我们并没有明确的绑定错误信息到 `GET` 路由的响应视图里。这是因为 laravel 会检查闪存 seesion 里的错误数据，并且会自动的在其可用时注入到视图中。你可以在视图中使用 `$errors` 变量，它是一个 `Illuminate\Support\MessageBag` 实例。如果需要了解更多这个实例对象，请参考其 [文档](#working-with-error-messages)。
 
@@ -295,7 +295,7 @@ Laravel 对验证应用的输入数据提供了多中途径的实现。默认的
 <a name="manually-creating-validators"></a>
 ## 手动的创建验证器
 
-如果你不喜欢使用 `ValidatesRequests` trait 的 `validator` 方法，你也可以通过使用 `Validator` [假面](/docs/{{version}}/facades) 来创建一个 validator 实例。`Validator` 假面的 `make` 方法就可以生成一个新的 validator 实例：
+如果你不喜欢使用 `ValidatesRequests` trait 的 `validator` 方法，你也可以通过使用 `Validator` [假面](/{{language}}/{{version}}/facades) 来创建一个 validator 实例。`Validator` 假面的 `make` 方法就可以生成一个新的 validator 实例：
 
     <?php
 
@@ -924,7 +924,7 @@ Laravel 对验证应用的输入数据提供了多中途径的实现。默认的
 <a name="custom-validation-rules"></a>
 ## Custom Validation Rules
 
-Laravel 提供了各种有用的验证约束。但是，你可能希望添加你自己的特定的约束。你可以使用 `Validator` [假面](/docs/{{version}}/facades) 的 `extend` 方法来注册自己的验证约束。让我们在 [服务提供者](/docs/{{version}}/providers) 里注册一个自定义的验证约束：
+Laravel 提供了各种有用的验证约束。但是，你可能希望添加你自己的特定的约束。你可以使用 `Validator` [假面](/{{language}}/{{version}}/facades) 的 `extend` 方法来注册自己的验证约束。让我们在 [服务提供者](/{{language}}/{{version}}/providers) 里注册一个自定义的验证约束：
 
     <?php
 
@@ -974,7 +974,7 @@ Laravel 提供了各种有用的验证约束。但是，你可能希望添加你
 
     // The rest of the validation error messages...
 
-当构建自定义的验证约束时，你或许有时候也想为错误消息定义一些占位符。你可以使用 `Validator` 假面的 `replacer` 方法来进行占位替换。你可以在 [服务提供者](/docs/{{version}}/providers) 的 `boot` 方法中来做这些：
+当构建自定义的验证约束时，你或许有时候也想为错误消息定义一些占位符。你可以使用 `Validator` 假面的 `replacer` 方法来进行占位替换。你可以在 [服务提供者](/{{language}}/{{version}}/providers) 的 `boot` 方法中来做这些：
 
     /**
      * Bootstrap any application services.

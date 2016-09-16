@@ -32,11 +32,11 @@
         return [1, 2, 3];
     });
 
-> {tip} 你知道你也可以在路由或控制器中直接返回 [Eloquent collections](/docs/{{language}}/{{version}}/eloquent-collections) 吗？它们会自动的被转换为 JSON。快点尝试一下!
+> {tip} 你知道你也可以在路由或控制器中直接返回 [Eloquent collections](/{{language}}/{{version}}/eloquent-collections) 吗？它们会自动的被转换为 JSON。快点尝试一下!
 
 #### 响应对象
 
-大多数时候，路由或者控制器的动作应该返回 `Illuminate\Http\Response` 实例或者 [视图](/docs/{{language}}/{{version}}/views)。
+大多数时候，路由或者控制器的动作应该返回 `Illuminate\Http\Response` 实例或者 [视图](/{{language}}/{{version}}/views)。
 
 返回一个完整的 `Response` 实例允许你自由的修正响应的 HTTP 状态和请信息。一个 `Response` 实例继承自 `Symfony\Component\HttpFoundation\Response` 类，该类提供了多种方法来生成一个 HTTP 响应：
 
@@ -100,7 +100,7 @@
         return redirect('home/dashboard');
     });
 
-有时候你需要将用户重定向到上一次请求的地址，那么你可以使用全局帮助方法 `back`。因为这里用到了 [session](/docs/{{language}}/{{version}}/session) 中间件，默认的 Laravel 路由都被包裹了 `web` 中间件组中，`web` 中间件组中已经包含了 session 中间件:
+有时候你需要将用户重定向到上一次请求的地址，那么你可以使用全局帮助方法 `back`。因为这里用到了 [session](/{{language}}/{{version}}/session) 中间件，默认的 Laravel 路由都被包裹了 `web` 中间件组中，`web` 中间件组中已经包含了 session 中间件:
 
     Route::post('user/profile', function () {
         // Validate the request...
@@ -144,7 +144,7 @@
 <a name="redirecting-controller-actions"></a>
 ### 重定向至控制器动作
 
-你也可以生成重定向信息到 [控制器的动作](/docs/{{language}}/{{version}}/controllers) 中，你可以简单的通过 `action` 方法传递控制器名称和动作来做到这些。你应该注意到，你并不需要特别指出控制器的全部命名空间，因为 Larvel 的 `RouteServiceProvider` 已经自动的设置了默认的命名空间：
+你也可以生成重定向信息到 [控制器的动作](/{{language}}/{{version}}/controllers) 中，你可以简单的通过 `action` 方法传递控制器名称和动作来做到这些。你应该注意到，你并不需要特别指出控制器的全部命名空间，因为 Larvel 的 `RouteServiceProvider` 已经自动的设置了默认的命名空间：
 
     return redirect()->action('HomeController@index');
 
@@ -157,7 +157,7 @@
 <a name="redirecting-with-flashed-session-data"></a>
 ### 重定向并闪存 Session
 
-你可以通过 `RedirectResponse` 实例的链式调用来生成重定向信息的同时 [闪存数据到 session 中](/docs/{{language}}/{{version}}/session#flash-data)。这在执行动作之后存储消息状态的场景尤其有用，为了方便，你可以在创建 `RedirectResponse` 实例的同时链式的调用 `with` 方法来闪存数据到 session:
+你可以通过 `RedirectResponse` 实例的链式调用来生成重定向信息的同时 [闪存数据到 session 中](/{{language}}/{{version}}/session#flash-data)。这在执行动作之后存储消息状态的场景尤其有用，为了方便，你可以在创建 `RedirectResponse` 实例的同时链式的调用 `with` 方法来闪存数据到 session:
 
     Route::post('user/profile', function () {
         // Update the user's profile...
@@ -165,7 +165,7 @@
         return redirect('dashboard')->with('status', 'Profile updated!');
     });
 
-当然，在用户重定向到新页面之后，你是可以访问到闪存的 [session](/docs/{{language}}/{{version}}/session) 信息的，例如，在 [Blade syntax](/docs/{{language}}/{{version}}/blade) 中你可以这么使用:
+当然，在用户重定向到新页面之后，你是可以访问到闪存的 [session](/{{language}}/{{version}}/session) 信息的，例如，在 [Blade syntax](/{{language}}/{{version}}/blade) 中你可以这么使用:
 
     @if (session('status'))
         <div class="alert alert-success">
@@ -176,12 +176,12 @@
 <a name="other-response-types"></a>
 ## 其他响应类型
 
-帮助方法 `response` 也可以用来方便的生成其它类型的相应实例，如果你使用 `response` 帮助方法而不传递任何的参数，那么它会返回一个实现了 `Illuinate\Contracts\Routing\ResponseFactory` [契约](/docs/{{language}}/{{version}}/contracts) 的实例。该契约提供了多种有用的方法来生成响应。
+帮助方法 `response` 也可以用来方便的生成其它类型的相应实例，如果你使用 `response` 帮助方法而不传递任何的参数，那么它会返回一个实现了 `Illuinate\Contracts\Routing\ResponseFactory` [契约](/{{language}}/{{version}}/contracts) 的实例。该契约提供了多种有用的方法来生成响应。
 
 <a name="view-responses"></a>
 ### 视图响应
 
-如果你想控制响应的头信息和状态，并且你也需要返回一个 [视图](/docs/{{language}}/{{version}}/views) 作为响应的内容，那么你可以使用 `view` 方法：
+如果你想控制响应的头信息和状态，并且你也需要返回一个 [视图](/{{language}}/{{version}}/views) 作为响应的内容，那么你可以使用 `view` 方法：
 
     return response()
                 ->view('hello', $data, 200)
@@ -228,7 +228,7 @@
 <a name="response-macros"></a>
 ## 响应宏
 
-如果你想为你的控制器或者路由定义某种可复用的响应，那么你可以使用 `Response` 假面的 `macro` 方法。比如，在 [service provider's](/docs/{{language}}/{{version}}/providers) 的 `boot` 方法中:
+如果你想为你的控制器或者路由定义某种可复用的响应，那么你可以使用 `Response` 假面的 `macro` 方法。比如，在 [service provider's](/{{language}}/{{version}}/providers) 的 `boot` 方法中:
 
     <?php
 

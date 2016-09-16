@@ -96,7 +96,7 @@ Laravel 基于流行的 [SwiftMailer](http://swiftmailer.org/) 类库构建了�
 <a name="configuring-the-view"></a>
 ### 配置视图
 
-在可邮寄类的 `build` 方法中，你可以使用 `view` 方法来为所渲染的邮件内容指定模板。正式由于邮件通常使用 [Blade 模板](/docs/{{version}}/blade) 来渲染它的内容，所有你可以借助强大的 Blade 模板引擎来非常方便的构建邮件的 HTML：
+在可邮寄类的 `build` 方法中，你可以使用 `view` 方法来为所渲染的邮件内容指定模板。正式由于邮件通常使用 [Blade 模板](/{{language}}/{{version}}/blade) 来渲染它的内容，所有你可以借助强大的 Blade 模板引擎来非常方便的构建邮件的 HTML：
 
     /**
      * Build the message.
@@ -307,7 +307,7 @@ Laravel 基于流行的 [SwiftMailer](http://swiftmailer.org/) 类库构建了�
 <a name="sending-mail"></a>
 ## 发送邮件
 
-你可以使用 `Mail` [假面](/docs/{{version}}/facades) 的 `to` 方法来发送一个邮件。`to` 放放接收邮件的地址，用户实例或者用户实例的集合作为参数。如果你传递一个对象或者一个集合对象，那么邮件在设置收件人时会自动的使用他们的 `emial` 和 `name` 属性，所以，你应该确保这些属性应该是可以在你的对象中访问的。当你指定完你的收件人之后，你就可以传递一个可邮寄类的实例到 `send` 方法中:
+你可以使用 `Mail` [假面](/{{language}}/{{version}}/facades) 的 `to` 方法来发送一个邮件。`to` 放放接收邮件的地址，用户实例或者用户实例的集合作为参数。如果你传递一个对象或者一个集合对象，那么邮件在设置收件人时会自动的使用他们的 `emial` 和 `name` 属性，所以，你应该确保这些属性应该是可以在你的对象中访问的。当你指定完你的收件人之后，你就可以传递一个可邮寄类的实例到 `send` 方法中:
 
     <?php
 
@@ -349,14 +349,14 @@ Laravel 基于流行的 [SwiftMailer](http://swiftmailer.org/) 类库构建了�
 
 #### 队列化一个邮件消息
 
-由于发送邮件是非常消耗资源的一件事，这样会影响到应用的响应时间。所以很多开发者都选择使用队列来完成异步的邮件发送。Laravel 使用 [统一的队列接口](/docs/{{version}}/queues) 来使这些变的非常简单。你需要使用 `Mail` 假面的 `queue` 方法来使邮件队列化，它需要在指定完收件人之后调用:
+由于发送邮件是非常消耗资源的一件事，这样会影响到应用的响应时间。所以很多开发者都选择使用队列来完成异步的邮件发送。Laravel 使用 [统一的队列接口](/{{language}}/{{version}}/queues) 来使这些变的非常简单。你需要使用 `Mail` 假面的 `queue` 方法来使邮件队列化，它需要在指定完收件人之后调用:
 
     Mail::to($request->user())
         ->cc($moreUsers)
         ->bcc($evenMoreUsers)
         ->queue(new OrderShipped($order));
 
-该方法会自动的在队列添加发送邮件的任务，该任务会在后台自动的执行。当然，你需要在使用前先配置好 [队列](/docs/{{version}}/queues)。
+该方法会自动的在队列添加发送邮件的任务，该任务会在后台自动的执行。当然，你需要在使用前先配置好 [队列](/{{language}}/{{version}}/queues)。
 
 #### 延迟消息队列
 
@@ -390,7 +390,7 @@ Laravel 基于流行的 [SwiftMailer](http://swiftmailer.org/) 类库构建了�
 
 #### Log 驱动
 
-其中一个解决方案就是在本地开发时使用 `log` 邮件驱动。这个驱动会将所有的邮件信息写入到日志文件中。对于更多的关于应用环境配置的信息，请查看 [配置文档](/docs/{{version}}/installation#environment-configuration)
+其中一个解决方案就是在本地开发时使用 `log` 邮件驱动。这个驱动会将所有的邮件信息写入到日志文件中。对于更多的关于应用环境配置的信息，请查看 [配置文档](/{{language}}/{{version}}/installation#environment-configuration)
 
 #### 通用的邮件
 

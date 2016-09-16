@@ -11,7 +11,7 @@
 <a name="introduction"></a>
 ## 前言
 
-Laravel 可以非常简单的使用原生的 SQL，[流利的查询构造器](/docs/{{version}}/queries)，和 [Eloquent ORM](/docs/{{version}}/eloquent) 来进行跨终端的后端数据库连接的建立与交互。目前，Laravel 支持的 4 种数据库系统：
+Laravel 可以非常简单的使用原生的 SQL，[流利的查询构造器](/{{language}}/{{version}}/queries)，和 [Eloquent ORM](/{{language}}/{{version}}/eloquent) 来进行跨终端的后端数据库连接的建立与交互。目前，Laravel 支持的 4 种数据库系统：
 
 <div class="content-list" markdown="1">
 - MySQL
@@ -25,7 +25,7 @@ Laravel 可以非常简单的使用原生的 SQL，[流利的查询构造器](/d
 
 数据库的配置文件就存放在 `config/database.php`。在这个文件中你可以定义所有的数据库连接，以及指定何种连接作为应用的默认数据库连接。对于所有支持的数据库系统，该文件中都给出了相应的配置示例。
 
-默认的，Laravel 的 [环境配置](/docs/{{version}}/installation#environment-configuration) 示例已经在 [Laravel Homestead](/docs/{{version}}/homestead) 中被设置使用，它可以为你的本地机器提供一个方便的虚拟机来做 Laravel 应用的开发。当然，你可以自由的根据需求来修改这个配置。
+默认的，Laravel 的 [环境配置](/{{language}}/{{version}}/installation#environment-configuration) 示例已经在 [Laravel Homestead](/{{language}}/{{version}}/homestead) 中被设置使用，它可以为你的本地机器提供一个方便的虚拟机来做 Laravel 应用的开发。当然，你可以自由的根据需求来修改这个配置。
 
 #### SQLite 配置
 
@@ -158,7 +158,7 @@ Laravel 支持 SQL Server 的开箱即用。但是，你需要在你的 `config/
 <a name="listening-for-query-events"></a>
 ### 监听查询事件
 
-如果你希望在每次应用中执行查询时都受到通知，那么你可以使用 `listen` 方法，该方法通常用来作为查询日志的调试。你可以在 [服务提供者](/docs/{{version}}/providers) 中进行注册一个查询监听器：
+如果你希望在每次应用中执行查询时都受到通知，那么你可以使用 `listen` 方法，该方法通常用来作为查询日志的调试。你可以在 [服务提供者](/{{language}}/{{version}}/providers) 中进行注册一个查询监听器：
 
     <?php
 
@@ -219,4 +219,4 @@ Laravel 支持 SQL Server 的开箱即用。但是，你需要在你的 `config/
 
     DB::commit();
 
-> {tip} `DB` 假面的事务方法对 [查询构造器](/docs/{{version}}/queries) and [Eloquent ORM](/docs/{{version}}/eloquent) 同样有效。
+> {tip} `DB` 假面的事务方法对 [查询构造器](/{{language}}/{{version}}/queries) and [Eloquent ORM](/{{language}}/{{version}}/eloquent) 同样有效。

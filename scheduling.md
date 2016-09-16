@@ -61,7 +61,7 @@ Laravel 的命令调度允许你在 Laravel 中流利通畅的定义你的任务
         }
     }
 
-除了可以调度 `Closure` 调用，你也可以调度 [Artisan 命令](/docs/{{version}}/artisan) 和操作系统的命令。比如，你可以使用 `command` 方法来调度一个 Artisan 命令：
+除了可以调度 `Closure` 调用，你也可以调度 [Artisan 命令](/{{language}}/{{version}}/artisan) 和操作系统的命令。比如，你可以使用 `command` 方法来调度一个 Artisan 命令：
 
     $schedule->command('emails:send --force')->daily();
 
@@ -157,7 +157,7 @@ Method  | Description
 
     $schedule->command('emails:send')->withoutOverlapping();
 
-在这个例子中，`emails:send` [Artisan 命令](/docs/{{version}}/artisan) 每分钟都会被调度，但是只有在进程中没有运行该命令时才会再次执行。`withoutOverlapping` 方法对于无法确定执行时间的任务特别有效，这样就可以避免同时执行越来越多的耗时任务进而增大服务器的压力。
+在这个例子中，`emails:send` [Artisan 命令](/{{language}}/{{version}}/artisan) 每分钟都会被调度，但是只有在进程中没有运行该命令时才会再次执行。`withoutOverlapping` 方法对于无法确定执行时间的任务特别有效，这样就可以避免同时执行越来越多的耗时任务进而增大服务器的压力。
 
 <a name="task-output"></a>
 ## 任务输出
@@ -174,7 +174,7 @@ Laravel 的任务计划提供了多种方便的方法来生成计划任务的输
              ->daily()
              ->appendOutputTo($filePath);
 
-你可以使用 `emailOutputTo` 方法来将输出发送到你选定的邮箱地址中。但是你需要注意的是，你必须先使用 `sendOutputTo` 方法将输出发送到文件中。并且，在通过邮件发送任务的输出之前，你需要先配置好 Laravel 的 [邮件服务](/docs/{{version}}/mail)：
+你可以使用 `emailOutputTo` 方法来将输出发送到你选定的邮箱地址中。但是你需要注意的是，你必须先使用 `sendOutputTo` 方法将输出发送到文件中。并且，在通过邮件发送任务的输出之前，你需要先配置好 Laravel 的 [邮件服务](/{{language}}/{{version}}/mail)：
 
     $schedule->command('foo')
              ->daily()

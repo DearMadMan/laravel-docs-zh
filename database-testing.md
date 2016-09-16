@@ -91,7 +91,7 @@ Laravel 也提供了各种有用的工具来使测试基于数据库驱动的应
 <a name="model-factories"></a>
 ## 编写工厂
 
-当测试时，通常需要在执行测试之前在数据库中添加一些测试所需要的数据记录。Laravel 允许你使用 "factories" 来对你的 [Eloquent 模型](/docs/{{version}}/eloquent) 定义一些默认的属性设置来取代这些手动的添加数据的行为。在开始之前，我们来看一下应用的 `database/factories/ModelFactory.php` 文件。该文件中只包含了一个工厂的定义：
+当测试时，通常需要在执行测试之前在数据库中添加一些测试所需要的数据记录。Laravel 允许你使用 "factories" 来对你的 [Eloquent 模型](/{{language}}/{{version}}/eloquent) 定义一些默认的属性设置来取代这些手动的添加数据的行为。在开始之前，我们来看一下应用的 `database/factories/ModelFactory.php` 文件。该文件中只包含了一个工厂的定义：
 
     $factory->define(App\User::class, function (Faker\Generator $faker) {
         return [
@@ -188,7 +188,7 @@ Laravel 也提供了各种有用的工具来使测试基于数据库驱动的应
 <a name="relationships"></a>
 ### 关联
 
-在这个例子中，我们甚至会为创建的模型附加一个关联模型。当使用 `create` 方法来创建多个模型时，会返回一个 [集合实例](/docs/{{version}}/eloquent-collections)，这允许你使用集合实例的方法，比如 `each` :
+在这个例子中，我们甚至会为创建的模型附加一个关联模型。当使用 `create` 方法来创建多个模型时，会返回一个 [集合实例](/{{language}}/{{version}}/eloquent-collections)，这允许你使用集合实例的方法，比如 `each` :
 
     $users = factory(App\User::class, 3)
                ->create()

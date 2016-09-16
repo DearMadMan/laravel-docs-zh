@@ -21,7 +21,7 @@
 <a name="introduction"></a>
 ## 前言
 
-Laravel Scout 提供简单的基于驱动的解决方案来为你的  [Eloquent 模型](/docs/{{version}}/eloquent) 添加全文检索的功能。使用模型观察者，Scout 可以自动的依据你的 Eloquent 记录来保持搜索索引的同步。
+Laravel Scout 提供简单的基于驱动的解决方案来为你的  [Eloquent 模型](/{{language}}/{{version}}/eloquent) 添加全文检索的功能。使用模型观察者，Scout 可以自动的依据你的 Eloquent 记录来保持搜索索引的同步。
 
 目前，Scout 自带支持 [Algolia](https://www.algolia.com/) 的驱动。事实上，你可以编写一个自定义驱动，并且你可以自由的继承 Scout 来做自己的搜索实现。
 
@@ -57,7 +57,7 @@ Laravel Scout 提供简单的基于驱动的解决方案来为你的  [Eloquent 
 <a name="queueing"></a>
 ### 队列
 
-虽然严格的来说，Scout 并不是强依赖于队列的。但是在你使用 Scout 之前还是推荐你配置 [队列驱动](/docs/{{version}}/queues)。使用队列工人可以使 Scout 将模型信息同步到搜索索引的所有操作都可以队列化进行，这可以为应用的 web 交互接口提供更快速的响应。
+虽然严格的来说，Scout 并不是强依赖于队列的。但是在你使用 Scout 之前还是推荐你配置 [队列驱动](/{{language}}/{{version}}/queues)。使用队列工人可以使 Scout 将模型信息同步到搜索索引的所有操作都可以队列化进行，这可以为应用的 web 交互接口提供更快速的响应。
 
 当你配置完队列之后，你需要设置 `config/scout.php` 配置文件的 `queue` 选项为 `true`：
 
@@ -156,7 +156,7 @@ Laravel Scout 提供简单的基于驱动的解决方案来为你的  [Eloquent 
 
 #### 通过查询添加
 
-如果你想通过 Eloquent 查询来为一个模型集合添加搜索索引。那么你可以在 Eloquent 查询中链式的调用 `searchable` 方法。`searchable` 方法将会 [将查询结果分块](/docs/{{version}}/eloquent#chunking-results)，并且会将这些记录添加到搜索索引中。这次，如果你为 Scout 配置了 [队列](#queueing)，那么这个操作将会在后台递交给队列工人去执行：
+如果你想通过 Eloquent 查询来为一个模型集合添加搜索索引。那么你可以在 Eloquent 查询中链式的调用 `searchable` 方法。`searchable` 方法将会 [将查询结果分块](/{{language}}/{{version}}/eloquent#chunking-results)，并且会将这些记录添加到搜索索引中。这次，如果你为 Scout 配置了 [队列](#queueing)，那么这个操作将会在后台递交给队列工人去执行：
 
     // Adding via Eloquent query...
     App\Order::where('price', '>', 100)->searchable();
@@ -194,7 +194,7 @@ Laravel Scout 提供简单的基于驱动的解决方案来为你的  [Eloquent 
 <a name="removing-records"></a>
 ### 删除记录
 
-如果你想要移除你的索引，那么你只需要简单的调用 `delete` 方法将模型从数据库中删除就可以了。这种删除的形式甚至可以兼容 [软删除](/docs/{{version}}/eloquent#soft-deleting) 的模型：
+如果你想要移除你的索引，那么你只需要简单的调用 `delete` 方法将模型从数据库中删除就可以了。这种删除的形式甚至可以兼容 [软删除](/{{language}}/{{version}}/eloquent#soft-deleting) 的模型：
 
     $order = App\Order::find(1);
 
@@ -245,7 +245,7 @@ Scout 允许你添加简单的 "where" 子句到你的搜索查询。目前，�
 <a name="pagination"></a>
 ### 分页
 
-除了可以检索模型的集合之外，你也可以使用 `paginate` 方法来对结果进行分页。这个方法会返回一个 `Paginator` 实例，就和 [传统的 Eloquent 查询分页](/docs/{{version}}/pagination) 一样：
+除了可以检索模型的集合之外，你也可以使用 `paginate` 方法来对结果进行分页。这个方法会返回一个 `Paginator` 实例，就和 [传统的 Eloquent 查询分页](/{{language}}/{{version}}/pagination) 一样：
 
     $orders = App\Order::search('Star Trek')->paginate();
 
@@ -253,7 +253,7 @@ Scout 允许你添加简单的 "where" 子句到你的搜索查询。目前，�
 
     $orders = App\Order::search('Star Trek')->paginate(15);
 
-当你获得检索的结果之后，你也可以像传统的 Eloquent 查询分页一样使用 [Blade](/docs/{{version}}/blade) 为结果提供展示和选择分页链接：
+当你获得检索的结果之后，你也可以像传统的 Eloquent 查询分页一样使用 [Blade](/{{language}}/{{version}}/blade) 为结果提供展示和选择分页链接：
 
     <div class="container">
         @foreach ($orders as $order)

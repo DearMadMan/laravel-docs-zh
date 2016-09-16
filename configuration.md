@@ -45,7 +45,7 @@
 <a name="determining-the-current-environment"></a>
 ### 判断当前环境
 
-应用当前所处的环境是通过 `.env` 文件中的 `APP_ENV` 变量来进行判断的。你可以通过 `App` [facade](/docs/{{language}}/{{version}}/facades) 的 `environment` 方法来访问这个值：
+应用当前所处的环境是通过 `.env` 文件中的 `APP_ENV` 变量来进行判断的。你可以通过 `App` [facade](/{{language}}/{{version}}/facades) 的 `environment` 方法来访问这个值：
 
     $environment = App::environment();
 
@@ -89,7 +89,7 @@
 
 #### 维护模式 & 队列任务
 
-在维护模式启用期间，[queued jobs](/docs/{{language}}/{{version}}/queues) 将暂停处理。这些任务会在应用退出维护模式时继续进行处理。
+在维护模式启用期间，[queued jobs](/{{language}}/{{version}}/queues) 将暂停处理。这些任务会在应用退出维护模式时继续进行处理。
 
 #### 维护模式的可选方案
 

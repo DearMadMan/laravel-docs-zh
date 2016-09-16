@@ -54,7 +54,7 @@ Laravel 中所有的路由都被定义在路由文件中，这些文件被存放
 
 #### CSRF 保护
 
-任意指向 `POST`，`PUT`，或者 `DELETE` 类型并被定义在 `web` 路由文件中的路由的 HTML 表单都应该被引入 CSRF token 节点。不然的话，这请求将会被拒绝。你可以阅读 [CSRF 文档](/docs/{{language}}/{{version}}/csrf) 来了解更多关于 CSRF 保护的信息。
+任意指向 `POST`，`PUT`，或者 `DELETE` 类型并被定义在 `web` 路由文件中的路由的 HTML 表单都应该被引入 CSRF token 节点。不然的话，这请求将会被拒绝。你可以阅读 [CSRF 文档](/{{language}}/{{version}}/csrf) 来了解更多关于 CSRF 保护的信息。
 
     <form method="POST" action="/profile">
         {{ csrf_field() }}

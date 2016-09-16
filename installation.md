@@ -11,7 +11,7 @@
 <a name="server-requirements"></a>
 ### 服务端依赖
 
-Laravel 框架依赖于一些小型系统。当然，这些需求依赖在 [Laravel Homestead](/docs/{{language}}/{{version}}/homestead) 都有完美的提供。所以，我们非常推荐你使用 Homestead 来作为本地的 Laravel 开发环境。
+Laravel 框架依赖于一些小型系统。当然，这些需求依赖在 [Laravel Homestead](/{{language}}/{{version}}/homestead) 都有完美的提供。所以，我们非常推荐你使用 Homestead 来作为本地的 Laravel 开发环境。
 
 不管怎么样，如果你不喜欢使用 Homestead，那么你需要确保你的服务端安装有以下依赖:
 
@@ -60,7 +60,7 @@ Laravel utilizes  to manage its dependencies. So, before using Laravel, make sur
 
 #### 目录权限
 
-在你安装 Laravel 之后，你也需要配置一些权限问题。目录中的 `storage` 和 `bootstrap/cache` 应该对与你的 web 服务具有可写的权限，不然 Laravel 没法正常运行。如果你使用 [Homestead](/docs/{{language}}/{{version}}/homestead) 虚拟机，那么这些权限问题应该都已经被正确设置好了。
+在你安装 Laravel 之后，你也需要配置一些权限问题。目录中的 `storage` 和 `bootstrap/cache` 应该对与你的 web 服务具有可写的权限，不然 Laravel 没法正常运行。如果你使用 [Homestead](/{{language}}/{{version}}/homestead) 虚拟机，那么这些权限问题应该都已经被正确设置好了。
 
 #### 应用秘钥
 
@@ -73,9 +73,9 @@ Laravel 附带的其他功能几乎不需要额外的配置了。你已经可以
 你也可能希望配置一些额外的 Laravel 组件，比如：
 
 <div class="content-list" markdown="1">
-- [Cache](/docs/{{language}}/{{version}}/cache#configuration)
-- [Database](/docs/{{language}}/{{version}}/database#configuration)
-- [Session](/docs/{{language}}/{{version}}/session#configuration)
+- [Cache](/{{language}}/{{version}}/cache#configuration)
+- [Database](/{{language}}/{{version}}/database#configuration)
+- [Session](/{{language}}/{{version}}/session#configuration)
 </div>
 
-当你的 Laravel 程序安装完毕，你应该也 [配置一下你的本地开发环境](/docs/{{language}}/{{version}}/configuration#environment-configuration).
+当你的 Laravel 程序安装完毕，你应该也 [配置一下你的本地开发环境](/{{language}}/{{version}}/configuration#environment-configuration).

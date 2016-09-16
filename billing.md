@@ -48,11 +48,11 @@ Laravel Cashier 提供了一种表现流利的接口来支持 [Stripe](https://s
 
 #### 服务提供者
 
-然后在 `config/app.php` 配置文件中注册 `Laravel\Cashier\CashierServiceProvider` [服务提供者](/docs/{{version}}/providers) 。
+然后在 `config/app.php` 配置文件中注册 `Laravel\Cashier\CashierServiceProvider` [服务提供者](/{{language}}/{{version}}/providers) 。
 
 #### 数据库迁移
 
-在使用 Cashier 之前，我们也需要去 [准备一下数据库](/docs/{{version}}/migrations)。我们需要在 `users` 表中添加几列，并且创建一个新的 `subscriptions` 表来保留客户的订阅：
+在使用 Cashier 之前，我们也需要去 [准备一下数据库](/{{language}}/{{version}}/migrations)。我们需要在 `users` 表中添加几列，并且创建一个新的 `subscriptions` 表来保留客户的订阅：
 
     Schema::table('users', function ($table) {
         $table->string('stripe_id')->nullable();
@@ -116,7 +116,7 @@ Laravel Cashier 提供了一种表现流利的接口来支持 [Stripe](https://s
 
 #### 服务提供者
 
-接着，注册 `laravel\Cashier\CashierServiceProvider` [服务提供者](/docs/{{version}}/providers) 到你的 `config/app.php` 配置文件。
+接着，注册 `laravel\Cashier\CashierServiceProvider` [服务提供者](/{{language}}/{{version}}/providers) 到你的 `config/app.php` 配置文件。
 
 #### 信用优惠计划
 
@@ -128,7 +128,7 @@ The discount amount configured in the Braintree control panel can be any value y
 
 #### 数据库迁移
 
-在使用 Cashier 之前，我们也需要预先构建 [数据库](/docs/{{version}}/migrations)。我们需要在 `users` 表中添加几列并且创建一个 `subscriptions` 表来处理所有的用户订阅：
+在使用 Cashier 之前，我们也需要预先构建 [数据库](/{{language}}/{{version}}/migrations)。我们需要在 `users` 表中添加几列并且创建一个 `subscriptions` 表来处理所有的用户订阅：
 
     Schema::table('users', function ($table) {
         $table->string('braintree_id')->nullable();
@@ -234,7 +234,7 @@ The discount amount configured in the Braintree control panel can be any value y
         //
     }
 
-通过 `subscribed` 方法，我们可以创建一个极好的 [路由中间件](/docs/{{version}}/middleware)，这可以过滤只有处于订阅状态的用户可以访问路由或者控制器：
+通过 `subscribed` 方法，我们可以创建一个极好的 [路由中间件](/{{language}}/{{version}}/middleware)，这可以过滤只有处于订阅状态的用户可以访问路由或者控制器：
 
     public function handle($request, Closure $next)
     {
@@ -400,7 +400,7 @@ The discount amount configured in the Braintree control panel can be any value y
         'trial_ends_at' => Carbon::now()->addDays(10),
     ]);
 
-> {note} 请确保在你的模型定义中为 `trial_ends_at` 添加了 [日期调节器](/docs/{{version}}/eloquent-mutators#date-mutators)。
+> {note} 请确保在你的模型定义中为 `trial_ends_at` 添加了 [日期调节器](/{{language}}/{{version}}/eloquent-mutators#date-mutators)。
 
 Cashier 会认为这中类型的试用是一种通用的试用期，因为这个日期并不会被关联到任何已有的订阅中。如果当前日期并没有超过 `trial_ends_at` 所设置的值，在 `User` 实例中的 `onTrial` 方法将会返回为 `true`:
 
@@ -436,7 +436,7 @@ Stripe 和 Braintree 都可以通过 webhooks 来发起各种事件通知到你�
 
 #### Webhooks & CSRF 保护
 
-因为 Stripe webhooks 需要穿过 Laravel 的 [CSRF 保护](/docs/{{version}}/routing#csrf-protection) 中间件，所以你应该将你的路由抽离出 `web` 中间件组，或者在你的 `VerifyCsrfToken` 中间件中添加排除的 URI：
+因为 Stripe webhooks 需要穿过 Laravel 的 [CSRF 保护](/{{language}}/{{version}}/routing#csrf-protection) 中间件，所以你应该将你的路由抽离出 `web` 中间件组，或者在你的 `VerifyCsrfToken` 中间件中添加排除的 URI：
 
     protected $except = [
         'stripe/*',
@@ -495,7 +495,7 @@ Stripe 和 Braintree 都可以通过 webhooks 来发起各种事件通知到你�
 
 #### Webhooks & CSRF 保护
 
-因为 Braintree webhooks 需要穿过 Laravel 的 [CSRF 保护](/docs/{{version}}/routing#csrf-protection) 中间件，所以你应该将你的路由抽离出 `web` 中间件组，或者在你的 `VerifyCsrfToken` 中间件中添加排除的 URI：
+因为 Braintree webhooks 需要穿过 Laravel 的 [CSRF 保护](/{{language}}/{{version}}/routing#csrf-protection) 中间件，所以你应该将你的路由抽离出 `web` 中间件组，或者在你的 `VerifyCsrfToken` 中间件中添加排除的 URI：
 
     protected $except = [
         'braintree/*',

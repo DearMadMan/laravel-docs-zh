@@ -11,7 +11,7 @@
 <a name="introduction"></a>
 ## 前言
 
-访问器和存储器允许你在获取或者设置 Eloquent 模型属性值时对其进行格式化操作。比如，你可能希望当一个值存储进数据库之前先对其使用 [Laravel encrypter](/docs/{{version}}/encryption) 进行加密操作，并且可以在你通过模型访问的时候自动的进行该属性的解密。
+访问器和存储器允许你在获取或者设置 Eloquent 模型属性值时对其进行格式化操作。比如，你可能希望当一个值存储进数据库之前先对其使用 [Laravel encrypter](/{{language}}/{{version}}/encryption) 进行加密操作，并且可以在你通过模型访问的时候自动的进行该属性的解密。
 
 除了可自定义的的访问器和存储器，Eloquent 也可以自动的将日期字段转换为 [Carbon](https://github.com/briannesbitt/Carbon) 实例，或者甚至是将字符串字段转换为 [JSON](#attribute-casting)。
 

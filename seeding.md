@@ -14,11 +14,11 @@ Laravel 使用 seed 类提供一种简便的方法填充你用于测试的数据
 <a name="writing-seeders"></a>
 ## 编写 Seeders
 
-你可以使用 `make:seeder` [Artisan 命令](/docs/{{version}}/artisan) 来生成一个 seeder。所有通过框架生成的 seeders 都会被放在 `database/seeds` 目录下：
+你可以使用 `make:seeder` [Artisan 命令](/{{language}}/{{version}}/artisan) 来生成一个 seeder。所有通过框架生成的 seeders 都会被放在 `database/seeds` 目录下：
 
     php artisan make:seeder UsersTableSeeder
 
-seeder 类中默认的只包含了一个方法：`run`。该方法会在 `db:seed` [Artisan command](/docs/{{version}}/artisan) 执行时被调用。在 `run` 方法中，你可以填充任意你想填充的数据到数据库中，你可以使用 [查询生成器](/docs/{{version}}/queries) 手动的插入数据，或者你也可以使用 [Eloquent 模型工厂](/docs/{{version}}/database-testing#model-factories)。
+seeder 类中默认的只包含了一个方法：`run`。该方法会在 `db:seed` [Artisan command](/{{language}}/{{version}}/artisan) 执行时被调用。在 `run` 方法中，你可以填充任意你想填充的数据到数据库中，你可以使用 [查询生成器](/{{language}}/{{version}}/queries) 手动的插入数据，或者你也可以使用 [Eloquent 模型工厂](/{{language}}/{{version}}/database-testing#model-factories)。
 
 让我们来做个示例，我们修改 Laravel 默认提供的 `DatabaseSeeder` 类，让我们在 `run` 方法中进行一些数据插入：
 
@@ -47,7 +47,7 @@ seeder 类中默认的只包含了一个方法：`run`。该方法会在 `db:see
 <a name="using-model-factories"></a>
 ### 使用模型工厂
 
-当然，手动的为每个模型 seed 指定属性是一件非常麻烦的事情。你可以使用 [模型工厂](/docs/{{version}}/database-testing#model-factories) 来方便的生成大量的数据记录。首先，你需要查询一下 [模型工厂的文档](/docs/{{version}}/database-testing#model-factories) 来学习一下如何定义你的模型工厂。一旦你定义了模型工厂，你就可以使用 `factory` 帮助方法将记录插入到数据库中。
+当然，手动的为每个模型 seed 指定属性是一件非常麻烦的事情。你可以使用 [模型工厂](/{{language}}/{{version}}/database-testing#model-factories) 来方便的生成大量的数据记录。首先，你需要查询一下 [模型工厂的文档](/{{language}}/{{version}}/database-testing#model-factories) 来学习一下如何定义你的模型工厂。一旦你定义了模型工厂，你就可以使用 `factory` 帮助方法将记录插入到数据库中。
 
 比如，让我们创建 50 个用户并且为每个用户附加一个关系：
 

@@ -13,7 +13,7 @@
 <a name="accessing-the-request"></a>
 ## 访问请求
 
-为了通过依赖注入能够方便的获取 HTTP 请求实例，你应该在控制器的方法中写入 `Illuminate\Http\Request` 的类型提示。当前请求的请求实例会自动的从 [服务容器](/docs/{{language}}/{{version}}/container) 中注入：
+为了通过依赖注入能够方便的获取 HTTP 请求实例，你应该在控制器的方法中写入 `Illuminate\Http\Request` 的类型提示。当前请求的请求实例会自动的从 [服务容器](/{{language}}/{{version}}/container) 中注入：
 
     <?php
 
@@ -193,11 +193,11 @@
 <a name="old-input"></a>
 ### 旧的输入
 
-Laravel 允许你在下一次请求期间保持该次请求的输入。这种特性在表单验证出错时尤其有用，它可以使你复用上一次请求进行自动的填充。如果你使用了 Laravel 的 [验证服务](/docs/{{language}}/{{version}}/validation)，那么你不需要手动的调用它们，因为 Laravel 内置的验证机制会自动的调用它们。
+Laravel 允许你在下一次请求期间保持该次请求的输入。这种特性在表单验证出错时尤其有用，它可以使你复用上一次请求进行自动的填充。如果你使用了 Laravel 的 [验证服务](/{{language}}/{{version}}/validation)，那么你不需要手动的调用它们，因为 Laravel 内置的验证机制会自动的调用它们。
 
 #### 闪存输入到 session
 
-`Illuminate\Http\Request` 实例的 `flash` 方法会闪存当前请求的输入到 [session](/docs/{{language}}/{{version}}/session) 中，这样可以使应用在接受用户的下次请求时进行复用:
+`Illuminate\Http\Request` 实例的 `flash` 方法会闪存当前请求的输入到 [session](/{{language}}/{{version}}/session) 中，这样可以使应用在接受用户的下次请求时进行复用:
 
     $request->flash();
 
@@ -219,11 +219,11 @@ Laravel 允许你在下一次请求期间保持该次请求的输入。这种特
 
 #### 检索旧的输入
 
-你可以使用 `Request` 实例的 `old` 方法来获取上一次请求所闪存的数据。`old` 方法提供了一种便捷的方式将闪存的数据从 [session](/docs/{{language}}/{{version}}/session) 取出及剔除:
+你可以使用 `Request` 实例的 `old` 方法来获取上一次请求所闪存的数据。`old` 方法提供了一种便捷的方式将闪存的数据从 [session](/{{language}}/{{version}}/session) 取出及剔除:
 
     $username = $request->old('username');
 
-Laravel 也提供了全局的 `old` 帮助方法。如果你需要在 [Blade 模板](/docs/{{language}}/{{version}}/blade) 中展示旧的输入，那使用 `old` 帮助函数就方便极了。如果旧的输入中没有检索到相应的值，那么将会返回 `null`:
+Laravel 也提供了全局的 `old` 帮助方法。如果你需要在 [Blade 模板](/{{language}}/{{version}}/blade) 中展示旧的输入，那使用 `old` 帮助函数就方便极了。如果旧的输入中没有检索到相应的值，那么将会返回 `null`:
 
     <input type="text" name="username" value="{{ old('username') }}">
 
@@ -299,7 +299,7 @@ Laravel 中所有的 cookies 在被创建时都会经过一个认证码进行签
 <a name="storing-uploaded-files"></a>
 ### 存储上传的文件
 
-为了存储上传的文件，你通常需要使用你所配置的 [文件系统](/docs/{{language}}/{{version}}/filesystem) 之一。`UploadedFile` 类中有一个 `store` 方法会移动上传的文件到你的其中的一个磁盘，这个磁盘可以是你的本地磁盘，也可以是一些类似于 Amazon S3 的云存储。
+为了存储上传的文件，你通常需要使用你所配置的 [文件系统](/{{language}}/{{version}}/filesystem) 之一。`UploadedFile` 类中有一个 `store` 方法会移动上传的文件到你的其中的一个磁盘，这个磁盘可以是你的本地磁盘，也可以是一些类似于 Amazon S3 的云存储。
 
 `store` 方法接收一个路径名作为参数，这个路径表明了文件应该存储在相对于文件系统所配置的根目录的哪个路径下。并且这个路径不应该包含文件名，因为文件名会自动的根据内容的 MD5 哈希值来分配。
 

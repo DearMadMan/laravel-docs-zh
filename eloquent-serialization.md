@@ -18,13 +18,13 @@
 <a name="serializing-to-arrays"></a>
 ### 序列化到数组
 
-为了将一个模型和其 [关联](/docs/{{version}}/eloquent-relationships) 加载的数据转换为数组，你需要使用 `toArray` 方法。这个方法是一个递归的方法，所以所有的属性和所有的关联（包括关联的关联）都会被转换为数组：
+为了将一个模型和其 [关联](/{{language}}/{{version}}/eloquent-relationships) 加载的数据转换为数组，你需要使用 `toArray` 方法。这个方法是一个递归的方法，所以所有的属性和所有的关联（包括关联的关联）都会被转换为数组：
 
     $user = App\User::with('roles')->first();
 
     return $user->toArray();
 
-你也可以将模型的 [集合](/docs/{{version}}/eloquent-collections) 转换为数组：
+你也可以将模型的 [集合](/{{language}}/{{version}}/eloquent-collections) 转换为数组：
 
     $users = App\User::all();
 
@@ -105,7 +105,7 @@
 <a name="appending-values-to-json"></a>
 ## 追加值到 JSON
 
-偶尔，你可能需要在模型中添加一些数据库中不存在的字段的属性。那么，你需要先为这个值定义一个 [访问器](/docs/{{version}}/eloquent-mutators)：
+偶尔，你可能需要在模型中添加一些数据库中不存在的字段的属性。那么，你需要先为这个值定义一个 [访问器](/{{language}}/{{version}}/eloquent-mutators)：
 
     <?php
 

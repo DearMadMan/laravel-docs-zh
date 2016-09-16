@@ -317,7 +317,7 @@ elixir(function(mix) {
 });
 ```
 
-在生成版本化的文件之后，你可以使用 Laravel 的全局帮助函数 `elixir` 在你的 [视图](/docs/{{language}}/{{version}}/views) 文件中进行加载适当的 hashed 资源。`elixir` 方法会自动的判断文件的名称：
+在生成版本化的文件之后，你可以使用 Laravel 的全局帮助函数 `elixir` 在你的 [视图](/{{language}}/{{version}}/views) 文件中进行加载适当的 hashed 资源。`elixir` 方法会自动的判断文件的名称：
 
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 

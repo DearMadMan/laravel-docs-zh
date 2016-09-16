@@ -469,7 +469,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-elixir"></a>
 #### `elixir()` {#collection-method}
 
-`elixir` 方法返回 [版本化](/docs/{{version}}/elixir) 的文件路径：
+`elixir` 方法返回 [版本化](/{{language}}/{{version}}/elixir) 的文件路径：
 
     elixir($file);
 
@@ -664,7 +664,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-trans"></a>
 #### `trans()` {#collection-method}
 
-`trans` 方法根据 [本地化文件](/docs/{{version}}/localization) 中的语言行来进行翻译：
+`trans` 方法根据 [本地化文件](/{{language}}/{{version}}/localization) 中的语言行来进行翻译：
 
     echo trans('validation.required'):
 
@@ -781,7 +781,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-collect"></a>
 #### `collect()` {#collection-method}
 
-`collect` 方法根据给定的数组来生成 [集合](/docs/{{version}}/collections) 实例：
+`collect` 方法根据给定的数组来生成 [集合](/{{language}}/{{version}}/collections) 实例：
 
     $collection = collect(['taylor', 'abigail']);
 
@@ -801,7 +801,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-csrf-field"></a>
 #### `csrf_field()` {#collection-method}
 
-`csrf_field` 方法用来生成一个 `hidden` 文本框字段来包含 CSRF token。你可以在 [Blade](/docs/{{version}}/blade) 模板中使用：
+`csrf_field` 方法用来生成一个 `hidden` 文本框字段来包含 CSRF token。你可以在 [Blade](/{{language}}/{{version}}/blade) 模板中使用：
 
     {{ csrf_field() }}
 
@@ -828,7 +828,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-dispatch"></a>
 #### `dispatch()` {#collection-method}
 
-`dispatch` 方法在 Laravel 的 [任务队列](/docs/{{version}}/queues) 中添加一个新的任务：
+`dispatch` 方法在 Laravel 的 [任务队列](/{{language}}/{{version}}/queues) 中添加一个新的任务：
 
     dispatch(new App\Jobs\SendEmails);
 
@@ -845,21 +845,21 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-event"></a>
 #### `event()` {#collection-method}
 
-`event` 方法分发给定的 [事件](/docs/{{version}}/events) 到它的监听器中：
+`event` 方法分发给定的 [事件](/{{language}}/{{version}}/events) 到它的监听器中：
 
     event(new UserRegistered($user));
 
 <a name="method-factory"></a>
 #### `factory()` {#collection-method}
 
-`factory` 方法创建一个模型工厂构造器来生成给定的类名的实例。你可以在写 [测试](/docs/{{version}}/database-testing#writing-factories) 或者 [播种](/docs/{{version}}/seeding#using-model-factories) 时使用：
+`factory` 方法创建一个模型工厂构造器来生成给定的类名的实例。你可以在写 [测试](/{{language}}/{{version}}/database-testing#writing-factories) 或者 [播种](/{{language}}/{{version}}/seeding#using-model-factories) 时使用：
 
     $user = factory(App\User::class)->make();
 
 <a name="method-method-field"></a>
 #### `method_field()` {#collection-method}
 
-`method_field` 方法生成一个 `hidden` 文本框来包含一个欺骗性的 HTTP 请求动词。你可以在 [Blade](/docs/{{version}}/blade) 模板中使用：
+`method_field` 方法生成一个 `hidden` 文本框来包含一个欺骗性的 HTTP 请求动词。你可以在 [Blade](/{{language}}/{{version}}/blade) 模板中使用：
 
     <form method="POST">
         {{ method_field('DELETE') }}
@@ -868,7 +868,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-old"></a>
 #### `old()` {#collection-method}
 
-`old` 方法 [检索](/docs/{{version}}/requests#retrieving-input) session 中闪存的旧的文本值：
+`old` 方法 [检索](/{{language}}/{{version}}/requests#retrieving-input) session 中闪存的旧的文本值：
 
     $value = old('value');
 
@@ -886,7 +886,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-request"></a>
 #### `request()` {#collection-method}
 
-`request` 方法返回当前的 [请求](/docs/{{version}}/requests) 实例或者检索请求中的输入项：
+`request` 方法返回当前的 [请求](/{{language}}/{{version}}/requests) 实例或者检索请求中的输入项：
 
     $request = request();
 
@@ -895,7 +895,7 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-response"></a>
 #### `response()` {#collection-method}
 
-`response` 方法生成一个 [响应](/docs/{{version}}/responses) 实例或者从响应工厂中获得一个实例：
+`response` 方法生成一个 [响应](/{{language}}/{{version}}/responses) 实例或者从响应工厂中获得一个实例：
 
     return response('Hello World', 200, $headers);
 
@@ -928,6 +928,6 @@ Laravel 包含了多种有用的 "帮手" PHP 函数，很多方法都在框架�
 <a name="method-view"></a>
 #### `view()` {#collection-method}
 
-`view` 方法用来检索 [视图](/docs/{{version}}/views) 实例：
+`view` 方法用来检索 [视图](/{{language}}/{{version}}/views) 实例：
 
     return view('auth.login');

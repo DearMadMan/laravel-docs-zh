@@ -13,7 +13,7 @@
 <a name="introduction"></a>
 ## 前言
 
-在其他框架中，分页通常是比较痛苦的。Laravel 的分页器集成了 [查询生成器](/docs/{{version}}/queries) 和 [Eloquent ORM](/docs/{{version}}/eloquent)，并且为数据库结果提供了方便易用的分页。并且其生成的 HTML 是兼容 [Bootstrap CSS framework](http://getbootstrap.com/) 的。
+在其他框架中，分页通常是比较痛苦的。Laravel 的分页器集成了 [查询生成器](/{{language}}/{{version}}/queries) 和 [Eloquent ORM](/{{language}}/{{version}}/eloquent)，并且为数据库结果提供了方便易用的分页。并且其生成的 HTML 是兼容 [Bootstrap CSS framework](http://getbootstrap.com/) 的。
 
 <a name="basic-usage"></a>
 ## 基础用法
@@ -21,7 +21,7 @@
 <a name="paginating-query-builder-results"></a>
 ### 对查询构建器结果进行分页
 
-这里有几种方式来对元素进行分页。而最简单的方式就是通过使用 [查询生成器](/docs/{{version}}/queries) or [Eloquent 查询](/docs/{{version}}/eloquent) 的 `paginate` 方法。`paginate` 方法会根据当前用户所访问的当前页面来自动的设置正确的位移和显示的范围。默认的，当前页面是通过 HTTP 请求的查询字符串 `?page` 来自动获取的。当然，Laravel 会自动的检测到这个值，并且会自动的在生成的分页器的链接中插入合适的值。
+这里有几种方式来对元素进行分页。而最简单的方式就是通过使用 [查询生成器](/{{language}}/{{version}}/queries) or [Eloquent 查询](/{{language}}/{{version}}/eloquent) 的 `paginate` 方法。`paginate` 方法会根据当前用户所访问的当前页面来自动的设置正确的位移和显示的范围。默认的，当前页面是通过 HTTP 请求的查询字符串 `?page` 来自动获取的。当然，Laravel 会自动的检测到这个值，并且会自动的在生成的分页器的链接中插入合适的值。
 
 首先，让我们来看一下在查询中调用 `paginate` 方法。在这个例子中，你仅需要在 `paginate` 方法中传递每页所需要展示的数量。让我们来设置每页展示的数量为 `15` :
 
@@ -58,7 +58,7 @@
 <a name="paginating-eloquent-results"></a>
 ### 对 Eloquent 结果进行分页
 
-你也可以对 [Eloquent](/docs/{{version}}/eloquent) 查询的结果进行分页。我们来对 `User` 模型以每页显示 `15` 项的方式来进行分页。其语法和使用查询构造器进行分页非常像：
+你也可以对 [Eloquent](/{{language}}/{{version}}/eloquent) 查询的结果进行分页。我们来对 `User` 模型以每页显示 `15` 项的方式来进行分页。其语法和使用查询构造器进行分页非常像：
 
     $users = App\User::paginate(15);
 
@@ -84,7 +84,7 @@
 <a name="displaying-pagination-results"></a>
 ## 展示分页结果
 
-当你对查询构造器或者 Eloquent 查询使用 `paginate` 或者 `simplePaginate` 方法时，你可以获取到分页器的实例。当调用 `paginate` 方法时，你会获取到一个 `Illuminate\Pagination\LengthAwarePaginator` 实例，当调用 `simplePaginate` 方法时，你会获得一个 `Illuminate\Pagination\Paginator` 的实例。这些对象会提供多种方法来描述结果集。除了这些帮助方法，分页器本身也是一个迭代器，它可以像数组一样被循环操作。所以，一旦你获取到了分页结果，你可以像这样在 [Blade](/docs/{{version}}/blade) 视图中来显示和生成分页链接：
+当你对查询构造器或者 Eloquent 查询使用 `paginate` 或者 `simplePaginate` 方法时，你可以获取到分页器的实例。当调用 `paginate` 方法时，你会获取到一个 `Illuminate\Pagination\LengthAwarePaginator` 实例，当调用 `simplePaginate` 方法时，你会获得一个 `Illuminate\Pagination\Paginator` 的实例。这些对象会提供多种方法来描述结果集。除了这些帮助方法，分页器本身也是一个迭代器，它可以像数组一样被循环操作。所以，一旦你获取到了分页结果，你可以像这样在 [Blade](/{{language}}/{{version}}/blade) 视图中来显示和生成分页链接：
 
     <div class="container">
         @foreach ($users as $user)

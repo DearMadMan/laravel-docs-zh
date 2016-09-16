@@ -464,7 +464,7 @@ Passport 也为管理私有访问 tokens 提供了 JSON API。你可以配合你
 <a name="via-middleware"></a>
 ### 通过中间件
 
-Passport 包含了一个 [认证守卫](/docs/{{version}}/authentication#adding-custom-guards)，它将被用来验证流入请求中的访问 tokens。当你配置 `api` 守卫使用 `passport` 驱动之后，你只需要在需要进行验证访问 token 的路由中指定 `auth:api` 中间件即可:
+Passport 包含了一个 [认证守卫](/{{language}}/{{version}}/authentication#adding-custom-guards)，它将被用来验证流入请求中的访问 tokens。当你配置 `api` 守卫使用 `passport` 驱动之后，你只需要在需要进行验证访问 token 的路由中指定 `auth:api` 中间件即可:
 
     Route::get('/user', function () {
         //

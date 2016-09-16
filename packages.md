@@ -24,19 +24,19 @@
 <a name="a-note-on-facades"></a>
 ### 关于假面的提示
 
-在编写 Laravel 应用时，通常来说你是使用契约还是使用假面都是无所谓的，因为它们对于可测试性来说是等量的。但是在编写扩展包时，最好使用 [契约](/docs/{{version}}/contracts) 的方式来取代 [假面](/docs/{{version}}/facades)。这是因为你的包扩展中并不能访问到 Laravel 所提供的用于测试的辅助函数，那么契约相对于假面来说就更易于模仿了。
+在编写 Laravel 应用时，通常来说你是使用契约还是使用假面都是无所谓的，因为它们对于可测试性来说是等量的。但是在编写扩展包时，最好使用 [契约](/{{language}}/{{version}}/contracts) 的方式来取代 [假面](/{{language}}/{{version}}/facades)。这是因为你的包扩展中并不能访问到 Laravel 所提供的用于测试的辅助函数，那么契约相对于假面来说就更易于模仿了。
 
 <a name="service-providers"></a>
 ## 服务提供者
 
-[服务提供者](/docs/{{version}}/providers) 是 Laravel 和包的连接点。服务提供者主要负责包内容在 [服务容器](/docs/{{version}}/container) 中的绑定以及应用应该如何加载资源文件如视图，配置文件和语言文件。
+[服务提供者](/{{language}}/{{version}}/providers) 是 Laravel 和包的连接点。服务提供者主要负责包内容在 [服务容器](/{{language}}/{{version}}/container) 中的绑定以及应用应该如何加载资源文件如视图，配置文件和语言文件。
 
-一个服务提供者应该继承 `Illuminate\Support\ServiceProvider` 类并且包含两个方法： `register` 和 `boot`。基类 `ServiceProvider` 类位于 Composer 包的 `illuminate/support` 中。你应该在你的包中添加这个依赖。你可以查看 [服务提供者](/docs/{{version}}/providers) 的文档来了解更多。
+一个服务提供者应该继承 `Illuminate\Support\ServiceProvider` 类并且包含两个方法： `register` 和 `boot`。基类 `ServiceProvider` 类位于 Composer 包的 `illuminate/support` 中。你应该在你的包中添加这个依赖。你可以查看 [服务提供者](/{{language}}/{{version}}/providers) 的文档来了解更多。
 
 <a name="routing"></a>
 ## 路由
 
-你可以在你的服务提供者的 `boot` 方法中简单的 `require` 路由文件来定义包的路由。在你的路由文件中，你可以使用 `Illminate\Support\Facades\Route` 假面来 [注册路由](/docs/{{version}}/routing)，其方式就如普通的 Laravel 应用一样：
+你可以在你的服务提供者的 `boot` 方法中简单的 `require` 路由文件来定义包的路由。在你的路由文件中，你可以使用 `Illminate\Support\Facades\Route` 假面来 [注册路由](/{{language}}/{{version}}/routing)，其方式就如普通的 Laravel 应用一样：
 
     /**
      * Perform post-registration booting of services.
@@ -93,7 +93,7 @@
 <a name="migrations"></a>
 ### 迁移
 
-如果你的扩展包中包含了 [数据迁移](/docs/{{version}}/migrations)，那么你可以使用 `loadMigrationsFrom` 方法来指导 Laravel 如何加载它们。`loadMigrationsFrom` 方法只接收一个参数，它就是你的扩展包中迁移表的存储目录的路径：
+如果你的扩展包中包含了 [数据迁移](/{{language}}/{{version}}/migrations)，那么你可以使用 `loadMigrationsFrom` 方法来指导 Laravel 如何加载它们。`loadMigrationsFrom` 方法只接收一个参数，它就是你的扩展包中迁移表的存储目录的路径：
 
     /**
      * Perform post-registration booting of services.
@@ -110,7 +110,7 @@
 <a name="translations"></a>
 ### 转译
 
-如果你的包中包含了 [翻译文件](/docs/{{version}}/localization)。你可以使用 `loadTranslationsFrom` 方法来指导 Laravel 如何载入它们。比如，如果你的包名称为 `courier`，你应该使用如下的方式在你的服务提供者的 `boot` 方法中添加：
+如果你的包中包含了 [翻译文件](/{{language}}/{{version}}/localization)。你可以使用 `loadTranslationsFrom` 方法来指导 Laravel 如何载入它们。比如，如果你的包名称为 `courier`，你应该使用如下的方式在你的服务提供者的 `boot` 方法中添加：
 
     /**
      * Perform post-registration booting of services.
@@ -149,7 +149,7 @@
 <a name="views"></a>
 ### 视图
 
-你需要告诉 Laravel [视图](/docs/{{version}}/views) 的位置才能使 Laravel 加载包中的视图。你可以通过服务提供者的 `loadViewsFrom` 方法。`loadViewsFrom` 方法接受两个参数：视图的路径和包的名称。比如，如果你的包名称是 `courier`，你应该像下面一样在 `boot` 中添加：
+你需要告诉 Laravel [视图](/{{language}}/{{version}}/views) 的位置才能使 Laravel 加载包中的视图。你可以通过服务提供者的 `loadViewsFrom` 方法。`loadViewsFrom` 方法接受两个参数：视图的路径和包的名称。比如，如果你的包名称是 `courier`，你应该像下面一样在 `boot` 中添加：
 
     /**
      * Perform post-registration booting of services.

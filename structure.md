@@ -1,4 +1,4 @@
-# Directory Structure
+# 目录结构
 
 - [前言](#introduction)
 - [根目录](#the-root-directory)
@@ -108,12 +108,12 @@
 <a name="the-console-directory"></a>
 #### Console 目录
 
-`Console` 目录中包含了应用中所有自定义的 Artisan 命令。这些命令可以通过使用 `make:command` 命令来生成。同时这个目录页包含了 console 的内核，这个内核是自定义的 Artisan 命令需要注册的地方，同时它也是 [计划任务](/docs/{{language}}/{{version}}/scheduling) 定义的地方。
+`Console` 目录中包含了应用中所有自定义的 Artisan 命令。这些命令可以通过使用 `make:command` 命令来生成。同时这个目录页包含了 console 的内核，这个内核是自定义的 Artisan 命令需要注册的地方，同时它也是 [计划任务](/{{language}}/{{version}}/scheduling) 定义的地方。
 
 <a name="the-events-directory"></a>
 #### Events 目录
 
-这个目录默认并不存在，但是当你使用 `event:generate` 或者 `event:make` Artisan 命令时，它会自动的别生成。`Events` 目录，如你所料的那样，这里存储 [事件类](/docs/{{language}}/{{version}}/events)。事件可以用来通知应用中其它部分给定的行为已经发生。它提供了灵活性和强大的解耦能力。
+这个目录默认并不存在，但是当你使用 `event:generate` 或者 `event:make` Artisan 命令时，它会自动的别生成。`Events` 目录，如你所料的那样，这里存储 [事件类](/{{language}}/{{version}}/events)。事件可以用来通知应用中其它部分给定的行为已经发生。它提供了灵活性和强大的解耦能力。
 
 <a name="the-exceptions-directory"></a>
 #### Exceptions 目录
@@ -128,12 +128,12 @@
 <a name="the-jobs-directory"></a>
 #### Jobs 目录
 
-这个目录默认是不包含的。但是会在你执行 `make:job` Artisan 命令时自动生成。`Jobs` 目录是存储应用中 [队列任务](/docs/{{language}}/{{version}}/queues) 的地方。应用中的任务可以被队列化或者也可以在当前请求周期内同步进行。在当前请求中进行同步任务有时也会被称作 "commands"，这是由于它们是 [command pattern](https://en.wikipedia.org/wiki/Command_pattern) 的一种实现。
+这个目录默认是不包含的。但是会在你执行 `make:job` Artisan 命令时自动生成。`Jobs` 目录是存储应用中 [队列任务](/{{language}}/{{version}}/queues) 的地方。应用中的任务可以被队列化或者也可以在当前请求周期内同步进行。在当前请求中进行同步任务有时也会被称作 "commands"，这是由于它们是 [command pattern](https://en.wikipedia.org/wiki/Command_pattern) 的一种实现。
 
 <a name="the-listeners-directory"></a>
 #### Listeners 目录
 
-这个目录默认是不包含的。但是它会在你执行 `event:generate` 或者 `make:listener` Artisan 命令时自动生成。`Listeners` 目录包含了所有 [事件](/docs/{{language}}/{{version}}/events) 的处理器类，处理器接收一个事件类并在事件触发时提供响应逻辑。例如，`UserRegistered` 事件可以被 `SendWelcomeEmail` 监听器处理。
+这个目录默认是不包含的。但是它会在你执行 `event:generate` 或者 `make:listener` Artisan 命令时自动生成。`Listeners` 目录包含了所有 [事件](/{{language}}/{{version}}/events) 的处理器类，处理器接收一个事件类并在事件触发时提供响应逻辑。例如，`UserRegistered` 事件可以被 `SendWelcomeEmail` 监听器处理。
 
 <a name="the-mail-directory"></a>
 #### Mail 目录
@@ -148,11 +148,11 @@
 <a name="the-policies-directory"></a>
 #### Policies 目录
 
-这个目录默认是不包含的，但是它会在你执行 `make:policy` Artisan 命令时自动生成。`Policies` 目录包含了应用的授权策略类，策略类主要用来判断用户是否可以执行对资源的给定动作。你可以查看 [authorization documentation](/docs/{{language}}/{{version}}/authorization) 来了解更多。
+这个目录默认是不包含的，但是它会在你执行 `make:policy` Artisan 命令时自动生成。`Policies` 目录包含了应用的授权策略类，策略类主要用来判断用户是否可以执行对资源的给定动作。你可以查看 [authorization documentation](/{{language}}/{{version}}/authorization) 来了解更多。
 
 <a name="the-providers-directory"></a>
 #### Providers 目录
 
-`Providers` 目录包含了应用中所有的 [服务提供者](/docs/{{language}}/{{version}}/providers)。这些服务提供者通过绑定服务到服务容器中，注册事件，或者为即将到来的请求执行一些准备性的任务来为应用的启动进行服务。
+`Providers` 目录包含了应用中所有的 [服务提供者](/{{language}}/{{version}}/providers)。这些服务提供者通过绑定服务到服务容器中，注册事件，或者为即将到来的请求执行一些准备性的任务来为应用的启动进行服务。
 
 在一个新的 Laravel 应用中，这个目录中已经包含了一些服务提供者。你可以自由的按需在这个目录中添加自己的提供者。

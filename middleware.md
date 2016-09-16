@@ -247,4 +247,4 @@ Laravel 附带了 `web` 和 `api` 两个中间件组，这两个中间件组分�
 
 `terminate` 方法应该同时接收请求和响应做为参数。当你完成末端中间件的构建时，你应该在 `Kernel` 中将它注册到你的全局中间件中。
 
-每当你的中间件调用 `terminate` 方法时，Laravel 会从 [服务容器](/docs/{{language}}/{{version}}/container) 中返回一个新的中间件实例。如果你想要在 `handle` 和 `terminate` 方法被调用时使用同一个中间件实例，你可以在将中间件在容器中使用 `singleton` 方法进行注册。
+每当你的中间件调用 `terminate` 方法时，Laravel 会从 [服务容器](/{{language}}/{{version}}/container) 中返回一个新的中间件实例。如果你想要在 `handle` 和 `terminate` 方法被调用时使用同一个中间件实例，你可以在将中间件在容器中使用 `singleton` 方法进行注册。

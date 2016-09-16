@@ -24,7 +24,7 @@
         return view('greeting', ['name' => 'James']);
     });
 
-你可以看到，`view` 方法接收的第一个参数是相对于目录 `resource/views` 的文件名。该方法允许传递数组作为第二个参数，数组中的键值对会作为相应的变量传递到视图。上面的例子中，我们传递了 `name` 变量，该变量可以在使用 [Blade syntax](/docs/{{language}}/{{version}}/blade) 时用于展示。
+你可以看到，`view` 方法接收的第一个参数是相对于目录 `resource/views` 的文件名。该方法允许传递数组作为第二个参数，数组中的键值对会作为相应的变量传递到视图。上面的例子中，我们传递了 `name` 变量，该变量可以在使用 [Blade syntax](/{{language}}/{{version}}/blade) 时用于展示。
 
 当然，视图也可以嵌套的存放在 `resources/views` 的子目录中。你可以使用 "." 语法来引用嵌套的视图，比如，如果你的视图被存放在 `resources/views/admin/profile.php` 文件中，你可以像下面这样进行引用：
 
@@ -90,7 +90,7 @@
 
 视图 composers 就是当视图被渲染时会被触发的回调方法或者类的方法。如果你想要视图在每次渲染时都自动的绑定一些数据到视图，那么视图 composer 就可以帮助你分离这些逻辑处理到一个单独的文件进行有效的管理。
 
-那么现在让我们在 [服务提供者](/docs/{{language}}/{{version}}/providers) 中注册我们自己的视图 composers。我们将使用 `View` 假面来访问底层一个 `Illuminate\Contracts\View\Factory` 契约的实现。请注意，Laravel 并没有提供一个默认的目录去管理这些视图 Composers，你可以自由的按照自己的喜好去管理这些。例如，你当然可以创建一个 `App\Http\ViewComposer` 目录：
+那么现在让我们在 [服务提供者](/{{language}}/{{version}}/providers) 中注册我们自己的视图 composers。我们将使用 `View` 假面来访问底层一个 `Illuminate\Contracts\View\Factory` 契约的实现。请注意，Laravel 并没有提供一个默认的目录去管理这些视图 Composers，你可以自由的按照自己的喜好去管理这些。例如，你当然可以创建一个 `App\Http\ViewComposer` 目录：
 
     <?php
 
@@ -176,7 +176,7 @@
 
 每当视图被渲染之前，composer 的 `compose` 方法都会被调用，并且会被传递一个 `Illuminate\View\View` 实例。你可以使用 `with` 方法来添加额外的数据到视图。
 
-> {tip} 所有的视图 composers 都是通过 [服务容器](/docs/{{language}}/{{version}}/container) 解析的，所以你可以在 composer 的构造函数中添加类型提示来进行任意的依赖注入。
+> {tip} 所有的视图 composers 都是通过 [服务容器](/{{language}}/{{version}}/container) 解析的，所以你可以在 composer 的构造函数中添加类型提示来进行任意的依赖注入。
 
 #### 附加 Composer 到多个视图
 

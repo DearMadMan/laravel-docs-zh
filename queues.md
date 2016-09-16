@@ -122,9 +122,9 @@ Laravel 的队列服务对各种不同的后台队列服务提供了统一的 AP
         }
     }
 
-在这个例子中，你需要注意的是，我们可以直接的在队列任务的构造函数中传送一个 [Eloquent model](/docs/{{version}}/eloquent)。因为我们引入了 `SerializesModels` trait，所以当队列任务执行时，Eloquent 模型会被优雅的序列化和反序列化。如果队列任务在构造器中接收了 Eloquent 模型，那么队列任务只会序列化模型的 ID。而在任务需要进行处理时，队列系统会从数据库中自动的根据 ID 检索出模型实例。这在应用中完全是透明的，这样就可以避免了序列化完整的模型可能在队列中出现的问题。
+在这个例子中，你需要注意的是，我们可以直接的在队列任务的构造函数中传送一个 [Eloquent model](/{{language}}/{{version}}/eloquent)。因为我们引入了 `SerializesModels` trait，所以当队列任务执行时，Eloquent 模型会被优雅的序列化和反序列化。如果队列任务在构造器中接收了 Eloquent 模型，那么队列任务只会序列化模型的 ID。而在任务需要进行处理时，队列系统会从数据库中自动的根据 ID 检索出模型实例。这在应用中完全是透明的，这样就可以避免了序列化完整的模型可能在队列中出现的问题。
 
-`handle` 方法会在队列任务执行时进行调用。你需要知道的是，我们可以在任务的 `handle` 方法中使用类型提示来进行依赖的注入。Laravel 的 [服务容器](/docs/{{version}}/container) 会自动的将这些依赖注入进去。
+`handle` 方法会在队列任务执行时进行调用。你需要知道的是，我们可以在任务的 `handle` 方法中使用类型提示来进行依赖的注入。Laravel 的 [服务容器](/{{language}}/{{version}}/container) 会自动的将这些依赖注入进去。
 
 <a name="dispatching-jobs"></a>
 ## 分派任务
@@ -155,7 +155,7 @@ Laravel 的队列服务对各种不同的后台队列服务提供了统一的 AP
         }
     }
 
-> {tip} `dispatch` 帮助方法提供了方便简洁的全局可访问的方法，而它同时也是及其容易被测试的。你可以浏览 [testing documentation](/docs/{{version}}/testing) 来了解更多。
+> {tip} `dispatch` 帮助方法提供了方便简洁的全局可访问的方法，而它同时也是及其容易被测试的。你可以浏览 [testing documentation](/{{language}}/{{version}}/testing) 来了解更多。
 
 <a name="delayed-dispatching"></a>
 ### 延迟的任务
@@ -501,7 +501,7 @@ Supervisor 配置文件通常都存储在 `/etc/supervisor/conf.d` 目录中。�
 <a name="job-events"></a>
 ## 任务事件
 
-你可以使用 `Queue::before` 和 `Queue::after` 方法来注册一个回调在队列任务开始之前或者队列执行成功之后调用。回调为添加额外的日志，持续执行子任务或者增加统计信息等提供了非常好的机会。通常，你应该在 [服务提供者中](/docs/{{version}}/providers) 调用 `Queue` [假面](/docs/{{version}}/facades)。我们可以在 Laravel 的 `AppServiceProvider` 中定义一个任务成功执行后的事件监听，并附加一个回调到事件中：
+你可以使用 `Queue::before` 和 `Queue::after` 方法来注册一个回调在队列任务开始之前或者队列执行成功之后调用。回调为添加额外的日志，持续执行子任务或者增加统计信息等提供了非常好的机会。通常，你应该在 [服务提供者中](/{{language}}/{{version}}/providers) 调用 `Queue` [假面](/{{language}}/{{version}}/facades)。我们可以在 Laravel 的 `AppServiceProvider` 中定义一个任务成功执行后的事件监听，并附加一个回调到事件中：
 
     <?php
 
