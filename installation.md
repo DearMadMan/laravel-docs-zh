@@ -27,7 +27,6 @@ Laravel 框架依赖于一些小型系统。当然，这些需求依赖在 [Lara
 ### 安装 Laravel
 
 Laravel 利用 [Composer](http://getcomposer.org) 来管理它的依赖，所以，在你使用 Laravel 之前，请确保你在你的机器中已经安装了 Composer。
-Laravel utilizes  to manage its dependencies. So, before using Laravel, make sure you have Composer installed on your machine.
 
 #### 通过 Laravel 提供的安装程序
 
