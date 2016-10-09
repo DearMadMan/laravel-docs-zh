@@ -226,7 +226,7 @@ Artisan 是 Laravel 自带的命令行工具的通讯接口。它为应用的开
 
     php artisan email:send foo bar
 
-当定义一个期待输入输入的选项时，你需要在每个选项值之前都添加选项名前缀：
+当定义一个期待输入的选项时，你需要在每个选项值之前都添加选项名前缀：
 
     email:send {user} {--id=*}
 
